@@ -11,16 +11,22 @@ const login = () => {
           <div class="flex-1 pr-0 md:pr-9 md:justify-start">
             <img src={image} alt="Image" class="  w-5/6  mx-auto" />
           </div>
-          <div class="flex-1 border-2 border-blue-700 justify-end h-full">
+          <div class="flex-1 border-2  border-prime-blue justify-end h-full">
             <form className="h-full">
-              <div>wegweg</div>
-              <div>wegweg</div>
-              <div>wegweg</div>
-              <div>wegweg</div>
-              <div>wegweg</div>
-              <div>wegweg</div>
-              <div>wegweg</div>
-              <div>wegweg</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
+              <div>LOGIN</div>
             </form>
           </div>
         </div>
