@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose =require("mongoose");
 const {Schema} = mongoose;
 
 const teamSchema = new Schema(
@@ -44,6 +44,8 @@ const teamSchema = new Schema(
     }
 )
 
-const team = mongoose.model('team',teamSchema);
+const Team = mongoose.model('Team',teamSchema);
 
-export default team;
+// exports default Team;
+
+module.exports=Team;
