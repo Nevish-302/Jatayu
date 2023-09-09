@@ -1,14 +1,27 @@
-const express=require("express")
+// const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const dbConnect=require("./config/dbConnect");
-const app=express();
-const dotenv=require("dotenv").config()
+
+process.on('uncaughtException', (err) => {
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.log(err.name, err.message);
+  process.exit(1);
+});
+
+dotenv.config();
+const app = require('./app');
+
 dbConnect();
-const PORT = process.env.PORT || 4000;
 
-app.use("/",(req,res)=>{
-    res.send("Server side");
-})
+const port = process.env.PORT || 5000;
+const server = app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
+});
 
-app.listen(PORT,()=>{
-    console.log(`Server is running on PORT ${PORT}`);
+process.on('unhandledRejection', (err) => {
+  console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
   });
+});
