@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./components/signup";
 import Login from "./components/login";
-import Dashboard from "./components/dashborard";
+import Dashboard from "./components/dashboard";
 const App = () => {
   return (
     <>
@@ -12,7 +12,7 @@ const App = () => {
             {/* <Route exact path="/" element={<LoginOTP />} /> */}
             {/* <Route exact path="/team" element={<Team />} /> */}
             <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/" element={<Dashboard />} />
+            <Route exact path="/dashboard" element={<Dashboard />} />
           </Routes>
         </BrowserRouter>
       </div>
