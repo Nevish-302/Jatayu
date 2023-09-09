@@ -22,23 +22,23 @@ Before you begin, ensure you have met the following requirements:
 
 Navigate to the "client" directory:
 
-```bash
- cd Jatayu/client
-```
+    ```bash
+     cd Jatayu/client
+    ```
 
 Install project dependencies using npm:
 
-```bash
-  npm install
-```
+    ```bash
+      npm install
+    ```
 
 <h1>Development</h1>
 To start the development server using Vite and run the client-side React application, follow these steps:
 In the "client" directory, run:
 
-```bash
-npm run dev
-```
+    ```bash
+    npm run dev
+    ```
 
 This will start the development server and open your React app in a web browser. By default, it will run on http://localhost:3000/.
 
