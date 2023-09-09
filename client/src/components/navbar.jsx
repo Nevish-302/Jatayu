@@ -1,7 +1,12 @@
 import React from "react";
+import logo from "../assets/image/jatayu.png";
 
-const navbar = () => {
-  return <div>navbar</div>;
+const Navbar = () => {
+  return (
+    <div className="">
+      <img src={logo} alt="Logo" className="h-[100px] w-[100px]" />
+    </div>
+  );
 };
 
-export default navbar;
+export default Navbar;

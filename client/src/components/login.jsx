@@ -1,7 +1,15 @@
 import React from "react";
-
+import { styles } from "../styles";
+import Navbar from "../components/navbar";
 const login = () => {
-  return <div>workking +1</div>;
+  return (
+    <>
+      <div className={`${styles.paddingX}`}>
+        <Navbar />
+        <div className="">lets begin </div>
+      </div>
+    </>
+  );
 };
 
 export default login;
