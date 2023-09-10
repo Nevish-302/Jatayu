@@ -87,6 +87,8 @@ const sessionSchema = new Schema(
     }
 )
 
-const session = mongoose.model('session',sessionSchema);
+const Session = mongoose.model('Session',sessionSchema);
 
-export default session;
+// exports default Team;
+
+module.exports=Session;

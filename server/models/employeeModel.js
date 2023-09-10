@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'); 
-const Team=require("./teamModel");
+const Team=require("./team.model.js");
 
 const employeeSchema = new mongoose.Schema({
     Id: {
@@ -9,7 +9,10 @@ const employeeSchema = new mongoose.Schema({
         index: true,
     },
     location: {
-        type: Array,
+      type: {
+        long: String,
+        lat: String,
+    },
     },
     password: {
       type: String,
