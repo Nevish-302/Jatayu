@@ -29,11 +29,45 @@ exports.createOrganisation = catchAsync(async(req, res) => {
     if(org) 
     {
         const newOrg = Organisation.findOneAndUpdate({_id : id}, {});
-        res.json(newOrg);
+        res.json({
+            status : "success",
+            data : {
+                organisation : newOrg,
+            }
+        });
     }
     else throw new Error("No Such Organisation");
 })
 
 exports.updateOrganisation = catchAsync(async(req, res, next) => {
-    const filteredBody = filterObj(req.body, "name", "email");
+
+    //If Change Password is attempted
+    if (req.body.password || req.body.passwordConfirm) {
+        return next(
+          new AppError(
+            "This route is not for password update , use /updateMyPassword for that ",
+            400
+          )
+        );
+      }
+
+    //values not supposed to be updated
+    const filteredBody = filterObj(req.body, "name", "Id", "employees");
+    
+    const updatedOrganisation = await Employee.findByIdAndUpdate(req.organisation._id, filteredBody, {
+        new: true,
+        runValidators: true,
+      });
+    
+    res.status(200).json({
+        status: "success",
+        data: {
+            organisation : updatedOrganisation,
+        }
+    })
 })
+
+
+exports.getOrganisation = factory.getOne(Organisation);
+exports.getAllOrganisation = factory.getAll(Organisation);
+exports.deleteEmployee = factory.deleteOne(Organisation);

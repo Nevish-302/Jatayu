@@ -6,7 +6,6 @@ const organisationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
         index: true,
     },
     type: {
@@ -93,6 +92,7 @@ const organisationSchema = new mongoose.Schema({
         },
         email: {
             type: String,
+            unique: true,
         },
         website: {
             type: String,
