@@ -79,7 +79,7 @@ const LoginForm = () => {
               />
             </div>
             <div className="w-9/12 m-2 flex justify-end">
-              <Link to="/forgot-password" className="text-blue-500">
+              <Link to="/" className="text-blue-500">
                 Forgot Password ?
               </Link>
             </div>

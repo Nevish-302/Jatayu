@@ -188,7 +188,7 @@ const SignupForm = () => {
                                 onClick={() => arrayHelpers.remove(index)}
                                 className="text-red-600"
                               >
-                                Remove
+                                x
                               </button>
                             )}
                           </div>
