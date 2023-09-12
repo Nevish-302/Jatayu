@@ -66,6 +66,7 @@ const organisationSchema = new mongoose.Schema({
             },
             active: {
                 type: Boolean,
+                default : true,
             },
             timeStamp: {
                 type: Date,

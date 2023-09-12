@@ -61,8 +61,40 @@ exports.getOrganisation = factory.getOne(Organisation);
 exports.getAllOrganisation = catchAsync(async(req, res) => {
     const {_id, type} = req.body
     const {location} = await Organisation.findOne({_id : _id})
-    //Add location filter using aggregation pipeline
-    const Organisations = await Organisation.find({type : type})
+    //Have to check
+    const Organisations = await Organisation.find({type : type}).aggregate([
+        {
+                $project: {
+                  name: 1, // Include other fields you need
+                  type: 1,
+                  location: 1,
+                  distance: {
+                    $sqrt: {
+                      $sum: [
+                        { $pow: [{ $subtract: ['$location.long', location.long] }, 2] },
+                        { $pow: [{ $subtract: ['$location.lat', location.lat] }, 2] },
+                      ],
+                    },
+                  },
+                },
+              },
+              {
+                $match: {
+                  type: type,
+                },
+              },
+          {
+            $sort: {
+              distance: -1, // Sort by distance in descending order
+            },
+          },
+    ])
+    res.status(200).json({
+        status: "success",
+        data: {
+            organisations : Organisations,
+        }
+    })
 })
 
 exports.AcceptReqFromOff = catchAsync(async(req, res) => {
