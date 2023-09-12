@@ -84,6 +84,9 @@ const sessionSchema = new Schema(
             at : new Date(),
             }
         }
+    },
+    {
+            timestamps:true,
     }
 )
 

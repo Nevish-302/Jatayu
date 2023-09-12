@@ -36,12 +36,19 @@ const employeeSchema = new mongoose.Schema({
     passwordResetExpires: Date,
 
     status: {
-        type: {
-            active: Boolean,
-            available: Boolean,
-        },
-        required: true,
-    },
+      type: {
+          active: {
+              type: Boolean,
+              default: false, 
+          },
+          available: {
+              type: Boolean,
+              default: true, 
+          },
+      },
+      required: true,
+  },
+
     role: {
         type: String,
         required: true,
