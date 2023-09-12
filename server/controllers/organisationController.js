@@ -12,6 +12,12 @@ const filterObj = (obj, ...allowedFields) => {
     return newObj;
   };
   
+  exports.getMe = (req, res, next) => {
+    req.params.id = req.employee.id;
+    next();
+  };
+
+  
 exports.createOrganisation = catchAsync(async(req, res) => {
     const {email} = await req.body;
     const org = await Organisation.findOne({"contact.email" : email});
@@ -21,22 +27,6 @@ exports.createOrganisation = catchAsync(async(req, res) => {
         res.json(newOrg);
     }
     else throw new Error("Organisation Already exists");
-})
-
-exports.createOrganisation = catchAsync(async(req, res) => {
-    const {id} = await req.body;
-    const org = await Organisation.findOne({_id : id});
-    if(org) 
-    {
-        const newOrg = Organisation.findOneAndUpdate({_id : id}, {});
-        res.json({
-            status : "success",
-            data : {
-                organisation : newOrg,
-            }
-        });
-    }
-    else throw new Error("No Such Organisation");
 })
 
 exports.updateOrganisation = catchAsync(async(req, res, next) => {

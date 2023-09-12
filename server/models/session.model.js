@@ -73,7 +73,11 @@ const sessionSchema = new Schema(
             members : { 
             long : {type : String},
             lat : {type : String},
-            severity : {type : Number}
+            severity : {type : Number},
+            radius : {
+                type: Number,
+                default : 10,
+            },
             }
         },
         notifications : {
