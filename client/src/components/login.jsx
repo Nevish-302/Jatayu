@@ -3,6 +3,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const initialValues = {
   organizationId: "",
@@ -22,9 +23,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
-      <p>To login, enter your credentials</p>
+    <div className="flex flex-col items-center justify-center pt-10 pb-10">
+      <h2 className="text-2xl font-bold mb-4">Log In</h2>
+      <p className="text-sm mb-4 text-gray-500">
+        To login, enter your credentials
+      </p>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -34,39 +37,70 @@ const LoginForm = () => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <div>
-              <label htmlFor="organizationId">Organization ID</label>
-              <Field type="text" id="organizationId" name="organizationId" />
+          <Form className="flex flex-col items-center w-full">
+            <div className="mb-4 w-9/12">
+              <label htmlFor="organizationId" className="block text-gray-700">
+                Organization ID
+              </label>
+              <Field
+                type="text"
+                id="organizationId"
+                name="organizationId"
+                className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+              />
               <ErrorMessage
                 name="organizationId"
                 component="div"
-                className="error"
+                className="text-red-600 text-sm mt-1"
               />
             </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <div className="password-field">
+            <div className="w-9/12">
+              <label htmlFor="password" className="block text-gray-700">
+                Password
+              </label>
+              <div className="relative">
                 <Field
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
+                  className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
                 />
-                <span onClick={togglePasswordVisibility}>
+                <span
+                  onClick={togglePasswordVisibility}
+                  className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
+                >
                   {showPassword ? <RiEyeCloseLine /> : <RiEyeLine />}
                 </span>
               </div>
-              <ErrorMessage name="password" component="div" className="error" />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="text-red-600 text-sm mt-1"
+              />
             </div>
-            <div>
-              <button type="submit" disabled={isSubmitting}>
+            <div className="w-9/12 m-2 flex justify-end">
+              <Link to="/forgot-password" className="text-blue-500">
+                Forgot Password ?
+              </Link>
+            </div>
+            <div className="w-9/12">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-blue-500 text-white py-2 px-4 hover:bg-blue-600 focus:outline-none"
+              >
                 Log In
               </button>
             </div>
           </Form>
         )}
       </Formik>
-      <p>Don't have an account? Sign up</p>
+      <p className="text-sm mt-4">
+        Don't have an account?{" "}
+        <Link to="/signup" className="text-blue-500">
+          Sign up
+        </Link>
+      </p>
     </div>
   );
 };
