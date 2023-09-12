@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'); 
 const Team=require("./team.model.js");
+const Organisation=require("./organisationModel.js");
 
 const employeeSchema = new mongoose.Schema({
     Id: {
@@ -31,7 +32,6 @@ const employeeSchema = new mongoose.Schema({
       },
     },
     passwordChangedAt: Date,
-  
     passwordResetToken: String,
     passwordResetExpires: Date,
 
@@ -49,7 +49,11 @@ const employeeSchema = new mongoose.Schema({
     team:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Team"
-       }
+       },
+    organisation:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Organisation"
+    }
 });
 
 employeeSchema.pre('save', async function (next) {
