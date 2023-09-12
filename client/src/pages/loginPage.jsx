@@ -7,7 +7,7 @@ import Login from "../components/login";
 const loginPage = () => {
   return (
     <>
-      <div className={`${styles.paddingX}`}>
+      <div className={`${styles.paddingX} signup-page-bg bg-cover`}>
         <Navbar />
         <div class="flex flex-col sm:flex-row justify-between items-center p-4">
           <div class="flex-1 pr-0 md:pr-9 md:justify-start">
