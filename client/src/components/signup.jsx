@@ -40,9 +40,11 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-10 pb-10 w-full">
+    <div className="flex flex-col items-center justify-center pt-10 pb-10 w-full z-10 bg-card-fill">
       <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-      <p className="text-sm mb-4 text-gray-500">Register your Organization</p>
+      <p className="text-sm mb-4 text-gray-500">
+        Register your Organization here
+      </p>
       <div className="overflow-y-auto w-full max-h-[320px] custom-scrollbar">
         <Formik
           initialValues={initialValues}

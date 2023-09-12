@@ -23,7 +23,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-10 pb-10">
+    <div className="flex flex-col items-center justify-center pt-10 pb-10  z-10 bg-card-fill">
       <h2 className="text-2xl font-bold mb-4">Log In</h2>
       <p className="text-sm mb-4 text-gray-500">
         To login, enter your credentials
