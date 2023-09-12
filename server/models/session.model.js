@@ -4,18 +4,19 @@ const {Schema} = mongoose;
 const sessionSchema = new Schema(
     {
         initiatiorOrganisationId:{
-            type : String,
+            type : mongoose.Schema.Types.ObjectId,
+            required: [true, 'initiator must be specified'],
         },
         organisations : {
             type: Array,
             members: {
-                type: String,
+                type: mongoose.Schema.Types.ObjectId,
             },
         },
         teams:{
             type : Array,
             members : {
-                type : String,
+                type : mongoose.Schema.Types.ObjectId,
             }
         },
         affectees: {
@@ -31,7 +32,7 @@ const sessionSchema = new Schema(
                     type : Number,
                 },
                 teamId : {
-                    type : String,
+                    type : mongoose.Schema.Types.ObjectId,
                 },
                 location: {
                     type : Object,
@@ -47,9 +48,9 @@ const sessionSchema = new Schema(
         requests:{
             type : Array,
             members :{
-            senderId : {type : String},
+            senderId : {type : mongoose.Schema.Types.ObjectId},
             message : {type : String},
-            recieverId : {type : String},
+            recieverId : {type : mongoose.Schema.Types.ObjectId},
             at : {type : new Date()},
             status : {type : Boolean}
             }
@@ -59,10 +60,10 @@ const sessionSchema = new Schema(
             members : {
                 name : {type : String},
                 quantity : {type : String},
-                organisationId : {type : String},
+                organisationId : {type : mongoose.Schema.Types.ObjectId},
                 free: {type : Number},
                 allocated : {
-                    teamId: {type : String},
+                    teamId: {type : mongoose.Schema.Types.ObjectId},
                     quantity : {type : Number}
                 }
             }
@@ -78,7 +79,7 @@ const sessionSchema = new Schema(
         notifications : {
             type : Array,
             members : {
-            senderId : {type : String},
+            senderId : {type : mongoose.Schema.Types.ObjectId},
             message : {type : String},
             at : new Date(),
             }
@@ -88,6 +89,6 @@ const sessionSchema = new Schema(
 
 const Session = mongoose.model('Session',sessionSchema);
 
-// exports default Team;
+// exports default Session;
 
 module.exports=Session;
