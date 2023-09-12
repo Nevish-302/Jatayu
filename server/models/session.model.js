@@ -87,7 +87,17 @@ const sessionSchema = new Schema(
             message : {type : String},
             at : new Date(),
             }
-        }
+        },
+        // notifications: {
+        //     type: Array,
+        //     members: {
+        //         senderId: { type: mongoose.Schema.Types.ObjectId },
+        //         receiverId: { type: mongoose.Schema.Types.ObjectId },
+        //         message: { type: String },
+        //         at: { type: Date, default: Date.now() },
+        //     },
+        // },
+        //for socket: type:String
     },
     {
             timestamps:true,
