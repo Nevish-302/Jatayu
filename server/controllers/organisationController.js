@@ -12,10 +12,10 @@ const filterObj = (obj, ...allowedFields) => {
     return newObj;
   };
   
-  exports.getMe = (req, res, next) => {
+exports.getMe = (req, res, next) => {
     req.params.id = req.employee.id;
     next();
-  };
+};
 
   
 exports.createOrganisation = catchAsync(async(req, res) => {
@@ -33,12 +33,11 @@ exports.updateOrganisation = catchAsync(async(req, res, next) => {
 
     //If Change Password is attempted
     if (req.body.password || req.body.passwordConfirm) {
-        return next(
-          new AppError(
+        return new AppError(
             "This route is not for password update , use /updateMyPassword for that ",
             400
           )
-        );
+        
       }
 
     //values not supposed to be updated
@@ -59,5 +58,10 @@ exports.updateOrganisation = catchAsync(async(req, res, next) => {
 
 
 exports.getOrganisation = factory.getOne(Organisation);
-exports.getAllOrganisation = factory.getAll(Organisation);
+exports.getAllOrganisation = catchAsync(async(req, res) => {
+    const {_id, type} = req.body
+    const {location} = await Organisation.findOne({_id : _id})
+    //Add location filter using aggregation pipeline
+    const Organisations = await Organisation.find({type : type})
+})
 exports.deleteEmployee = factory.deleteOne(Organisation);

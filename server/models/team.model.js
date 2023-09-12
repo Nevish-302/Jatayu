@@ -44,6 +44,9 @@ const teamSchema = new Schema(
                     required: true},
             }
         },
+        Organisation : {
+            type : mongoose.Schema.Types.ObjectId,
+            required: true},
         redZones:{
             type : Array,
             members : { 
