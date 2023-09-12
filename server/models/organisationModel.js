@@ -105,7 +105,16 @@ const organisationSchema = new mongoose.Schema({
             },
         ],
     },
-
+    requests:{
+        type : Array,
+        members :{
+        senderId : {type : mongoose.Schema.Types.ObjectId},
+        message : {type : String},
+        recieverId : {type : mongoose.Schema.Types.ObjectId},
+        at : {type : new Date()},
+        status : {type : Boolean}
+        }
+    },
 });
 
 organisationSchema.pre('save', async function (next) {
