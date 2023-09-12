@@ -64,4 +64,18 @@ exports.getAllOrganisation = catchAsync(async(req, res) => {
     //Add location filter using aggregation pipeline
     const Organisations = await Organisation.find({type : type})
 })
+
+exports.AcceptReqFromOff = catchAsync(async(req, res) => {
+    const {request} = req.body
+    const org = await Organisation.findOneAndUpdate({_id : OrgId, "notifications.at" : request.at}, {$set : {'notifications.$.status' : true}})
+    const session = await Session.create({notifications : [request]})
+    res.status(200).json({
+        status: "success",
+        data: {
+            session : session,
+        }
+    })
+})
+
+
 exports.deleteEmployee = factory.deleteOne(Organisation);

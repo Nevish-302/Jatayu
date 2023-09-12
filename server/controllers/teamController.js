@@ -4,6 +4,8 @@ const factory = require('./handlerFactory')
 const Team = require("../models/team.model")
 const Employee = require("../models/employeeModel")
 const Organisation = require('../models/organisationModel')
+const Session = require('../models/session.model')
+
 exports.getMe = (req, res, next) => {
     req.params.id = req.employee.id;
     next();
@@ -125,6 +127,23 @@ exports.getTeamByOrgSess = catchAsync(async(req, res) =>  {
             }
         })  
     }
+})
+
+exports.addTeamToSession = catchAsync(async (req, res) => {
+    const {teamId, Sessionid} = req.body
+    const session = await Session.findOneAndUpdate({_id : Sessionid}, {$push : {teams : teamId}})
+    const team = await Team.findOneAndUpdate({_id : teamId}, {sessionId : Sessionid})
+    team.teamMembers.forEach((member) => {
+        Employee.findByIdAndUpdate({_id : member}, {"status.active" : true, "status.available" : false})
+    })
+    res.status(200).json({
+        status: "success",
+    })
+})
+
+exports.sendReqToOrg = catchAsync((req, res) => {
+    const {OrgId, request} = req.body
+    Organisation.findOneAndUpdate({_id : OrgId}, {$push : {notifications : request}})
 })
 
 exports.getTeam = factory.getOne(Team)

@@ -98,6 +98,15 @@ const organisationSchema = new mongoose.Schema({
             type: String,
         },
     },
+    notifications : {
+        type : Array,
+        members : {
+        senderId : {type : mongoose.Schema.Types.ObjectId},
+        message : {type : String},
+        status : {type : Boolean},
+        at : new Date(),
+        }
+    },
     areaOfExpertise: {
         type: [
             {
