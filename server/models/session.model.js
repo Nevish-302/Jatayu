@@ -1,5 +1,6 @@
 const mongoose=require("mongoose");
 const {Schema} = mongoose;
+const Request = require('./requestModel');
 
 const sessionSchema = new Schema(
     {
@@ -63,21 +64,12 @@ const sessionSchema = new Schema(
                 }
             }
         },
-        requests:{
-            type : Array,
-            members :{
-            senderId : {type : mongoose.Schema.Types.ObjectId},
-            teamId:{type:mongoose.Schema.Types.ObjectId},
-            message : {type : String},
-            recieverId : {type : mongoose.Schema.Types.ObjectId},
-            at : {type : new Date()},
-            status: {
-                type: String,
-                enum: ['pending', 'approved', 'rejected'],
-                default: 'pending',
-              },
-            }
-        },
+        requests: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Request',
+            },
+        ],        
         resources:{
             type : Array,
             members : {

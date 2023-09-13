@@ -1,6 +1,7 @@
 const Employee = require('./employeeModel');
 const mongoose = require('mongoose');
 const Session = require('./session.model'); 
+const Request = require('./requestModel'); 
 const bcrypt=require("bcryptjs");
 
 const organisationSchema = new mongoose.Schema({
@@ -119,7 +120,13 @@ const organisationSchema = new mongoose.Schema({
             },
         ],
     },
-
+    requests: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Request',
+        },
+    ],
+    
 });
 
 organisationSchema.pre('save', async function (next) {

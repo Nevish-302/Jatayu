@@ -1,5 +1,6 @@
 const mongoose =require("mongoose");
 const {Schema} = mongoose;
+const Request = require('./requestModel');
 
 const teamSchema = new Schema(
     {
@@ -18,22 +19,14 @@ const teamSchema = new Schema(
         //    long : {type : String},
         //    lat : {type : String},
         //},
-        requests:{
-            type : Array,
-            members :{
-            senderId : {
-                type : mongoose.Schema.Types.ObjectId,
-                required: true,
+        
+        requests: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Request',
             },
-            message : {type : String},
-            recieverId : {
-                type : mongoose.Schema.Types.ObjectId,
-                required: true,
-            },
-            at : {type : new Date()},
-            status : {type : Boolean}
-            }
-        },
+        ],
+          
         resources:{
             type : Array,
             members : {

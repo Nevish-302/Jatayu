@@ -56,17 +56,17 @@ exports.deleteMe = async (req, res, next) => {
   });
 };
 
-exports.createRequest=catchAsync(async(req,res,next)=>{
-  try{
-    const newRequest=new Request(req.body);
+exports.createRequest = catchAsync(async (req, res, next) => {
+  try {
+    const newRequest = new Request(req.body);
     await newRequest.save();
 
-    res.json(201).json({message:"Request created successfully"})
-  }catch (error) {
+    res.status(201).json({ message: 'Request created successfully' }); // Fix the response status
+  } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error creating request' });
   }
-})
+});
 
 //we will update anything except password :)
 exports.updateEmployee = factory.updateOne(Employee);
