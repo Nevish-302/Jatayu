@@ -1,26 +1,26 @@
 const express = require('express');
 const employeeController = require('../controllers/employeeController');
-const authController = require('../controllers/authController');
+const EauthController = require('../controllers/EauthController');
 
 const router = express.Router();
 
-router.post('/signup', authController.signup);
-router.post('/login', authController.login);
-router.post('/forgotPassword', authController.forgotPassword);
+router.post('/signup', EauthController.signup);
+router.post('/login', EauthController.login);
+router.post('/forgotPassword', EauthController.forgotPassword);
 router.patch(
   '/updateMyPassword',
-  authController.protect,
-  authController.updatePassword
+  EauthController.protect,
+  EauthController.updatePassword
 );
-router.patch('/resetPassword/:token', authController.resetPassword);
+router.patch('/resetPassword/:token', EauthController.resetPassword);
 
-router.use(authController.protect);
+router.use(EauthController.protect);
 
 router.route('/me').get(employeeController.getMe, employeeController.getEmployee);
 router.patch('/updateMe', employeeController.updateMe);
 router.delete('/deleteMe', employeeController.deleteMe);
 
-router.use(authController.restrictTo('admin'));
+router.use(EauthController.restrictTo('admin'));
 
 router
   .route('/')

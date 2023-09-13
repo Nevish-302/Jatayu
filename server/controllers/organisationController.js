@@ -56,7 +56,6 @@ exports.updateOrganisation = catchAsync(async(req, res, next) => {
     })
 })
 
-
 exports.getOrganisation = factory.getOne(Organisation);
 exports.getAllOrganisation = catchAsync(async(req, res) => {
     const {_id, type} = req.body
