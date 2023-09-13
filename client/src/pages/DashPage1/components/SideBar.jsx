@@ -11,6 +11,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import logo from "../../../assets/image/Jatayu.png";
 import { Avatar, styled, useTheme, Typography, Tooltip } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import { HomeOutlined } from "@mui/icons-material";
@@ -79,35 +80,59 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const Array1 = [
-  { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/" },
-  { text: "Manage Team", icon: <PeopleOutlinedIcon />, path: "/team" },
+  { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/dashboard" },
+  {
+    text: "Manage Team",
+    icon: <PeopleOutlinedIcon />,
+    path: "/dashboard/teams",
+  },
   {
     text: "Contacts Information",
     icon: <ContactsOutlinedIcon />,
-    path: "/contacts",
+    path: "/dashboard/contacts",
   },
   {
     text: "Invoices Balances",
     icon: <ReceiptOutlinedIcon />,
-    path: "/invoices",
+    path: "/dashboard/invoices",
   },
 ];
 
 const Array2 = [
-  { text: "Profile Form", icon: <PersonOutlinedIcon />, path: "/form" },
-  { text: "Calendar", icon: <CalendarTodayOutlinedIcon />, path: "/calendar" },
+  {
+    text: "Profile Form",
+    icon: <PersonOutlinedIcon />,
+    path: "/dashboard/form",
+  },
+  {
+    text: "Calendar",
+    icon: <CalendarTodayOutlinedIcon />,
+    path: "/dashboard/calendar",
+  },
   {
     text: "FAQ Page",
     icon: <HelpOutlineOutlinedIcon />,
-    path: "/faq",
+    path: "/dashboard/faq",
   },
 ];
 
 const Array3 = [
-  { text: "Bar Chart", icon: <BarChartOutlinedIcon />, path: "/bar" },
-  { text: "Pie Chart", icon: <PieChartOutlineOutlinedIcon />, path: "/pie" },
-  { text: "Line Chart", icon: <TimelineOutlinedIcon />, path: "/line" },
-  { text: "Geography Chart", icon: <MapOutlinedIcon />, path: "/geography" },
+  { text: "Bar Chart", icon: <BarChartOutlinedIcon />, path: "/dashboard/bar" },
+  {
+    text: "Pie Chart",
+    icon: <PieChartOutlineOutlinedIcon />,
+    path: "/dashboard/pie",
+  },
+  {
+    text: "Line Chart",
+    icon: <TimelineOutlinedIcon />,
+    path: "/dashboard/line",
+  },
+  {
+    text: "Geography Chart",
+    icon: <MapOutlinedIcon />,
+    path: "/dashboard/geography",
+  },
 ];
 
 const SideBar = ({ open, handleDrawerClose }) => {
@@ -136,13 +161,13 @@ const SideBar = ({ open, handleDrawerClose }) => {
           transition: "0.25s",
         }}
         alt="Remy Sharp"
-        src="https://media.allure.com/photos/5a26c1d8753d0c2eea9df033/3:4/w_1262,h_1683,c_limit/mostbeautiful.jpg"
+        src={logo}
       />
       <Typography
         align="center"
         sx={{ fontSize: open ? 17 : 0, transition: "0.25s" }}
       >
-        Layla Ali
+        Fire Department
       </Typography>
       <Typography
         align="center"
