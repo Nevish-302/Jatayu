@@ -24,7 +24,7 @@ router.patch('/updateMe', organisationController.updateOrganisation);
 router.delete('/deleteMe', organisationController.deleteOrganisation);
 
 //router.use(OauthController.restrictTo('admin'));
-//
+
 router
   .route('/')
   .get(employeeController.getAllEmployees)
