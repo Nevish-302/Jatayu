@@ -8,7 +8,7 @@ const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach((el) => {
     if (allowedFields.includes(el)) newObj[el] = obj[el];
-  });
+  });    
   return newObj;
 };
 
@@ -55,7 +55,7 @@ exports.deleteMe = async (req, res, next) => {
   });
 };
 
-//we will update anything except password
+//we will update anything except password :)
 exports.updateEmployee = factory.updateOne(Employee);
 exports.deleteEmployee = factory.deleteOne(Employee);
 exports.createEmployee = factory.createOne(Employee);

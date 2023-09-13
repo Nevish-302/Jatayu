@@ -6,7 +6,6 @@ const organisationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
         index: true,
     },
     type: {
@@ -67,6 +66,7 @@ const organisationSchema = new mongoose.Schema({
             },
             active: {
                 type: Boolean,
+                default : true,
             },
             timeStamp: {
                 type: Date,
@@ -93,10 +93,20 @@ const organisationSchema = new mongoose.Schema({
         },
         email: {
             type: String,
+            unique: true,
         },
         website: {
             type: String,
         },
+    },
+    notifications : {
+        type : Array,
+        members : {
+        senderId : {type : mongoose.Schema.Types.ObjectId},
+        message : {type : String},
+        status : {type : Boolean},
+        at : new Date(),
+        }
     },
     areaOfExpertise: {
         type: [
