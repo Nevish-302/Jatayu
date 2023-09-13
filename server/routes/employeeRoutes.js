@@ -14,8 +14,8 @@ router.patch(
 );
 router.patch('/resetPassword/:token', EauthController.resetPassword);
 
-router.use(EauthController.protect);
-
+// router.use(EauthController.protect);
+router.route('/getEmp').get(employeeController.getAllEmployees);
 router.route('/me').get(employeeController.getMe, employeeController.getEmployee);
 
 module.exports = router;
