@@ -71,7 +71,7 @@ exports.login = catchAsync(async (req, res, next) => {
   }
   // check if user exists and password is correct
   const user = await Organisation.findOne({ Id: Id }).select('+password');
-  console.log(Id, password, user.password);
+  // console.log(Id, password, user.password);
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email id or password ', 401));

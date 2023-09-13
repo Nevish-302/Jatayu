@@ -49,7 +49,7 @@ const teamSchema = new Schema(
             required: true},
         redZones:{
             type : Array,
-            members : { 
+            members:{ 
             long : {
                 type : String,
                 required: true

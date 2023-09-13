@@ -11,12 +11,30 @@ const sessionSchema = new Schema(
             type: Array,
             members: {
                 type: mongoose.Schema.Types.ObjectId,
+                ref:'Organisation',
             },
         },
         teams:{
             type : Array,
             members : {
                 type : mongoose.Schema.Types.ObjectId,
+                ref:'Team',
+            }
+        },
+        estimatedAffectees:{
+            type:Number,
+        },
+        location:{
+            type : Object,
+            long:{
+                type : String,
+            },
+            lat : {
+                type : String
+            },
+            radius:{
+                type:Number,
+                default:50,
             }
         },
         affectees: {
@@ -49,10 +67,15 @@ const sessionSchema = new Schema(
             type : Array,
             members :{
             senderId : {type : mongoose.Schema.Types.ObjectId},
+            teamId:{type:mongoose.Schema.Types.ObjectId},
             message : {type : String},
             recieverId : {type : mongoose.Schema.Types.ObjectId},
             at : {type : new Date()},
-            status : {type : Boolean}
+            status: {
+                type: String,
+                enum: ['pending', 'approved', 'rejected'],
+                default: 'pending',
+              },
             }
         },
         resources:{
@@ -62,7 +85,7 @@ const sessionSchema = new Schema(
                 quantity : {type : String},
                 organisationId : {type : mongoose.Schema.Types.ObjectId},
                 free: {type : Number},
-                allocated : {
+                allocated :{
                     teamId: {type : mongoose.Schema.Types.ObjectId},
                     quantity : {type : Number}
                 }

@@ -1,4 +1,5 @@
 const Employee = require("../models/employeeModel");
+const Request = require("../models/requestModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const factory = require("./handlerFactory");
@@ -54,6 +55,18 @@ exports.deleteMe = async (req, res, next) => {
     data: null,
   });
 };
+
+exports.createRequest=catchAsync(async(req,res,next)=>{
+  try{
+    const newRequest=new Request(req.body);
+    await newRequest.save();
+
+    res.json(201).json({message:"Request created successfully"})
+  }catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error creating request' });
+  }
+})
 
 //we will update anything except password :)
 exports.updateEmployee = factory.updateOne(Employee);
