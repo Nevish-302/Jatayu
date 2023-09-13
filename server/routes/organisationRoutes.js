@@ -17,22 +17,22 @@ router.patch('/resetPassword/:token', OauthController.resetPassword);
 
 router.use(OauthController.protect);
 
-router.route('/me').get(organisationController.getMe, organisationController.getEmployee);
-router.patch('/updateMe', organisationController.updateMe);
-router.delete('/deleteMe', organisationController.deleteMe);
+router.route('/me').get(organisationController.getMe, organisationController.getOrganisation);
+router.patch('/updateMe', organisationController.updateOrganisation);
+router.delete('/deleteMe', organisationController.deleteOrganisation);
 
-router.use(OauthController.restrictTo('admin'));
-
-router
-  .route('/')
-  .get(organisationController.getAllEmployees)
-  .post(organisationController.createEmployee);
-
-router
-  .route('/:id')
-  .get(organisationController.getEmployee)
-  .patch(organisationController.updateEmployee)
-  .delete(organisationController.deleteEmployee);
+//router.use(OauthController.restrictTo('admin'));
+//
+//router
+//  .route('/')
+//  .get(organisationController.getAllEmployees)
+//  .post(organisationController.createEmployee);
+//
+//router
+//  .route('/:id')
+//  .get(organisationController.getEmployee)
+//  .patch(organisationController.updateEmployee)
+//  .delete(organisationController.deleteEmployee);
 
 module.exports = router;
 

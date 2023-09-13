@@ -109,4 +109,4 @@ exports.AcceptReqFromOff = catchAsync(async(req, res) => {
 })
 
 
-exports.deleteEmployee = factory.deleteOne(Organisation);
+exports.deleteOrganisation = factory.deleteOne(Organisation);
