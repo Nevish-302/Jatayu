@@ -11,11 +11,14 @@ const employeeSchema = new mongoose.Schema({
         index: true,
     },
     location: {
-      type: {
-        long: String,
-        lat: String,
-    },
-    },
+      type : Object,
+      long:{
+          type : String,
+      },
+      lat : {
+          type : String
+      }
+  },
     password: {
       type: String,
       required: [true, 'Employee must enter password'],

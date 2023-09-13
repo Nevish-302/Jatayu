@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const Employee = require('../models/employeeModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const Organisation = require('../models/organisationModel')
 const sendEmail = require('../utils/email');
 
 const signToken = (id) =>
@@ -26,7 +27,6 @@ const createSendToken = (user, statusCode, res) => {
   res.cookie('jwt', token, cookieOptions);
 
   user.password = undefined;
-
   res.status(statusCode).json({
     status: 'success',
     data: {
@@ -37,15 +37,15 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-    role: req.body.role,
-  });
-
-  createSendToken(newUser, 201, res);
+  const {contact} = await req.body;
+  console.log(contact, req.body)
+    const org = await Organisation.findOne({"contact.email" : contact.email});
+    if(!org) 
+    {
+        const newOrg = await Organisation.create(req.body);
+        createSendToken(newOrg, 201, res);
+    }
+    else throw new Error("Organisation Already exists");
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -57,7 +57,8 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('please provide email and password', 400));
   }
   // check if user exists and password is correct
-  const user = await User.findOne({ email }).select('+password');
+  const user = await Organisation.findOne({ "contact.email" : email }).select('+password');
+  console.log(email, password, user.passord)
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email id or password ', 401));

@@ -14,10 +14,13 @@ const organisationSchema = new mongoose.Schema({
         required: true,
     },
     location: {
-        type: {
-            long: String,
-            lat: String,
+        type : Object,
+        long:{
+            type : String,
         },
+        lat : {
+            type : String
+        }
     },
     password: {
         type: String,

@@ -24,7 +24,7 @@ exports.createOrganisation = catchAsync(async(req, res) => {
     if(!org) 
     {
         const newOrg = Organisation.create(req.body);
-        res.json(newOrg);
+        createSendToken(newOrg, 201, res);
     }
     else throw new Error("Organisation Already exists");
 })
