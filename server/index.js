@@ -25,3 +25,34 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
   });
 });
+
+//Socket Code
+
+//var http = require("http").Server(app);
+//var io = require("socket.io")(http);
+
+const io = require("socket.io")(server, {
+  cors : {
+    //origin : ["http://localhost:8080", "https://admin.socket.io/"],
+    origin : "*",
+  }
+})
+
+const socketIo = io.of('/socket') 
+
+socketIo.on('connection', socket=>{
+  socket.on('ping', n =>console.log(n))
+  socket.on('custom-event', (a, b, c) => {
+      console.log(a, b, c);
+  })
+  socket.on('send-chat-message', (message, room) => {
+      console.log(message, room);
+      if(room == ''){socket.broadcast.emit('receive-message', message)}
+      else{socket.to(room).emit('receive-message', message)};
+      })
+  console.log(socket.id);
+  socket.on('join-room', (room, cb) =>{
+      socket.join(room)
+      cb(`Joined Room : ${room}`)
+  })
+})

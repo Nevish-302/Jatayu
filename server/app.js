@@ -14,7 +14,6 @@ const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
-
 // 1) GLOBAL MIDDLEWARES
 
 //SET SECURITY HTTP HEADER
@@ -74,3 +73,5 @@ app.all('*', (req, res, next) => {
 app.use(globalErrorHandler);
 
 module.exports = app;
+
+

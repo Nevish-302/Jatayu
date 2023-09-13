@@ -6,8 +6,9 @@ const joinroombutton = document.getElementById('join-room')
 const messageInput = document.getElementById('message-input')
 console.log("Hello")
 //different for different routes
-const userSocket = io('http://localhost:3000/user', {auth: {token: 'test'}})
-const socket = io('http://localhost:3000')
+//const userSocket = io('http://localhost:3000/user', {auth: {token: 'test'}})
+const socket = io('http://localhost:4000/socket')
+
 socket.on("connect",()=> {
 appendMessage(`Connected with id : ${socket.id}`)
 socket.emit('custom-event', 10, 'a', {Hello : "jack"})
@@ -28,13 +29,13 @@ document.addEventListener("keydown", e => {
 })
 
 let count = 0
-setInterval(() =>
-  {socket.volatile.emit('ping', ++count)}, 
-1000)
+//setInterval(() =>
+//  {socket.volatile.emit('ping', ++count)}, 
+//1000)
 
-userSocket.on(`connect_error`, error => {
-    appendMessage(error)
-})
+//userSocket.on(`connect_error`, error => {
+//    appendMessage(error)
+//})
 messageForm.addEventListener('submit', e => {
   e.preventDefault()
   const message = messageInput.value
@@ -46,9 +47,11 @@ messageForm.addEventListener('submit', e => {
   messageInput.value = ''
   roomInput.value = ''
 })
+
 messageForm.addEventListener('Jack', e => {
   console.log('Baby')
 })
+
 joinroombutton.addEventListener('click', e => {
   const room = roomInput.value
   console.log("ello")
@@ -60,8 +63,10 @@ joinroombutton.addEventListener('click', e => {
 socket.on('receive-message', (message) =>{
   appendMessage(`Sender: ${message}`);
 })
+
+
 function appendMessage(message) {
-  socket.emit('send-message', message);
+  //socket.emit('send-message', message);
   const messageElement = document.createElement('div')
   messageElement.innerText = message
   messageContainer.append(messageElement)
