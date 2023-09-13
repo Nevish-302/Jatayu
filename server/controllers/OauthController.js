@@ -36,17 +36,30 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
+// exports.signup = catchAsync(async (req, res, next) => {
+//   const {contact} = await req.body;
+//   console.log(contact, req.body)
+//     const org = await Organisation.findOne({"contact.email" : contact.email});
+//     if(!org) 
+//     {
+//         const newOrg = await Organisation.create(req.body);
+//         createSendToken(newOrg, 201, res);
+//     }
+//     else throw new Error("Organisation Already exists");
+// });
+
 exports.signup = catchAsync(async (req, res, next) => {
-  const {contact} = await req.body;
-  console.log(contact, req.body)
-    const org = await Organisation.findOne({"contact.email" : contact.email});
-    if(!org) 
-    {
-        const newOrg = await Organisation.create(req.body);
-        createSendToken(newOrg, 201, res);
-    }
-    else throw new Error("Organisation Already exists");
+  const { Id } = req.body; 
+
+  const org = await Organisation.findOne({ Id }); 
+  if (!org) {
+    const newOrganisation = await Organisation.create(req.body);
+    createSendToken(newOrganisation, 201, res);
+  } else {
+    throw new Error("Organisation Already exists");
+  }
 });
+
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -90,16 +103,16 @@ exports.protect = catchAsync(async (req, res, next) => {
   // console.log(decoded);
 
   //3) check if user still exists
-  const currentUser = await User.findById(decoded.id);
+  const currentOrganisation = await Organisation.findById(decoded.id);
 
-  if (!currentUser) {
+  if (!currentOrganisation) {
     return next(
       new AppError(`the user belonging to this token no longer not exist`, 401)
     );
   }
 
   //4) check if the password is changed
-  if (currentUser.changedPasswordAfter(decoded.iat)) {
+  if (currentOrganisation.changedPasswordAfter(decoded.iat)) {
     return next(
       new AppError(
         'The password is changed ! log in again with updated password',
@@ -108,7 +121,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
   // GRant access to protected route
-  req.user = currentUser;
+  req.user = currentOrganisation;
   console.log(req.user);
   next();
 });
@@ -127,7 +140,7 @@ exports.restrictTo =
 //fix this
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
-  const user = await User.findOne({ email: req.body.email });
+  const user = await Organisation.findOne({ email: req.body.email });
   if (!user) {
     return next(new AppError('There is no user with email address.', 404));
   }
@@ -173,7 +186,7 @@ exports.resetPassword = async (req, res, next) => {
     .update(req.params.token)
     .digest('hex');
 
-  const user = await User.findOne({
+  const user = await Organisation.findOne({
     passwordResetToken: hashedtoken,
     passwordResetExpires: { $gt: Date.now() },
   });
@@ -196,7 +209,7 @@ exports.resetPassword = async (req, res, next) => {
 
 exports.updatePassword = async (req, res, next) => {
   //1) get user from collection
-  const user = await User.findById(req.user._id).select('+password');
+  const user = await Organisation.findById(req.user._id).select('+password');
 
   //2) check if POSTed password is correct
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {

@@ -123,6 +123,19 @@ const organisationSchema = new mongoose.Schema({
 });
 
 organisationSchema.pre('save', async function (next) {
+    //this will run only if the password is modified
+    if (!this.isModified('password')) return next();
+  
+    //this will encrypt the password
+    this.password = await bcrypt.hash(this.password, 12);
+  
+    //to delete confirm password from database
+    this.passwordConfirm = undefined;
+  
+    next();
+  });
+  
+  organisationSchema.pre('save', async function (next) {
     if (!this.isModified('password') || this.isNew) return next();
   
     this.passwordChangedAt = Date.now() - 1000;
@@ -166,6 +179,5 @@ organisationSchema.pre('save', async function (next) {
   
     return resetToken;
   };
-
 
 module.exports = mongoose.model('Organisation', organisationSchema);
