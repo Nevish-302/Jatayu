@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "socket": "nodemon testSocket.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "mongoose": "^7.5.0",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.5",
+    "socket.io": "^4.7.1",
     "nodemon": "^3.0.1",
     "path": "^0.12.7",
     "util": "^0.12.5",
