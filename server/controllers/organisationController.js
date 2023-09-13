@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const factory = require('./handlerFactory')
 
-const filterObj = (obj, ...allowedFields) => {
+const filterObj = (obj,...allowedFields) => {
     console.log(obj);
     const newObj = {};
     Object.keys(obj).forEach((el) => {

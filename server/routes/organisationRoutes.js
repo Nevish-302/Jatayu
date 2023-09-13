@@ -1,6 +1,7 @@
 const express = require('express');
 const organisationController = require('../controllers/organisationController');
 const OauthController = require('../controllers/OauthController');
+const EauthController = require('../controllers/EauthController');
 
 const router = express.Router();
 
@@ -34,3 +35,4 @@ router
   .delete(organisationController.deleteEmployee);
 
 module.exports = router;
+
