@@ -62,16 +62,16 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { Id, password } = req.body;
 
   //check if the entries are field
 
-  if (!email || !password) {
-    return next(new AppError('please provide email and password', 400));
+  if (!Id || !password) {
+    return next(new AppError('please provide Id and password', 400));
   }
   // check if user exists and password is correct
-  const user = await Organisation.findOne({ "contact.email" : email }).select('+password');
-  console.log(email, password, user.passord)
+  const user = await Organisation.findOne({ Id: Id }).select('+password');
+  console.log(Id, password, user.password);
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email id or password ', 401));
