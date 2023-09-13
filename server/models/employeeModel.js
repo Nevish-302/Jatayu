@@ -1,9 +1,10 @@
 const mongoose = require('mongoose'); 
+const bcrypt=require("bcryptjs");
 const Team=require("./team.model.js");
 const Organisation=require("./organisationModel.js");
 
 const employeeSchema = new mongoose.Schema({
-    Id: {
+    Id:{
         type: String,
         required: [true,'Employee must have an Id'],
         unique: true,
@@ -46,7 +47,6 @@ const employeeSchema = new mongoose.Schema({
               default: true, 
           },
       },
-      required: true,
   },
 
     role: {

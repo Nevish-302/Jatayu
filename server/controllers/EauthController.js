@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const Employee = require('../models/employeeModel');
 const catchAsync = require('../utils/catchAsync');
+const bcrypt=require("bcryptjs");
 const AppError = require('../utils/appError');
 const sendEmail = require('../utils/email');
 
@@ -37,30 +38,30 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
-    name: req.body.name,
+  const newEmployee = await Employee.create({
+    Id: req.body.Id,
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     role: req.body.role,
   });
 
-  createSendToken(newUser, 201, res);
+  createSendToken(newEmployee, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { Id, password } = req.body;
 
   //check if the entries are field
 
-  if (!email || !password) {
-    return next(new AppError('please provide email and password', 400));
+  if (!Id || !password) {
+    return next(new AppError('please provide Id and password', 400));
   }
   // check if user exists and password is correct
-  const user = await User.findOne({ email }).select('+password');
+  const user = await Employee.findOne({ Id }).select('+password');
 
   if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(new AppError('Incorrect email id or password ', 401));
+    return next(new AppError('Incorrect id or password ', 401));
   }
   // if everything is ok , send token to client
   createSendToken(user, 200, res);
@@ -89,16 +90,16 @@ exports.protect = catchAsync(async (req, res, next) => {
   // console.log(decoded);
 
   //3) check if user still exists
-  const currentUser = await User.findById(decoded.id);
+  const currentEmployee = await Employee.findById(decoded.id);
 
-  if (!currentUser) {
+  if (!currentEmployee) {
     return next(
       new AppError(`the user belonging to this token no longer not exist`, 401)
     );
   }
 
   //4) check if the password is changed
-  if (currentUser.changedPasswordAfter(decoded.iat)) {
+  if (currentEmployee.changedPasswordAfter(decoded.iat)) {
     return next(
       new AppError(
         'The password is changed ! log in again with updated password',
@@ -107,7 +108,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
   // GRant access to protected route
-  req.user = currentUser;
+  req.user = currentEmployee;
   console.log(req.user);
   next();
 });
@@ -126,7 +127,7 @@ exports.restrictTo =
 //fix this
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
-  const user = await User.findOne({ email: req.body.email });
+  const user = await Employee.findOne({ email: req.body.email });
   if (!user) {
     return next(new AppError('There is no user with email address.', 404));
   }
@@ -172,7 +173,7 @@ exports.resetPassword = async (req, res, next) => {
     .update(req.params.token)
     .digest('hex');
 
-  const user = await User.findOne({
+  const user = await Employee.findOne({
     passwordResetToken: hashedtoken,
     passwordResetExpires: { $gt: Date.now() },
   });
@@ -195,7 +196,7 @@ exports.resetPassword = async (req, res, next) => {
 
 exports.updatePassword = async (req, res, next) => {
   //1) get user from collection
-  const user = await User.findById(req.user._id).select('+password');
+  const user = await Employee.findById(req.user._id).select('+password');
 
   //2) check if POSTed password is correct
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {

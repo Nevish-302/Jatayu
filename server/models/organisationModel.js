@@ -1,6 +1,7 @@
 const Employee = require('./employeeModel');
 const mongoose = require('mongoose');
 const Session = require('./session.model'); 
+const bcrypt=require("bcryptjs");
 
 const organisationSchema = new mongoose.Schema({
     name: {
