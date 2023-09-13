@@ -15,20 +15,6 @@ const initialValues = {
   confirmPassword: "",
 };
 
-const [resource, setresource] = useState({
-  type: "",
-  number: 0,
-});
-const handlework = async (arrayHelpers) => {
-  await setData((ata) => {
-    return {
-      ...ata,
-      contactResources: [...ata.resource, resource],
-    };
-  });
-  setresource({ name: "", number: "" });
-};
-
 const validationSchema = Yup.object().shape({
   departmentType: Yup.string().required("Department Type is required"),
   organizationName: Yup.string().required("Organization Name is required"),
@@ -64,6 +50,7 @@ const SignupForm = () => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values) => {
+            // Handle form submission here
             console.log(values);
           }}
         >
@@ -152,63 +139,6 @@ const SignupForm = () => {
                   name="contactResources"
                   render={(arrayHelpers) => (
                     <div>
-                      {arrayHelpers.form.values.contactResources.map(
-                        (_, index) => (
-                          <div key={index} className="flex">
-                            <div className="flex-grow">
-                              <Field
-                                type="text"
-                                name={`contactResources[${index}].name`}
-                                placeholder="Resource Name"
-                                className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
-                              />
-                              <ErrorMessage
-                                name={`contactResources[${index}].name`}
-                                component="div"
-                                className="text-red-600 text-sm mt-1"
-                              />
-                            </div>
-                            <div className="w-1/2 ml-4">
-                              <Field
-                                type="text"
-                                name={`contactResources[${index}].number`}
-                                placeholder="Resource Number"
-                                className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
-                              />
-                              <ErrorMessage
-                                name={`contactResources[${index}].number`}
-                                component="div"
-                                className="text-red-600 text-sm mt-1"
-                              />
-                            </div>
-                            <div className="ml-4">
-                              {index > 0 && (
-                                <button
-                                  type="button"
-                                  onClick={() => arrayHelpers.remove(index)}
-                                  className="text-red-600"
-                                >
-                                  Remove
-                                </button>
-                              )}
-                            </div>
-                          </div>
-                        )
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => handlework(arrayHelpers)}
-                        className="text-blue-500 mt-2"
-                      >
-                        + Add Resource
-                      </button>
-                    </div>
-                  )}
-                />
-                {/* <FieldArray
-                  name="contactResources"
-                  render={(arrayHelpers) => (
-                    <div>
                       {[...Array(3)].map((_, index) => (
                         <div key={index} className="flex mb-4">
                           <div className="flex-grow">
@@ -255,10 +185,10 @@ const SignupForm = () => {
                             {index > 0 && (
                               <button
                                 type="button"
-                                // onClick={() => arrayHelpers.remove(index)}
+                                onClick={() => arrayHelpers.remove(index)}
                                 className="text-red-600"
                               >
-                                x
+                                Remove
                               </button>
                             )}
                           </div>
@@ -266,10 +196,8 @@ const SignupForm = () => {
                       ))}
                       <button
                         type="button"
-                        onClick={
-                          handlework
-                          // () =>
-                          // arrayHelpers.push({ name: "", number: "" })
+                        onClick={() =>
+                          arrayHelpers.push({ name: "", number: "" })
                         }
                         className="text-blue-500 mt-2"
                       >
@@ -277,7 +205,7 @@ const SignupForm = () => {
                       </button>
                     </div>
                   )}
-                /> */}
+                />
               </div>
               <div className="mb-4 w-9/12">
                 <label htmlFor="password" className="block text-gray-700">
@@ -352,9 +280,31 @@ export default SignupForm;
 // import * as Yup from "yup";
 // import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 // import { useState } from "react";
-// import { Link } from "react-router-dom"; // Import Link from react-router-dom
+// import { Link } from "react-router-dom";
 
-// //const initialValues = ;
+// const initialValues = {
+//   departmentType: "",
+//   organizationName: "",
+//   location: "",
+//   agencyNumber: "",
+//   contactResources: [{ name: "", number: "" }],
+//   password: "",
+//   confirmPassword: "",
+// };
+
+// const [resource, setresource] = useState({
+//   type: "",
+//   number: 0,
+// });
+// const handlework = async (arrayHelpers) => {
+//   await setData((ata) => {
+//     return {
+//       ...ata,
+//       contactResources: [...ata.resource, resource],
+//     };
+//   });
+//   setresource({ name: "", number: "" });
+// };
 
 // const validationSchema = Yup.object().shape({
 //   departmentType: Yup.string().required("Department Type is required"),
@@ -373,30 +323,26 @@ export default SignupForm;
 //     .required("Confirm Password is required"),
 // });
 
-// const signupForm = () => {
+// const SignupForm = () => {
 //   const [showPassword, setShowPassword] = useState(false);
-//   const [initialValues, setinitialvalues] = useState({
-//     departmentType: "",
-//     organizationName: "",
-//     location: "",
-//     agencyNumber: "",
-//     contactResources: [{ name: "", number: "" }],
-//     password: "",
-//     confirmPassword: "",
-//   });
 
 //   const togglePasswordVisibility = () => {
 //     setShowPassword(!showPassword);
 //   };
 
 //   return (
-//     <div className="flex flex-col items-center justify-center pt-10 pb-10 w-full">
+//     <div className="flex flex-col items-center justify-center pt-10 pb-10 w-full z-10 bg-card-fill">
 //       <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-//       <p className="text-sm mb-4 text-gray-500">Register your Organization</p>
-//       <div className="overflow-y-auto w-full max-h-[320px]">
+//       <p className="text-sm mb-4 text-gray-500">
+//         Register your Organization here
+//       </p>
+//       <div className="overflow-y-auto w-full max-h-[320px] custom-scrollbar">
 //         <Formik
 //           initialValues={initialValues}
 //           validationSchema={validationSchema}
+//           onSubmit={(values) => {
+//             console.log(values);
+//           }}
 //         >
 //           {({ isSubmitting }) => (
 //             <Form className="flex flex-col items-center w-full">
@@ -483,11 +429,75 @@ export default SignupForm;
 //                   name="contactResources"
 //                   render={(arrayHelpers) => (
 //                     <div>
-//                       {values.contactResources.map((resource, index) => (
-//                         <div key={index} className="flex">
+//                       {arrayHelpers.form.values.contactResources.map(
+//                         (_, index) => (
+//                           <div key={index} className="flex">
+//                             <div className="flex-grow">
+//                               <Field
+//                                 type="text"
+//                                 name={`contactResources[${index}].name`}
+//                                 placeholder="Resource Name"
+//                                 className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+//                               />
+//                               <ErrorMessage
+//                                 name={`contactResources[${index}].name`}
+//                                 component="div"
+//                                 className="text-red-600 text-sm mt-1"
+//                               />
+//                             </div>
+//                             <div className="w-1/2 ml-4">
+//                               <Field
+//                                 type="text"
+//                                 name={`contactResources[${index}].number`}
+//                                 placeholder="Resource Number"
+//                                 className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+//                               />
+//                               <ErrorMessage
+//                                 name={`contactResources[${index}].number`}
+//                                 component="div"
+//                                 className="text-red-600 text-sm mt-1"
+//                               />
+//                             </div>
+//                             <div className="ml-4">
+//                               {index > 0 && (
+//                                 <button
+//                                   type="button"
+//                                   onClick={() => arrayHelpers.remove(index)}
+//                                   className="text-red-600"
+//                                 >
+//                                   Remove
+//                                 </button>
+//                               )}
+//                             </div>
+//                           </div>
+//                         )
+//                       )}
+//                       <button
+//                         type="button"
+//                         onClick={() => handlework(arrayHelpers)}
+//                         className="text-blue-500 mt-2"
+//                       >
+//                         + Add Resource
+//                       </button>
+//                     </div>
+//                   )}
+//                 />
+//                 {/* <FieldArray
+//                   name="contactResources"
+//                   render={(arrayHelpers) => (
+//                     <div>
+//                       {[...Array(3)].map((_, index) => (
+//                         <div key={index} className="flex mb-4">
 //                           <div className="flex-grow">
+//                             <label
+//                               htmlFor={`contactResources.${index}.name`}
+//                               className="block text-gray-700"
+//                             >
+//                               Resource Name
+//                             </label>
 //                             <Field
 //                               type="text"
+//                               id={`contactResources.${index}.name`}
 //                               name={`contactResources.${index}.name`}
 //                               placeholder="Resource Name"
 //                               className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
@@ -499,8 +509,15 @@ export default SignupForm;
 //                             />
 //                           </div>
 //                           <div className="w-1/2 ml-4">
+//                             <label
+//                               htmlFor={`contactResources.${index}.number`}
+//                               className="block text-gray-700"
+//                             >
+//                               Resource Number
+//                             </label>
 //                             <Field
 //                               type="text"
+//                               id={`contactResources.${index}.number`}
 //                               name={`contactResources.${index}.number`}
 //                               placeholder="Resource Number"
 //                               className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
@@ -515,10 +532,10 @@ export default SignupForm;
 //                             {index > 0 && (
 //                               <button
 //                                 type="button"
-//                                 onClick={() => arrayHelpers.remove(index)}
+//                                 // onClick={() => arrayHelpers.remove(index)}
 //                                 className="text-red-600"
 //                               >
-//                                 Remove
+//                                 x
 //                               </button>
 //                             )}
 //                           </div>
@@ -526,8 +543,10 @@ export default SignupForm;
 //                       ))}
 //                       <button
 //                         type="button"
-//                         onClick={() =>
-//                           arrayHelpers.push({ name: "", number: "" })
+//                         onClick={
+//                           handlework
+//                           // () =>
+//                           // arrayHelpers.push({ name: "", number: "" })
 //                         }
 //                         className="text-blue-500 mt-2"
 //                       >
@@ -535,7 +554,7 @@ export default SignupForm;
 //                       </button>
 //                     </div>
 //                   )}
-//                 />
+//                 /> */}
 //               </div>
 //               <div className="mb-4 w-9/12">
 //                 <label htmlFor="password" className="block text-gray-700">
@@ -603,4 +622,4 @@ export default SignupForm;
 //   );
 // };
 
-// export default signupForm;
+// export default SignupForm;
