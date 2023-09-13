@@ -13,7 +13,8 @@ const filterObj = (obj,...allowedFields) => {
   };
   
 exports.getMe = (req, res, next) => {
-    req.params.id = req.employee.id;
+    req.params.id = req.body.id;
+    console.log("Oh Ho!!!")
     next();
 };
 
@@ -57,6 +58,7 @@ exports.updateOrganisation = catchAsync(async(req, res, next) => {
 })
 
 exports.getOrganisation = factory.getOne(Organisation);
+
 exports.getAllOrganisation = catchAsync(async(req, res) => {
     const {_id, type} = req.body
     const {location} = await Organisation.findOne({_id : _id})

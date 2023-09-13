@@ -2,6 +2,7 @@ const express = require('express');
 const organisationController = require('../controllers/organisationController');
 const OauthController = require('../controllers/OauthController');
 const EauthController = require('../controllers/EauthController');
+const employeeController = require("../controllers/employeeController")
 
 const router = express.Router();
 
@@ -18,21 +19,22 @@ router.patch('/resetPassword/:token', OauthController.resetPassword);
 router.use(OauthController.protect);
 
 router.route('/me').get(organisationController.getMe, organisationController.getOrganisation);
+
 router.patch('/updateMe', organisationController.updateOrganisation);
 router.delete('/deleteMe', organisationController.deleteOrganisation);
 
 //router.use(OauthController.restrictTo('admin'));
 //
-//router
-//  .route('/')
-//  .get(organisationController.getAllEmployees)
-//  .post(organisationController.createEmployee);
-//
-//router
-//  .route('/:id')
-//  .get(organisationController.getEmployee)
-//  .patch(organisationController.updateEmployee)
-//  .delete(organisationController.deleteEmployee);
+router
+  .route('/')
+  .get(employeeController.getAllEmployees)
+  .post(employeeController.createEmployee);
+
+router
+  .route('/:id')
+  .get(employeeController.getEmployee)
+  .patch(employeeController.updateEmployee)
+  .delete(employeeController.deleteEmployee);
 
 module.exports = router;
 
