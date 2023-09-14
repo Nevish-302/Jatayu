@@ -69,6 +69,7 @@ exports.createRequest = catchAsync(async (req, res, next) => {
 });
 
 //we will update anything except password :)
+
 exports.updateEmployee = factory.updateOne(Employee);
 exports.deleteEmployee = factory.deleteOne(Employee);
 exports.createEmployee = factory.createOne(Employee);

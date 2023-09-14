@@ -15,7 +15,7 @@ exports.sendRequest = async (req, res, next) => {
       { $push: { requests: newRequest } }, // Add the new request to the requests array
       { new: true } // Return the updated organization document
     );
-
+    
     // Check if the organization exists
     if (!organization) {
       return next(new AppError('Organization not found', 404));
