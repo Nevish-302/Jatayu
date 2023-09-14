@@ -60,6 +60,7 @@ socketIo.on('connection', socket=>{
 
   //create a socket listener for all organisation that when this is emitted , the requests will refresh on each organisation
   //or simply put, reinvoke the function of get requests that will be created
+  //request why and new funcs accordingly
   socket.on('req-from-org', async (request, cb) =>{
     //socket.join(room)
     if(request.senderId && request.receiverId){
@@ -67,6 +68,8 @@ socketIo.on('connection', socket=>{
     const sendOrg = await Organisation.findOneAndUpdate({_id : request.senderId}, {$push : {requests : request}})
     const receiveOrg = await Organisation.findOneAndUpdate({_id : request.receiverId}, {$push : {requests : request}})
     console.log(reqOrg)
+    //if the current _id and broadcast _id is same, then re requet the requests 
+    socket.broadcast.emit('receive-request', receiveOrg._id)
     cb(
       {
         status: "success",
