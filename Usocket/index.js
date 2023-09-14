@@ -1,6 +1,5 @@
 const { Server } = require("socket.io");
-const {getRequests} = require("../server/controllers/requestController");
-// const Organisation=require("../models/OrganisationModel.js");
+
 const io = new Server({
   cors: {
     origin: "*",
@@ -29,21 +28,23 @@ io.on('connection', (socket) => {
 
 
   //add request 
-  socket.on("new-request", (newRequest)=>{
+  socket.on("new-request", async(newRequest)=>{
     console.log(newRequest);
     console.log("hello");
 
-    const organisation = organizations.find((organisation) => organisation.Id === newRequest.receiverId);
+    const organisation =await organizations.find((organisation) => organisation.Id === newRequest.receiverId);
 
     console.log("org",organisation);
     if(organisation){
-      io.to(organisation.socketId).emit("get-request", newRequest )
 
-    //   socket.on("get-request" ,(request) =>{
-    //     Request = request;
-    //     console.log(request);
-    // 
-    //   })
+    io.to(organisation.socketId).emit("get-request", newRequest);
+
+      socket.on("get-request" ,(request , organisation) =>{
+        
+        console.log(request , organisation);
+       
+    
+      })
 
 
     //   io.to(organisation.socketId).emit("getNotification", {senderId: message.senderId,
@@ -64,3 +65,4 @@ io.on('connection', (socket) => {
 
 
 io.listen(9000);
+module.exports = { io };
