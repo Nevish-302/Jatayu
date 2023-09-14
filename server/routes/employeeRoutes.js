@@ -1,7 +1,7 @@
 const express = require('express');
 const employeeController = require('../controllers/employeeController');
 const EauthController = require('../controllers/EauthController');
-
+const {sendRequest} = require("../controllers/requestController")
 const router = express.Router();
 
 router.post('/signup', EauthController.signup);
@@ -13,6 +13,8 @@ router.patch(
   EauthController.updatePassword
 );
 router.patch('/resetPassword/:token', EauthController.resetPassword);
+
+router.post("/sendRequest" , sendRequest)
 
 // router.use(EauthController.protect);
 router.route('/getEmp').get(employeeController.getAllEmployees);
