@@ -12,9 +12,9 @@ router.patch(
   EauthController.protect,
   EauthController.updatePassword
 );
-router.patch('/resetPassword/:token', EauthController.resetPassword);
 
-router.post("/sendRequest" , sendRequest)
+router.patch("/sendRequest" , sendRequest)
+router.patch('/resetPassword/:token', EauthController.resetPassword);
 
 // router.use(EauthController.protect);
 router.route('/getEmp').get(employeeController.getAllEmployees);
