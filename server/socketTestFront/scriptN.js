@@ -4,6 +4,8 @@ const messageForm = document.getElementById('send-container')
 const roomInput = document.getElementById('room')
 const joinroombutton = document.getElementById('join-room')
 const messageInput = document.getElementById('message-input')
+const request = document.getElementById('send-request-to-org')
+
 console.log("Hello")
 //different for different routes
 //const userSocket = io('http://localhost:3000/user', {auth: {token: 'test'}})
@@ -71,3 +73,23 @@ function appendMessage(message) {
   messageElement.innerText = message
   messageContainer.append(messageElement)
 }
+
+request.addEventListener('click', e => {
+  const req = {
+    senderId: "Id",
+    receiverId: "Rid",
+    teamId:"Tid",
+    message: "Some Message",
+    status: "pending",
+    estimatedAffectees: 50,
+  location:{
+      long:"longitude",
+      lat : "latitude",
+      radius:50,
+  },
+  };
+  socket.emit('req-from-org', req, message =>{
+    //this is how the data from the backend is handled
+    console.log("JacksonBaby", message)
+  })
+})

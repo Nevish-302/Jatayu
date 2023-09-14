@@ -30,7 +30,9 @@ process.on('unhandledRejection', (err) => {
 
 //var http = require("http").Server(app);
 //var io = require("socket.io")(http);
-
+const Request = require('./models/requestModel')
+const Organisation = require('./models/organisationModel'
+)
 const io = require("socket.io")(server, {
   cors : {
     //origin : ["http://localhost:8080", "https://admin.socket.io/"],
@@ -55,4 +57,32 @@ socketIo.on('connection', socket=>{
       socket.join(room)
       cb(`Joined Room : ${room}`)
   })
+
+  //create a socket listener for all organisation that when this is emitted , the requests will refresh on each organisation
+  //or simply put, reinvoke the function of get requests that will be created
+  socket.on('req-from-org', async (request, cb) =>{
+    //socket.join(room)
+    if(request.senderId && request.receiverId){
+    const reqOrg = await Request.create(request)
+    const sendOrg = await Organisation.findOneAndUpdate({_id : request.senderId}, {$push : {requests : request}})
+    const receiveOrg = await Organisation.findOneAndUpdate({_id : request.receiverId}, {$push : {requests : request}})
+    console.log(reqOrg)
+    cb(
+      {
+        status: "success",
+        data: {
+            request : reqOrg,
+        }
+    })
+  }
+    else
+    {
+      cb({
+        status: "failure",
+        data: {
+            message : "provide the teamid and organisation id",
+        }
+    })
+    }
+})
 })
