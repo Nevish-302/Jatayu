@@ -33,6 +33,7 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+//Change
 app.use(cors({
   origin: '*'
 }));

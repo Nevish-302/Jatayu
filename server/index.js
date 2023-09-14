@@ -41,6 +41,7 @@ const io = require("socket.io")(server, {
     origin : "*",
   }
 })
+module.exports=io
 
 const socketIo = io.of('/socket') 
 
@@ -157,7 +158,7 @@ socket.on('assign-team-resource', async (request, cb) =>{
 //Team Getting Resource
 socket.on('team-get-resource', async (request, cb) =>{
   
-  if(!request.teamId){
+  if(request.teamId){
   const team = await Team.findOne({_id : request.teamId})
   if(!team)
   {
