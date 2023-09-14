@@ -10,7 +10,7 @@ const teamGetResource = document.getElementById('team-get-resource')
 console.log("Hello")
 //different for different routes
 //const userSocket = io('http://localhost:3000/user', {auth: {token: 'test'}})
-const socket = io('http://localhost:4000/socket')
+const socket = io('https://jatayu.onrender.com/socket')
 
 socket.on("connect",()=> {
 appendMessage(`Connected with id : ${socket.id}`)
