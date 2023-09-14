@@ -12,7 +12,6 @@ const teamSchema = new Schema(
         },
         sessionId : {
             type : mongoose.Schema.Types.ObjectId,
-            required: [true, 'session should be specified'],
         },
         //location : {
         //    type : Object,
@@ -30,16 +29,18 @@ const teamSchema = new Schema(
         resources:{
             type : Array,
             members : {
-                name : {type : String},
+                type : {type : String},
                 quantity : {type : String},
                 organisationId : {
                     type : mongoose.Schema.Types.ObjectId,
                     required: true},
+                at : new Date,
             }
         },
         Organisation : {
             type : mongoose.Schema.Types.ObjectId,
-            required: true},
+            required: true
+        },
         redZones:{
             type : Array,
             members:{ 

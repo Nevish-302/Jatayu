@@ -31,6 +31,8 @@ process.on('unhandledRejection', (err) => {
 //var http = require("http").Server(app);
 //var io = require("socket.io")(http);
 const Request = require('./models/requestModel')
+const Team = require('./models/team.model')
+const TypeObj = require('mongoose').Types.ObjectId
 const Organisation = require('./models/organisationModel'
 )
 const io = require("socket.io")(server, {
@@ -63,11 +65,14 @@ socketIo.on('connection', socket=>{
   //request why and new funcs accordingly
   socket.on('req-from-org', async (request, cb) =>{
     //socket.join(room)
+    console.log(request, request.senderId);
+    const senderId = request.senderId
+    const receiverId = request.receiverId
     if(request.senderId && request.receiverId){
     const reqOrg = await Request.create(request)
-    const sendOrg = await Organisation.findOneAndUpdate({_id : request.senderId}, {$push : {requests : request}})
-    const receiveOrg = await Organisation.findOneAndUpdate({_id : request.receiverId}, {$push : {requests : request}})
-    console.log(reqOrg)
+    const sendOrg = await Organisation.findOneAndUpdate({_id : new TypeObj(senderId)}, {$push : {requests : reqOrg._id}})
+    const receiveOrg = await Organisation.findOneAndUpdate({_id : new TypeObj(receiverId)}, {$push : {requests : reqOrg._id}})
+    console.log(reqOrg, sendOrg)
     //if the current _id and broadcast _id is same, then re requet the requests 
     socket.broadcast.emit('receive-request', receiveOrg._id)
     cb(
@@ -87,5 +92,100 @@ socketIo.on('connection', socket=>{
         }
     })
     }
+})
+
+//Organisation Sending Resource
+socket.on('assign-team-resource', async (request, cb) =>{
+  //socket.join(room)
+  if(request.organisationId && request.teamId){  
+    const organisation = await Organisation.findOne({_id : request.organisationId})
+    const team = await Team.findOne({_id : request.teamId})
+    let assigned = false
+    console.log(organisation, organisation.resources)
+    organisation.resources.forEach(async (resource) => {
+      if(resource.type == request.resource.type)
+      {
+        if(resource.number - request.resource.number >= 0)
+        {
+          //assign resource
+        const team = await Team.findOneAndUpdate({_id : request.teamId}, {$push : {resources : request.resource}})
+        const organisation = await Organisation.findOneAndUpdate({_id : request.organisationId, 'resources.type': resource.type}, { $inc: { 'resources.$.number': -1 * request.resource.number}})
+        assigned = true;
+        console.log("Hello, jkfdkjlsdf")
+        cb(
+          {
+            status: "success",
+            data: {
+                request : organisation.resources,
+            }
+        })
+      }
+      else{
+        cb({
+          status: "failure",
+          data: {
+              message : "not enough resources",
+          }
+      })
+      }
+    }
+  })
+  console.log(assigned)
+  if(!assigned){
+//  cb({
+//    status: "failure",
+//    data: {
+//        message : "No such resource",
+//    }
+//})
+}
+  console.log(request.teamId)
+  //if the current _id and broadcast _id is same, then re requet the requests 
+  socket.broadcast.emit('receive-resource', request.teamId)
+}
+  else
+  {
+    cb({
+      status: "failure",
+      data: {
+          message : "provide the teamid and organisation id",
+      }
+  })
+  }
+})
+
+//Team Getting Resource
+socket.on('team-get-resource', async (request, cb) =>{
+  
+  if(!request.teamId){
+  const team = await Team.findOne({_id : request.teamId})
+  if(!team)
+  {
+    cb(
+      {
+        status: "failure",
+        data: {
+            message : "No Such Team Exists" ,
+        }
+    }
+    )
+  }
+  cb(
+    {
+      status: "success",
+      data: {
+          resource : team.resources ,
+      }
+  })
+}
+  else
+  {
+    cb({
+      status: "failure",
+      data: {
+          message : "Provide the team id",
+      }
+  })
+  }
 })
 })

@@ -3,6 +3,7 @@ const organisationController = require('../controllers/organisationController');
 const OauthController = require('../controllers/OauthController');
 const EauthController = require('../controllers/EauthController');
 const employeeController = require("../controllers/employeeController")
+const teamController = require('../controllers/teamController')
 
 const router = express.Router();
 
@@ -24,6 +25,9 @@ router.patch('/updateMe', organisationController.updateOrganisation);
 router.delete('/deleteMe', organisationController.deleteOrganisation);
 
 //router.use(OauthController.restrictTo('admin'));
+router.route('/teamCreate').post(teamController.createTeam)
+
+router.route('/addToTeam').post(teamController.addEmployee)
 
 router
   .route('/')

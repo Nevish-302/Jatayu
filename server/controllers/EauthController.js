@@ -6,6 +6,7 @@ const catchAsync = require('../utils/catchAsync');
 const bcrypt=require("bcryptjs");
 const AppError = require('../utils/appError');
 const sendEmail = require('../utils/email');
+const Organisation = require('../models/organisationModel')
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -43,9 +44,10 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    organisation : req.body.organisation,
     role: req.body.role,
   });
-
+  const Org = await Organisation.findOneAndUpdate({_id : newEmployee.organisation}, {$push : {employees : newEmployee._id}})
   createSendToken(newEmployee, 201, res);
 });
 

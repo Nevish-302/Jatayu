@@ -43,8 +43,8 @@ exports.updateOrganisation = catchAsync(async(req, res, next) => {
 
     //values not supposed to be updated
     const filteredBody = filterObj(req.body, "name", "Id", "employees");
-    
-    const updatedOrganisation = await Employee.findByIdAndUpdate(req.organisation._id, filteredBody, {
+    console.log("filter", filteredBody, "HI", req.body, req.body.resources)    
+    const updatedOrganisation = await Organisation.findByIdAndUpdate(req.body._id, req.body, {
         new: true,
         runValidators: true,
       });

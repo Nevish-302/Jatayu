@@ -14,7 +14,7 @@ exports.getMe = (req, res, next) => {
 exports.addEmployee = catchAsync(async (req, res, next) => {
     const {empId, teamId} = req.body
     let employee = await Employee.findOne({_id : empId})
-    if(!Id || !employee)
+    if(!empId || !teamId)
     {
         //explain to me how AppError works once
         return new AppError(

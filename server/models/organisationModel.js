@@ -59,6 +59,7 @@ const organisationSchema = new mongoose.Schema({
             },
             available: {
                 type: Boolean,
+                default : true,
             },
         },
     ],
