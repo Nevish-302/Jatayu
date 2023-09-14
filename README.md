@@ -1,4 +1,4 @@
-# Jatayu Disaster Management
+# Jatayu Disaster Management System
 
 Welcome to the Jatayu Disaster Management project repository!
 
