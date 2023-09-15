@@ -15,6 +15,10 @@ const requestSchema = new mongoose.Schema({
     type:String,
     required:true,
   },
+  sessionId:{
+    type:String,
+    // required:true,
+  },
   message: {
     type: String,
     required: true,

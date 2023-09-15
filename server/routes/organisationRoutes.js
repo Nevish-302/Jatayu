@@ -9,6 +9,9 @@ const router = express.Router();
 
 router.post('/signup', OauthController.signup);
 router.post('/login', OauthController.login);
+
+router.post('/employee-signup', EauthController.signup);
+
 router.post('/forgotPassword', OauthController.forgotPassword);
 router.patch(
   '/updateMyPassword',

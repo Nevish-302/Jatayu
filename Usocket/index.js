@@ -15,7 +15,7 @@ let Request;
 io.on('connection', (socket) => {
   console.log('new connection', socket.id);
 
-//   //listen to  a connection
+//   listen to  a connection
   socket.on('addOrganizations', (Id) => {
     !organizations.some((organisation) => organisation.Id === Id) &&
       organizations.push({
@@ -39,12 +39,9 @@ io.on('connection', (socket) => {
 
     io.to(organisation.socketId).emit("get-request", newRequest);
 
-      socket.on("get-request" ,(request , organisation) =>{
-        
-        console.log(request , organisation);
-       
-    
-      })
+      // socket.on("get-request" ,(request , organisation) =>{
+      //   console.log(request , organisation);
+      // })
 
 
     //   io.to(organisation.socketId).emit("getNotification", {senderId: message.senderId,
@@ -54,6 +51,7 @@ io.on('connection', (socket) => {
     //   )
     }
   })
+
 
   socket.on("disconnect", ()=>{
     organizations = organizations.filter((organisation)=> organisation.socketId !== socket.id);

@@ -28,7 +28,9 @@ exports.sendRequest = async (req, res, next) => {
     //   console.error('Socket.io not initialized properly');
     // }
 
-    res.status(201).json({ message: 'Request created successfully' });
+    res.status(201).json({ message: 'Request created successfully',
+  data:newRequest });
+  
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error creating request' });

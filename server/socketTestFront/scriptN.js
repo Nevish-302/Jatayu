@@ -8,7 +8,7 @@ const request = document.getElementById('send-request-to-org')
 const assignTeamResource = document.getElementById('assign-team-resource')
 const teamGetResource = document.getElementById('team-get-resource')
 console.log("Hello")
-//different for different routes
+//different for different routesb
 //const userSocket = io('http://localhost:3000/user', {auth: {token: 'test'}})
 const socket = io('http://localhost:4000/socket')
 
