@@ -23,6 +23,7 @@ import LineChart from "./pages/DashPage1/page/lineChart/LineChart";
 import Geography from "./pages/DashPage1/page/geography/Geography";
 import NotFound from "./pages/DashPage1/page/notFound/NotFound";
 import Dashboard from "./pages/DashPage1/page/dashboard/Dashboard";
+import Meta from "./pages/meta";
 
 const App = () => {
   return (
@@ -69,6 +70,7 @@ const App = () => {
               {/* NotFound */}
               <Route path="*" element={<NotFound />} />
             </Route>
+            <Route path="/meta" element={<Meta />} />
           </Routes>
         </BrowserRouter>
       </div>
