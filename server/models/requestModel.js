@@ -48,6 +48,18 @@ location:{
         default:50,
     }
 },
+redZones:{
+  type : Array,
+  members : { 
+  long : {type : String},
+  lat : {type : String},
+  severity : {type : Number},
+  radius : {
+      type: Number,
+      default : 10,
+  },
+  }
+},
 affectees: {
     type : Array,
     members: {
