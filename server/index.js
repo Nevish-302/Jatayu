@@ -126,6 +126,36 @@ socket.on('req-from-emp', async (request, cb) =>{
   }
 })
 
+socket.on('req-to-emp', async (request, cb) =>{
+  //socket.join(room)
+  console.log(request, request.senderId);
+  const senderId = request.senderId
+  const receiverId = request.receiverId
+  if(request.senderId && request.receiverId){
+  const reqOrg = await Request.create(request)
+  const receiveOrg = await Team.findOneAndUpdate({_id : new TypeObj(senderId)}, {$push : {requests : reqOrg._id}})
+  const sendOrg = await Organisation.findOneAndUpdate({_id : new TypeObj(receiverId)}, {$push : {requests : reqOrg._id}})
+  console.log(reqOrg, sendOrg)
+  //if the current _id and broadcast _id is same, then re requet the requests 
+  socket.broadcast.emit('receive-request', receiveOrg._id)
+  cb(
+    {
+      status: "success",
+      data: {
+          request : reqOrg,
+      }
+  })
+}
+  else
+  {
+    cb({
+      status: "failure",
+      data: {
+          message : "provide the teamid and organisation id",
+      }
+  })
+  }
+})
 
 //Organisation Sending Resource
 socket.on('assign-team-resource', async (request, cb) =>{

@@ -3,6 +3,9 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const factory = require('./handlerFactory')
 
+const Team = require('../models/team.model')
+const Session = require('../models/session.model')
+
 const filterObj = (obj,...allowedFields) => {
     console.log(obj);
     const newObj = {};
@@ -59,6 +62,18 @@ exports.updateOrganisation = catchAsync(async(req, res, next) => {
 
 exports.getOrganisation = factory.getOne(Organisation);
 
+exports.getAllOrganisationBySession = catchAsync(async(req, res) => {
+  const {_id, sessionId} = req.body
+  const session = Session.findOne({_id : _id})
+  
+  res.status(200).json({
+    status: "success",
+    data: {
+        organisations : session.organisations,
+    }
+})
+})
+
 exports.getAllOrganisation = catchAsync(async(req, res) => {
     const {_id, type} = req.body
     const {location} = await Organisation.findOne({_id : _id})
@@ -109,6 +124,5 @@ exports.AcceptReqFromOff = catchAsync(async(req, res) => {
         }
     })
 })
-
 
 exports.deleteOrganisation = factory.deleteOne(Organisation);
