@@ -1,6 +1,7 @@
 const mongoose =require("mongoose");
 const {Schema} = mongoose;
 const Request = require('./requestModel');
+const Employee = require('./employeeModel');
 
 const teamSchema = new Schema(
     {
@@ -8,6 +9,7 @@ const teamSchema = new Schema(
             type : Array,
             members : {
                 type : mongoose.Schema.Types.ObjectId,
+                ref:'Employee'
             }
         },
         sessionId : {

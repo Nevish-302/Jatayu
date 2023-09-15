@@ -1,18 +1,21 @@
 const mongoose = require('mongoose');
+const Employee = require('./employeeModel');
 
 const requestSchema = new mongoose.Schema({
   senderId: {
     // type: mongoose.Schema.Types.ObjectId,
-    type:String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Employee',
     required: true,
   },
   receiverId: {
-    // type: mongoose.Schema.Types.ObjectId,
-    type:String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Employee',
     // required: true,
   },
   teamId:{
-    type:String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Employee',
     required:true,
   },
   sessionId:{
@@ -43,10 +46,10 @@ location:{
     lat : {
         type : String
     },
-    radius:{
-        type:Number,
-        default:50,
-    }
+    // radius:{
+    //     type:Number,
+    //     default:50,
+    // }
 },
 redZones:{
   type : Array,
