@@ -113,6 +113,25 @@ exports.getAllOrganisation = catchAsync(async(req, res) => {
     })
 })
 
+exports.getAllRequests = catchAsync(async (req, res) => {
+  const { orgId } = req.params;
+
+  // Find the organization based on orgId and populate the requests array
+  const organization = await Organisation.findById(orgId).populate('requests');
+
+  if (!organization) {
+    return next(new AppError('Organization not found', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      requests: organization.requests,
+    },
+  });
+});
+
+
 exports.AcceptReqFromOff = catchAsync(async(req, res) => {
     const {request} = req.body
     const org = await Organisation.findOneAndUpdate({_id : OrgId, "notifications.at" : request.at}, {$set : {'notifications.$.status' : true}})

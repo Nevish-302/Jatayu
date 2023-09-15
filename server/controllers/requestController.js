@@ -1,38 +1,25 @@
-// requestController.js
 const Request = require('../models/requestModel');
-const  Organisation = require('../models/organisationModel');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-// Function to send a request
-exports.sendRequest = async (req, res, next) => {
-  try {
-    // Assuming you have the necessary request data in req.body
-    const newRequest = new Request(req.body);
-    await newRequest.save();
+// Function to get a request by requestId
+exports.getRequestById = catchAsync(async (req, res, next) => {
+  const { requestId } = req.params;
 
-    // Find the organization based on receiverId
-    const organization = await Organisation.findOneAndUpdate(
-      { Id: newRequest.receiverId },
-      { $push: { requests: newRequest } }, // Add the new request to the requests array
-      { new: true } // Return the updated organization document
-    );
-
-    // Check if the organization exists
-    if (!organization) {
-      return next(new AppError('Organization not found', 404));
-    }
-
-    // Emit a socket event to notify the organization about the new request
-    // if (io) {
-    //   io.emit('new-request', newRequest);
-    // } else {
-    //   console.error('Socket.io not initialized properly');
-    // }
-
-    res.status(201).json({ message: 'Request created successfully',
-  data:newRequest });
-  
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error creating request' });
+  if (!requestId) {
+    return next(new AppError('Request ID is missing.', 400));
   }
-};
+
+  const request = await Request.findById(requestId);
+
+  if (!request) {
+    return next(new AppError('Request not found', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      request,
+    },
+  });
+});

@@ -68,6 +68,23 @@ exports.createRequest = catchAsync(async (req, res, next) => {
   }
 });
 
+exports.getAllRequestsByTeamId = catchAsync(async (req, res) => {
+  const { teamId } = req.employee; // Assuming the employee's teamId is available in req.employee
+
+  // Find all requests where either senderId or receiverId matches the employee's teamId
+  const requests = await Request.find({
+    $or: [{ senderId: teamId }, { receiverId: teamId }],
+  });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      requests,
+    },
+  });
+});
+
+
 //we will update anything except password :)
 
 exports.updateEmployee = factory.updateOne(Employee);
