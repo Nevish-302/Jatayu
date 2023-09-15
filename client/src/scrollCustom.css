@@ -1,0 +1,15 @@
+/* For WebKit-based browsers (Chrome, Safari) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(169, 169, 169, 0.5); /* Grey color with transparency */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(169, 169, 169, 0.5) transparent;
+}
