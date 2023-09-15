@@ -114,19 +114,9 @@ assignTeamResource.addEventListener('click', e => {
 
 teamGetResource.addEventListener('click', e => {
   const req = {
-    senderId: `6501d4d938aa24e624404d60`,
-    receiverId: "6501d4e138aa24e624404d63",
-    teamId:"Tid",
-    message: "Some Message",
-    status: "pending",
-    estimatedAffectees: 50,
-  location:{
-      long:"longitude",
-      lat : "latitude",
-      radius:50,
-  },
+    teamId:"6503559a493fe195aaa42e18", 
   };
-  socket.emit('req-from-org', req, message =>{
+  socket.emit('team-get-resource', req, message =>{
     //this is how the data from the backend is handled
     console.log("JacksonBaby", message)
   })
