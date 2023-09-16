@@ -77,7 +77,7 @@ function appendMessage(message) {
 
 request.addEventListener('click', e => {
   const req = {
-    senderId: `6501d4d938aa24e624404d60`,
+    senderId: `6503559a493fe195aaa42e18`,
     receiverId: "6501d4e138aa24e624404d63",
     teamId:"Tid",
     message: "Some Message",
@@ -89,7 +89,7 @@ request.addEventListener('click', e => {
       radius:50,
   },
   };
-  socket.emit('req-from-org', req, message =>{
+  socket.emit('req-from-emp', req, message =>{
     //this is how the data from the backend is handled
     console.log("JacksonBaby", message)
   })

@@ -63,7 +63,7 @@ exports.updateOrganisation = catchAsync(async(req, res, next) => {
 exports.getOrganisation = factory.getOne(Organisation);
 
 exports.getAllOrganisationBySession = catchAsync(async(req, res) => {
-  const {_id, sessionId} = req.body
+  const {_id} = req.body
   const session = Session.findOne({_id : _id})
   
   res.status(200).json({

@@ -113,6 +113,10 @@ const sessionSchema = new Schema(
         //     },
         // },
         //for socket: type:String
+        status: {
+            type : Boolean,
+            default : true
+        }
     },
     {
             timestamps:true,
