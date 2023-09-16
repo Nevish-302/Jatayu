@@ -21,7 +21,7 @@ exports.getMe = (req, res, next) => {
     next();
 };
 
-  
+
 exports.createOrganisation = catchAsync(async(req, res) => {
     const {email} = await req.body;
     const org = await Organisation.findOne({"contact.email" : email});

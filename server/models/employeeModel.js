@@ -10,6 +10,10 @@ const employeeSchema = new mongoose.Schema({
         unique: true,
         index: true,
     },
+    name:{
+      type:String,
+      required:true
+    },
     location: {
       type : Object,
       long:{

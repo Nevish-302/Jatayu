@@ -69,20 +69,35 @@ exports.createRequest = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllRequestsByTeamId = catchAsync(async (req, res) => {
-  const { teamId } = req.employee; // Assuming the employee's teamId is available in req.employee
+  const { teamId } = req.params; // Assuming the teamId is available in the URL params
 
-  // Find all requests where either senderId or receiverId matches the employee's teamId
-  const requests = await Request.find({
-    $or: [{ senderId: teamId }, { receiverId: teamId }],
-  });
+  // const requests = await Request.find({
+  //   $or: [{ senderId: teamId }, { receiverId: teamId }],
+  // });
+  const requests = await Request.find({teamId} );
+  console.log(requests);
+
+  if (requests.length === 0) {
+    return res.status(200).json({
+      status: 'success',
+      message: 'No requests found for the provided teamId.',
+      
+      data: {
+        requests: [],
+      },
+    });
+  }
 
   res.status(200).json({
     status: 'success',
+    size:requests.length,
     data: {
       requests,
     },
   });
 });
+
+
 
 
 //we will update anything except password :)
