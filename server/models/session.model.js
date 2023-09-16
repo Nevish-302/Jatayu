@@ -104,20 +104,10 @@ const sessionSchema = new Schema(
             at : new Date(),
             }
         },
-        // notifications: {
-        //     type: Array,
-        //     members: {
-        //         senderId: { type: mongoose.Schema.Types.ObjectId },
-        //         receiverId: { type: mongoose.Schema.Types.ObjectId },
-        //         message: { type: String },
-        //         at: { type: Date, default: Date.now() },
-        //     },
-        // },
-        //for socket: type:String
-        status: {
-            type : Boolean,
-            default : true
-        }
+        active: {
+            type: Boolean, // Change the type to Boolean
+            default: false, // You can set a default value if needed
+          },
     },
     {
             timestamps:true,
