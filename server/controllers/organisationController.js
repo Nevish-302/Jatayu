@@ -5,6 +5,7 @@ const factory = require('./handlerFactory')
 
 const Team = require('../models/team.model')
 const Session = require('../models/session.model')
+const Employee = require('../models/employeeModel');
 
 const filterObj = (obj,...allowedFields) => {
     console.log(obj);
@@ -113,6 +114,25 @@ exports.getAllOrganisation = catchAsync(async(req, res) => {
     })
 })
 
+exports.getAllEmployeesOfOrganization = async (req, res) => {
+  try {
+    const organizationId = req.params.organizationId; // Assuming you pass the organizationId as a route parameter
+    const employees = await Employee.find({ organisation: organizationId });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        employees,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 'error',
+      message: err.message,
+    });
+  }
+};
+
 exports.getAllRequests = catchAsync(async (req, res) => {
   const { orgId } = req.params;
 
@@ -131,17 +151,44 @@ exports.getAllRequests = catchAsync(async (req, res) => {
   });
 });
 
+exports.AcceptReqFromOff = catchAsync(async (req, res) => {
+  const { request } = req.body;
 
-exports.AcceptReqFromOff = catchAsync(async(req, res) => {
-    const {request} = req.body
-    const org = await Organisation.findOneAndUpdate({_id : OrgId, "notifications.at" : request.at}, {$set : {'notifications.$.status' : true}})
-    const session = await Session.create({notifications : [request]})
+  // Assuming request.receiverId contains the organization's ObjectId
+  const initiatiorOrganisationId = request.receiverId;
+
+  try {
+    // Create a new session with the request and set active to true
+    const session = await Session.create({
+      initiatiorOrganisationId, // Set the initiator organization's ID
+      notifications: [request],
+      active: true,
+    });
+
+    // Update the status in the organization's notifications
+    const org = await Organisation.findOneAndUpdate(
+      { _id: initiatiorOrganisationId, "notifications.at": request.at },
+      { $set: { 'notifications.$.status': true } }
+    );
+
     res.status(200).json({
-        status: "success",
-        data: {
-            session : session,
-        }
-    })
-})
+      status: 'success',
+      data: {
+        session: session,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 'error',
+      error: err,
+      message: err.message,
+    });
+  }
+});
+
+
+//request denied function goes here:
+
+
 
 exports.deleteOrganisation = factory.deleteOne(Organisation);
