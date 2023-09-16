@@ -5,6 +5,7 @@ const factory = require("./handlerFactory");
 const Request = require("../models/requestModel")
 const Organisation = require("../models/organisationModel");
 const mongoose = require('mongoose')
+const objectId = new mongoose.Types.ObjectId();
 
 // exports.createSession = catchAsync(async (req, res) => {
 //     const {orgId, request} = await req.body
@@ -27,53 +28,101 @@ const mongoose = require('mongoose')
 //     })
 // })
 
+// exports.createSession = catchAsync(async (req, res) => {
+//     const { orgId, request } = await req.body;
+//     const organisation = await Organisation.findOne({ _id: orgId });
+  
+//     if (!organisation) {
+//       return res.status(400).json({
+//         status: 'failure',
+//         data: {
+//           message: 'You Need to be an organisation to create a session',
+//         },
+//       });
+//     }
+  
+//     // Check the severity of the request and add red zones if it's 0, 1, or 2
+//     const redZones = [];
+//     if (request.severity >= 0 && request.severity <= 2) {
+//       redZones.push({
+//         long: request.location.long,
+//         lat: request.location.lat,
+//         severity: request.severity,
+//       });
+//     }
+  
+//     const session = await Session.create({
+//       initiatiorOrganisationId: organisation._id,
+//       organisations: [organisation._id],
+//       requests: [request],
+//       redZones: redZones, // Add red zones here
+//     });
+  
+//     // Add red zones to the team if available
+//     if (request.teamId) {
+//       const team = await Team.findOne({ _id: request.teamId });
+//       if (team) {
+//         team.redZones = redZones;
+//         await team.save();
+//       }
+//     }
+  
+//     res.status(200).json({
+//       status: 'session',
+//       data: {
+//         data: session,
+//       },
+//     });
+//   });
+  
+
 exports.createSession = catchAsync(async (req, res) => {
-    const { orgId, request } = await req.body;
-    const organisation = await Organisation.findOne({ _id: orgId });
-  
-    if (!organisation) {
-      return res.status(400).json({
-        status: 'failure',
-        data: {
-          message: 'You Need to be an organisation to create a session',
-        },
-      });
-    }
-  
-    // Check the severity of the request and add red zones if it's 0, 1, or 2
-    const redZones = [];
-    if (request.severity >= 0 && request.severity <= 2) {
-      redZones.push({
-        long: request.location.long,
-        lat: request.location.lat,
-        severity: request.severity,
-      });
-    }
-  
-    const session = await Session.create({
-      initiatiorOrganisationId: organisation._id,
-      organisations: [organisation._id],
-      requests: [request],
-      redZones: redZones, // Add red zones here
-    });
-  
-    // Add red zones to the team if available
-    if (request.teamId) {
-      const team = await Team.findOne({ _id: request.teamId });
-      if (team) {
-        team.redZones = redZones;
-        await team.save();
-      }
-    }
-  
-    res.status(200).json({
-      status: 'session',
+  const { orgId, request } = await req.body;
+  const organisation = await Organisation.findOne({ _id: orgId });
+
+  if (!organisation) {
+    return res.status(400).json({
+      status: 'failure',
       data: {
-        data: session,
+        message: 'You Need to be an organisation to create a session',
       },
     });
+  }
+
+  // Check the severity of the request and add red zones if it's 0, 1, or 2
+  const redZones = [];
+  if (request.severity >= 0 && request.severity <= 2) {
+    redZones.push({
+      long: request.location.long,
+      lat: request.location.lat,
+      severity: request.severity,
+    });
+  }
+
+  const session = await Session.create({
+    initiatiorOrganisationId: organisation._id,
+    organisations: [organisation._id],
+    requests: [request],
+    redZones: redZones, // Add red zones here
   });
-  
+
+  // Add red zones to the team if available
+  if (request.teamId) {
+    const team = await Team.findOne({ _id: request.teamId });
+    if (team) {
+      team.redZones = redZones;
+      await team.save();
+    }
+  }
+
+  res.status(200).json({
+    status: 'session',
+    data: {
+      data: session,
+    },
+  });
+});
+
 
 exports.addOrganisation = catchAsync(async (req, res) => {
     const {reqOrg, tarOrg, sessionId} = await req.body
@@ -170,24 +219,18 @@ exports.getSessionById = catchAsync(async (req, res) => {
       },
     });
   });
-  
   exports.getSessionsByTeamId = catchAsync(async (req, res) => {
     const { teamId } = req.params;
-  
-    // Check if teamId is a valid ObjectId (mongoose object ID)
-    if (!mongoose.Types.ObjectId.isValid(teamId)) {
-      return res.status(400).json({
-        status: 'failure',
-        data: {
-          message: 'Invalid teamId format',
-        },
-      });
-    }
-  
+  console.log(teamId);
+
+  const Id = new mongoose.Types.ObjectId(teamId);
+
     const sessions = await Session.find({
-      teams: mongoose.Types.ObjectId(teamId),
+      teams: Id,
     });
-  
+
+console.log(sessions);
+
     if (!sessions.length) {
       return res.status(404).json({
         status: 'failure',
@@ -204,8 +247,8 @@ exports.getSessionById = catchAsync(async (req, res) => {
       },
     });
   });
-
   
+
   exports.getSessionsByOrganisationId = catchAsync(async (req, res) => {
     const { organisationId } = req.params;
     let { sortBy } = req.query; // Get the sorting option from query parameters
