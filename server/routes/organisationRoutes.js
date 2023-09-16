@@ -3,6 +3,11 @@ const organisationController = require('../controllers/organisationController');
 const requestController = require('../controllers/requestController');
 const sessionController = require('../controllers/sessionController')
 const OauthController = require('../controllers/OauthController');
+const EauthController = require('../controllers/EauthController');
+const employeeController = require("../controllers/employeeController")
+const teamController = require('../controllers/teamController')
+
+
 const { protect } = require('../controllers/OauthController');
 
 const router = express.Router();
@@ -13,6 +18,9 @@ router.post('/login', OauthController.login);
 router.post('/forgotPassword', OauthController.forgotPassword);
 router.patch('/resetPassword/:token', OauthController.resetPassword);
 router.patch('/updatePassword', protect, OauthController.updatePassword)
+
+router.post('/employee-signup', EauthController.signup);
+
 router.get('/requests/:requestId', requestController.getRequestById);
 router.get('/getAllRequests/:orgId', organisationController.getAllRequests);
 router.post('/createOrganisation', organisationController.createOrganisation);
