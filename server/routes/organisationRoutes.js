@@ -2,6 +2,7 @@ const express = require('express');
 const organisationController = require('../controllers/organisationController');
 const requestController = require('../controllers/requestController');
 const SessionController = require('../controllers/sessionController')
+const teamController = require('../controllers/teamController')
 const OauthController = require('../controllers/OauthController');
 const { protect } = require('../controllers/OauthController');
 
@@ -25,5 +26,7 @@ router.delete('/deleteOrganisation/:id', organisationController.deleteOrganisati
 router.get('/getAllRequestsBySession', SessionController.getAllRequests)
 router.post('/createSession', SessionController.createSession)
 router.post('/addOrganisation', SessionController.addOrganisation)
+router.route('/teamCreate').post(teamController.createTeam)	
+router.route('/addToTeam').post(teamController.addEmployee)
 
 module.exports = router;
