@@ -1,6 +1,7 @@
 const express = require('express');
 const organisationController = require('../controllers/organisationController');
 const requestController = require('../controllers/requestController');
+const SessionController = require('../controllers/sessionController')
 const OauthController = require('../controllers/OauthController');
 const { protect } = require('../controllers/OauthController');
 
@@ -21,6 +22,5 @@ router.get('/getAllOrganisationsBySession', organisationController.getAllOrganis
 router.get('/getAllOrganisations', organisationController.getAllOrganisation);
 router.post('/acceptRequestFromOff', organisationController.AcceptReqFromOff);
 router.delete('/deleteOrganisation/:id', organisationController.deleteOrganisation);
-router.get('/:organizationId/employees', organisationController.getAllEmployeesOfOrganization);
 
 module.exports = router;
