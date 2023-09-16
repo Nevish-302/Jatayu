@@ -1,6 +1,7 @@
 const express = require('express');
 const organisationController = require('../controllers/organisationController');
 const requestController = require('../controllers/requestController');
+const teamController = require('../controllers/teamController')
 const sessionController = require('../controllers/sessionController')
 const OauthController = require('../controllers/OauthController');
 const EauthController = require('../controllers/EauthController');
@@ -28,13 +29,16 @@ router.patch('/updateOrganisation', organisationController.updateOrganisation);
 router.get('/getOrganisation/:id', organisationController.getOrganisation);
 router.get('/getAllOrganisationsBySession', organisationController.getAllOrganisationBySession);
 router.get('/getAllOrganisations', organisationController.getAllOrganisation);
+
+// is this function not working?
 // router.post('/acceptRequestFromOff', organisationController.AcceptReqFromOff);
 router.delete('/deleteOrganisation/:id', organisationController.deleteOrganisation);
 router.get('/getAllRequestsBySession', sessionController.getAllRequests)
 router.post('/createSession', sessionController.createSession)
 router.post('/addOrganisation', sessionController.addOrganisation)
+router.route('/teamCreate').post(teamController.createTeam)	
+router.route('/addToTeam').post(teamController.addEmployee)
 router.get('/sessions/:sessionId', sessionController.getSessionById);
 router.get('/sessions/byOrganisation/:organisationId', sessionController.getSessionsByOrganisationId);
-
 
 module.exports = router;
