@@ -18,8 +18,6 @@ router.route('/me').get(employeeController.getMe, employeeController.getMe,emplo
 router.route('/getEmp').get(employeeController.getAllEmployees);
 
 
-
-
 router.get('/sessions/:sessionId', sessionController.getSessionById);
 router.get('/sessions/byTeam/:teamId', sessionController.getSessionsByTeamId);
 

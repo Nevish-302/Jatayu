@@ -48,7 +48,7 @@ router.post('/createSession', sessionController.createSession)
 router.post('/addOrganisation', sessionController.addOrganisation)
 router.route('/teamCreate').post(teamController.createTeam)	
 router.route('/addToTeam').post(teamController.addEmployee)
-router.get('/sessions/:sessionId', sessionController.getSessionById);
 router.get('/sessions/byOrganisation/:organisationId', sessionController.getSessionsByOrganisationId);
+router.get('/sessions/:sessionId', sessionController.getSessionById);
 
 module.exports = router;

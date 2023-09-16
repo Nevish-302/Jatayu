@@ -204,20 +204,15 @@ exports.getSessionById = catchAsync(async (req, res) => {
       },
     });
   });
+
   
   exports.getSessionsByOrganisationId = catchAsync(async (req, res) => {
     const { organisationId } = req.params;
-    const { sortBy } = req.query; // Get the sorting option from query parameters
+    let { sortBy } = req.query; // Get the sorting option from query parameters
   
-    // Check if the sortBy parameter is valid
-    const validSortOptions = ['createdAt', 'active'];
-    if (!validSortOptions.includes(sortBy)) {
-      return res.status(400).json({
-        status: 'failure',
-        data: {
-          message: 'Invalid sortBy parameter',
-        },
-      });
+    // Set a default value for sortBy if it's not provided in the query string
+    if (!sortBy || !['createdAt', 'active'].includes(sortBy)) {
+      sortBy = 'active'; // You can change this to another default value if needed
     }
   
     const sortOptions = {};
