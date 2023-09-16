@@ -1,4 +1,5 @@
 const Employee = require("../models/employeeModel");
+const Request = require("../models/requestModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const factory = require("./handlerFactory");
@@ -8,7 +9,7 @@ const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach((el) => {
     if (allowedFields.includes(el)) newObj[el] = obj[el];
-  });
+  });    
   return newObj;
 };
 
@@ -55,7 +56,52 @@ exports.deleteMe = async (req, res, next) => {
   });
 };
 
-//we will update anything except password
+exports.createRequest = catchAsync(async (req, res, next) => {
+  try {
+    const newRequest = new Request(req.body);
+    await newRequest.save();
+
+    res.status(201).json({ message: 'Request created successfully' }); // Fix the response status
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error creating request' });
+  }
+});
+
+exports.getAllRequestsByTeamId = catchAsync(async (req, res) => {
+  const { teamId } = req.params; // Assuming the teamId is available in the URL params
+
+  // const requests = await Request.find({
+  //   $or: [{ senderId: teamId }, { receiverId: teamId }],
+  // });
+  const requests = await Request.find({teamId} );
+  console.log(requests);
+
+  if (requests.length === 0) {
+    return res.status(200).json({
+      status: 'success',
+      message: 'No requests found for the provided teamId.',
+      
+      data: {
+        requests: [],
+      },
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    size:requests.length,
+    data: {
+      requests,
+    },
+  });
+});
+
+
+
+
+//we will update anything except password :)
+
 exports.updateEmployee = factory.updateOne(Employee);
 exports.deleteEmployee = factory.deleteOne(Employee);
 exports.createEmployee = factory.createOne(Employee);

@@ -1,12 +1,13 @@
 const Employee = require('./employeeModel');
 const mongoose = require('mongoose');
 const Session = require('./session.model'); 
+const Request = require('./requestModel'); 
+const bcrypt=require("bcryptjs");
 
 const organisationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
         index: true,
     },
     type: {
@@ -14,10 +15,13 @@ const organisationSchema = new mongoose.Schema({
         required: true,
     },
     location: {
-        type: {
-            long: String,
-            lat: String,
+        type : Object,
+        long:{
+            type : String,
         },
+        lat : {
+            type : String
+        }
     },
     password: {
         type: String,
@@ -55,6 +59,7 @@ const organisationSchema = new mongoose.Schema({
             },
             available: {
                 type: Boolean,
+                default : true,
             },
         },
     ],
@@ -67,6 +72,7 @@ const organisationSchema = new mongoose.Schema({
             },
             active: {
                 type: Boolean,
+                default : true,
             },
             timeStamp: {
                 type: Date,
@@ -93,10 +99,20 @@ const organisationSchema = new mongoose.Schema({
         },
         email: {
             type: String,
+            unique: true,
         },
         website: {
             type: String,
         },
+    },
+    notifications : {
+        type : Array,
+        members : {
+        senderId : {type : mongoose.Schema.Types.ObjectId},
+        message : {type : String},
+        status : {type : Boolean},
+        at : new Date(),
+        }
     },
     areaOfExpertise: {
         type: [
@@ -105,10 +121,29 @@ const organisationSchema = new mongoose.Schema({
             },
         ],
     },
-
+    requests: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Request',
+        },
+    ],
+    
 });
 
 organisationSchema.pre('save', async function (next) {
+    //this will run only if the password is modified
+    if (!this.isModified('password')) return next();
+  
+    //this will encrypt the password
+    this.password = await bcrypt.hash(this.password, 12);
+  
+    //to delete confirm password from database
+    this.passwordConfirm = undefined;
+  
+    next();
+  });
+  
+  organisationSchema.pre('save', async function (next) {
     if (!this.isModified('password') || this.isNew) return next();
   
     this.passwordChangedAt = Date.now() - 1000;
@@ -152,6 +187,5 @@ organisationSchema.pre('save', async function (next) {
   
     return resetToken;
   };
-
 
 module.exports = mongoose.model('Organisation', organisationSchema);

@@ -1,21 +1,41 @@
-import mongoose from "mongoose";
+const mongoose=require("mongoose");
 const {Schema} = mongoose;
+const Request = require('./requestModel');
 
 const sessionSchema = new Schema(
     {
         initiatiorOrganisationId:{
-            type : String,
+            type : mongoose.Schema.Types.ObjectId,
+            required: [true, 'initiator must be specified'],
         },
         organisations : {
             type: Array,
             members: {
-                type: String,
+                type: mongoose.Schema.Types.ObjectId,
+                ref:'Organisation',
             },
         },
         teams:{
             type : Array,
             members : {
+                type : mongoose.Schema.Types.ObjectId,
+                ref:'Team',
+            }
+        },
+        estimatedAffectees:{
+            type:Number,
+        },
+        location:{
+            type : Object,
+            long:{
                 type : String,
+            },
+            lat : {
+                type : String
+            },
+            radius:{
+                type:Number,
+                default:50,
             }
         },
         affectees: {
@@ -31,7 +51,7 @@ const sessionSchema = new Schema(
                     type : Number,
                 },
                 teamId : {
-                    type : String,
+                    type : mongoose.Schema.Types.ObjectId,
                 },
                 location: {
                     type : Object,
@@ -44,25 +64,22 @@ const sessionSchema = new Schema(
                 }
             }
         },
-        requests:{
+        requests: {
             type : Array,
-            members :{
-            senderId : {type : String},
-            message : {type : String},
-            recieverId : {type : String},
-            at : {type : new Date()},
-            status : {type : Boolean}
+            members : {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Request',
             }
-        },
+        },        
         resources:{
             type : Array,
             members : {
                 name : {type : String},
                 quantity : {type : String},
-                organisationId : {type : String},
+                organisationId : {type : mongoose.Schema.Types.ObjectId},
                 free: {type : Number},
-                allocated : {
-                    teamId: {type : String},
+                allocated :{
+                    teamId: {type : mongoose.Schema.Types.ObjectId},
                     quantity : {type : Number}
                 }
             }
@@ -72,22 +89,33 @@ const sessionSchema = new Schema(
             members : { 
             long : {type : String},
             lat : {type : String},
-            severity : {type : Number}
+            severity : {type : Number},
+            radius : {
+                type: Number,
+                default : 10,
+            },
             }
         },
         notifications : {
             type : Array,
             members : {
-            senderId : {type : String},
+            senderId : {type : mongoose.Schema.Types.ObjectId},
             message : {type : String},
             at : new Date(),
             }
-        }
+        },
+        status: {
+            type: Boolean, 
+            default: true,
+          },
+    },
+    {
+            timestamps:true,
     }
 )
 
 const Session = mongoose.model('Session',sessionSchema);
 
-// exports default Team;
+// exports default Session;
 
 module.exports=Session;

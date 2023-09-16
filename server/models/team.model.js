@@ -1,44 +1,63 @@
 const mongoose =require("mongoose");
 const {Schema} = mongoose;
+const Request = require('./requestModel');
+const Employee = require('./employeeModel');
 
 const teamSchema = new Schema(
     {
         teamMembers:{
             type : Array,
             members : {
-                type : String,
+                type : mongoose.Schema.Types.ObjectId,
+                ref:'Employee'
             }
         },
-        sessionId : {type : String},
-        location : {
-            type : Object,
-            long : {type : String},
-            lat : {type : String},
+        sessionId : {
+            type : mongoose.Schema.Types.ObjectId,
         },
-        requests:{
-            type : Array,
-            members :{
-            senderId : {type : String},
-            message : {type : String},
-            recieverId : {type : String},
-            at : {type : new Date()},
-            status : {type : Boolean}
-            }
-        },
+        //location : {
+        //    type : Object,
+        //    long : {type : String},
+        //    lat : {type : String},
+        //},
+        
+        requests: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Request',
+            },
+        ],
+          
         resources:{
             type : Array,
             members : {
-                name : {type : String},
+                type : {type : String},
                 quantity : {type : String},
-                organisationId : {type : String},
+                organisationId : {
+                    type : mongoose.Schema.Types.ObjectId,
+                    required: true},
+                at : new Date,
             }
+        },
+        Organisation : {
+            type : mongoose.Schema.Types.ObjectId,
+            required: true
         },
         redZones:{
             type : Array,
-            members : { 
-            long : {type : String},
-            lat : {type : String},
-            severity : {type : Number}
+            members:{ 
+            long : {
+                type : String,
+                required: true
+                },
+            lat : {
+                type : String,
+                required: true
+                },
+            severity : {
+                type : Number,
+                required: true
+                }
             }
         },
     }

@@ -1,19 +1,28 @@
 const mongoose = require('mongoose'); 
+const bcrypt=require("bcryptjs");
 const Team=require("./team.model.js");
+const Organisation=require("./organisationModel.js");
 
 const employeeSchema = new mongoose.Schema({
-    Id: {
+    Id:{
         type: String,
         required: [true,'Employee must have an Id'],
         unique: true,
         index: true,
     },
+    name:{
+      type:String,
+      required:true
+    },
     location: {
-      type: {
-        long: String,
-        lat: String,
-    },
-    },
+      type : Object,
+      long:{
+          type : String,
+      },
+      lat : {
+          type : String
+      }
+  },
     password: {
       type: String,
       required: [true, 'Employee must enter password'],
@@ -31,17 +40,22 @@ const employeeSchema = new mongoose.Schema({
       },
     },
     passwordChangedAt: Date,
-  
     passwordResetToken: String,
     passwordResetExpires: Date,
 
     status: {
-        type: {
-            active: Boolean,
-            available: Boolean,
-        },
-        required: true,
-    },
+      type: {
+          active: {
+              type: Boolean,
+              default: false, 
+          },
+          available: {
+              type: Boolean,
+              default: true, 
+          },
+      },
+  },
+
     role: {
         type: String,
         required: true,
@@ -49,7 +63,11 @@ const employeeSchema = new mongoose.Schema({
     team:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Team"
-       }
+       },
+    organisation:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Organisation"
+    }
 });
 
 employeeSchema.pre('save', async function (next) {

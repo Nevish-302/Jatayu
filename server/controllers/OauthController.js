@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const Employee = require('../models/employeeModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const Organisation = require('../models/organisationModel')
 const sendEmail = require('../utils/email');
 
 const signToken = (id) =>
@@ -26,7 +27,6 @@ const createSendToken = (user, statusCode, res) => {
   res.cookie('jwt', token, cookieOptions);
 
   user.password = undefined;
-
   res.status(statusCode).json({
     status: 'success',
     data: {
@@ -36,28 +36,42 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-exports.signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-    role: req.body.role,
-  });
+// exports.signup = catchAsync(async (req, res, next) => {
+//   const {contact} = await req.body;
+//   console.log(contact, req.body)
+//     const org = await Organisation.findOne({"contact.email" : contact.email});
+//     if(!org) 
+//     {
+//         const newOrg = await Organisation.create(req.body);
+//         createSendToken(newOrg, 201, res);
+//     }
+//     else throw new Error("Organisation Already exists");
+// });
 
-  createSendToken(newUser, 201, res);
+exports.signup = catchAsync(async (req, res, next) => {
+  const { Id } = req.body; 
+
+  const org = await Organisation.findOne({ Id }); 
+  if (!org) {
+    const newOrganisation = await Organisation.create(req.body);
+    createSendToken(newOrganisation, 201, res);
+  } else {
+    throw new Error("Organisation Already exists");
+  }
 });
 
+
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { Id, password } = req.body;
 
   //check if the entries are field
 
-  if (!email || !password) {
-    return next(new AppError('please provide email and password', 400));
+  if (!Id || !password) {
+    return next(new AppError('please provide Id and password', 400));
   }
   // check if user exists and password is correct
-  const user = await User.findOne({ email }).select('+password');
+  const user = await Organisation.findOne({ Id: Id }).select('+password');
+  // console.log(Id, password, user.password);
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email id or password ', 401));
@@ -89,16 +103,16 @@ exports.protect = catchAsync(async (req, res, next) => {
   // console.log(decoded);
 
   //3) check if user still exists
-  const currentUser = await User.findById(decoded.id);
+  const currentOrganisation = await Organisation.findById(decoded.id);
 
-  if (!currentUser) {
+  if (!currentOrganisation) {
     return next(
       new AppError(`the user belonging to this token no longer not exist`, 401)
     );
   }
 
   //4) check if the password is changed
-  if (currentUser.changedPasswordAfter(decoded.iat)) {
+  if (currentOrganisation.changedPasswordAfter(decoded.iat)) {
     return next(
       new AppError(
         'The password is changed ! log in again with updated password',
@@ -107,7 +121,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
   // GRant access to protected route
-  req.user = currentUser;
+  req.user = currentOrganisation;
   console.log(req.user);
   next();
 });
@@ -126,7 +140,7 @@ exports.restrictTo =
 //fix this
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
-  const user = await User.findOne({ email: req.body.email });
+  const user = await Organisation.findOne({ email: req.body.email });
   if (!user) {
     return next(new AppError('There is no user with email address.', 404));
   }
@@ -172,7 +186,7 @@ exports.resetPassword = async (req, res, next) => {
     .update(req.params.token)
     .digest('hex');
 
-  const user = await User.findOne({
+  const user = await Organisation.findOne({
     passwordResetToken: hashedtoken,
     passwordResetExpires: { $gt: Date.now() },
   });
@@ -195,7 +209,7 @@ exports.resetPassword = async (req, res, next) => {
 
 exports.updatePassword = async (req, res, next) => {
   //1) get user from collection
-  const user = await User.findById(req.user._id).select('+password');
+  const user = await Organisation.findById(req.user._id).select('+password');
 
   //2) check if POSTed password is correct
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {

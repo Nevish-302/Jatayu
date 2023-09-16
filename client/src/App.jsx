@@ -11,6 +11,7 @@ import SignupPage from "./pages/signupPage";
 //imports for dashboard
 
 import DashPage from "./pages/DashPage1/DashPage";
+
 import Team from "../src/pages/DashPage1/page/team/Team";
 import Contacts from "./pages/DashPage1/page/contacts/Contacts";
 import Invoices from "./pages/DashPage1/page/invoices/Invoices";
