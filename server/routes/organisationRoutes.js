@@ -1,7 +1,7 @@
 const express = require('express');
 const organisationController = require('../controllers/organisationController');
 const requestController = require('../controllers/requestController');
-const SessionController = require('../controllers/sessionController')
+const sessionController = require('../controllers/sessionController')
 const OauthController = require('../controllers/OauthController');
 const { protect } = require('../controllers/OauthController');
 
@@ -20,10 +20,13 @@ router.patch('/updateOrganisation', organisationController.updateOrganisation);
 router.get('/getOrganisation/:id', organisationController.getOrganisation);
 router.get('/getAllOrganisationsBySession', organisationController.getAllOrganisationBySession);
 router.get('/getAllOrganisations', organisationController.getAllOrganisation);
-router.post('/acceptRequestFromOff', organisationController.AcceptReqFromOff);
+// router.post('/acceptRequestFromOff', organisationController.AcceptReqFromOff);
 router.delete('/deleteOrganisation/:id', organisationController.deleteOrganisation);
-router.get('/getAllRequestsBySession', SessionController.getAllRequests)
-router.post('/createSession', SessionController.createSession)
-router.post('/addOrganisation', SessionController.addOrganisation)
+router.get('/getAllRequestsBySession', sessionController.getAllRequests)
+router.post('/createSession', sessionController.createSession)
+router.post('/addOrganisation', sessionController.addOrganisation)
+router.get('/sessions/:sessionId', sessionController.getSessionById);
+router.get('/sessions/byOrganisation/:organisationId', sessionController.getSessionsByOrganisationId);
+
 
 module.exports = router;
