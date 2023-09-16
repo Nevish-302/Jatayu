@@ -6,7 +6,6 @@ const sessionController = require('../controllers/sessionController')
 const OauthController = require('../controllers/OauthController');
 const EauthController = require('../controllers/EauthController');
 const employeeController = require("../controllers/employeeController")
-const teamController = require('../controllers/teamController')
 
 
 const { protect } = require('../controllers/OauthController');
