@@ -4,6 +4,7 @@ const AppError = require("../utils/appError");
 const factory = require("./handlerFactory");
 const Request = require("../models/requestModel")
 const Organisation = require("../models/organisationModel");
+const mongoose = require('mongoose')
 
 exports.createSession = catchAsync(async (req, res) => {
     const {orgId, request} = await req.body
@@ -17,7 +18,7 @@ exports.createSession = catchAsync(async (req, res) => {
             }
         })
     }
-    const session = await Session.create({initiatiorOrganisationId : organisation._id, $push : {organisations : organisation._id}, $push : {requests : request}})
+    const session = await Session.create({initiatiorOrganisationId : organisation._id, organisations : [organisation._id], requests : [request]})
     res.status(200).json({
         status: "session",
         data: {
@@ -40,17 +41,25 @@ exports.addOrganisation = catchAsync(async (req, res) => {
             }
         })
     }
-    if(!session.organisations.find(reqOrg) || !session.status)
-    {
-        res.status(401).json({
-            status: "failure",
-            data: {
-                message : 'Action Not Allowed',
-            }
-        })
-
-    }
-    const updatedSession = await Session.findOneAndUpdate({_id : session._id}, {organisations : TarOrg._id})
+    //const organisations = await session.organisations
+    //const jack = mongoose.Types.ObjectId(reqOrg)
+    //console.log(organisations, jack)
+    //const con = organisations.find((org) => {
+    //    org == reqOrg
+    //})
+    //console.log(con)
+    //if(!con || !session.status)
+    //{
+    //    res.status(401).json({
+    //        status: "failure",
+    //        data: {
+    //            message : 'Action Not Allowed',
+    //        }
+    //    })
+//
+    //}
+    //console.log("Hello")
+    const updatedSession = await Session.findOneAndUpdate({_id : session._id}, {$push : {organisations : TarOrg._id}})
     res.status(200).json({
         status: "session",
         data: {

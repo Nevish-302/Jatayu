@@ -64,12 +64,13 @@ const sessionSchema = new Schema(
                 }
             }
         },
-        requests: [
-            {
+        requests: {
+            type : Array,
+            members : {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Request',
-            },
-        ],        
+            }
+        },        
         resources:{
             type : Array,
             members : {
