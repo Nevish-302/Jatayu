@@ -78,8 +78,8 @@ function appendMessage(message) {
 request.addEventListener('click', e => {
   const req = {
     senderId: `6503559a493fe195aaa42e18`,
-    receiverId: "6501d4e138aa24e624404d63",
-    teamId:"Tid",
+    receiverId: "6501e06e42b79214089445dd",
+    teamId:"6503559a493fe195aaa42e18",
     message: "Some Message",
     status: "pending",
     estimatedAffectees: 50,

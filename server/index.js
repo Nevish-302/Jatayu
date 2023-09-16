@@ -105,7 +105,7 @@ socket.on('req-from-emp', async (request, cb) =>{
   const reqOrg = await Request.create(request)
   const sendOrg = await Team.findOneAndUpdate({_id : new TypeObj(senderId)}, {$push : {requests : reqOrg._id}})
   const receiveOrg = await Organisation.findOneAndUpdate({_id : new TypeObj(receiverId)}, {$push : {requests : reqOrg._id}})
-  console.log(reqOrg, sendOrg, receiveOrg)
+  console.log(reqOrg, sendOrg, receiveOrg, Organisation)
   //if the current _id and broadcast _id is same, then re requet the requests 
   socket.broadcast.emit('receive-request', receiveOrg._id)
   console.log("Hello");
