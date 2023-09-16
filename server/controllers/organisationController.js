@@ -151,40 +151,40 @@ exports.getAllRequests = catchAsync(async (req, res) => {
   });
 });
 
-exports.AcceptReqFromOff = catchAsync(async (req, res) => {
-  const { request } = req.body;
+// exports.AcceptReqFromOff = catchAsync(async (req, res) => {
+//   const { request } = req.body;
 
-  // Assuming request.receiverId contains the organization's ObjectId
-  const initiatiorOrganisationId = request.receiverId;
+//   // Assuming request.receiverId contains the organization's ObjectId
+//   const initiatiorOrganisationId = request.receiverId;
 
-  try {
-    // Create a new session with the request and set active to true
-    const session = await Session.create({
-      initiatiorOrganisationId, // Set the initiator organization's ID
-      notifications: [request],
-      active: true,
-    });
+//   try {
+//     // Create a new session with the request and set active to true
+//     const session = await Session.create({
+//       initiatiorOrganisationId, // Set the initiator organization's ID
+//       notifications: [request],
+//       active: true,
+//     });
 
-    // Update the status in the organization's notifications
-    const org = await Organisation.findOneAndUpdate(
-      { _id: initiatiorOrganisationId, "notifications.at": request.at },
-      { $set: { 'notifications.$.status': true } }
-    );
+//     // Update the status in the organization's notifications
+//     const org = await Organisation.findOneAndUpdate(
+//       { _id: initiatiorOrganisationId, "notifications.at": request.at },
+//       { $set: { 'notifications.$.status': true } }
+//     );
 
-    res.status(200).json({
-      status: 'success',
-      data: {
-        session: session,
-      },
-    });
-  } catch (err) {
-    res.status(500).json({
-      status: 'error',
-      error: err,
-      message: err.message,
-    });
-  }
-});
+//     res.status(200).json({
+//       status: 'success',
+//       data: {
+//         session: session,
+//       },
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       status: 'error',
+//       error: err,
+//       message: err.message,
+//     });
+//   }
+// });
 
 
 //request denied function goes here:

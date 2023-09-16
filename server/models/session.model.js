@@ -104,9 +104,9 @@ const sessionSchema = new Schema(
             at : new Date(),
             }
         },
-        active: {
-            type: Boolean, // Change the type to Boolean
-            default: false, // You can set a default value if needed
+        status: {
+            type: Boolean, 
+            default: true,
           },
     },
     {
