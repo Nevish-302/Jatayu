@@ -1,6 +1,7 @@
 const express = require('express');
 const organisationController = require('../controllers/organisationController');
 const requestController = require('../controllers/requestController');
+const SessionController = require('../controllers/sessionController')
 
 const router = express.Router();
 
@@ -13,5 +14,8 @@ router.get('/getAllOrganisationsBySession', organisationController.getAllOrganis
 router.get('/getAllOrganisations', organisationController.getAllOrganisation);
 router.post('/acceptRequestFromOff', organisationController.AcceptReqFromOff);
 router.delete('/deleteOrganisation/:id', organisationController.deleteOrganisation);
+router.post('/getAllRequestsBySession', SessionController.getAllRequests)
+router.post('/createSession', SessionController.createSession)
+router.post('/addOrganisation', SessionController.addOrganisation)
 
 module.exports = router;
