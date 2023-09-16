@@ -21,9 +21,20 @@ router.patch('/resetPassword/:token', OauthController.resetPassword);
 router.patch('/updatePassword', protect, OauthController.updatePassword)
 
 router.post('/employee-signup', EauthController.signup);
+router
+  .route('/')
+  .get(employeeController.getAllEmployees)
+  .post(employeeController.createEmployee);
+
+router
+  .route('/:id')
+  .get(employeeController.getEmployee)
+  .patch(employeeController.updateEmployee)
+  .delete(employeeController.deleteEmployee);
 
 router.get('/requests/:requestId', requestController.getRequestById);
 router.get('/getAllRequests/:orgId', organisationController.getAllRequests);
+
 router.post('/createOrganisation', organisationController.createOrganisation);
 router.patch('/updateOrganisation', organisationController.updateOrganisation);
 router.get('/getOrganisation/:id', organisationController.getOrganisation);

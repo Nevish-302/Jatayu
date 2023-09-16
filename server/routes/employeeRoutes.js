@@ -14,7 +14,11 @@ router.patch('/updateMyPassword', EauthController.protect, EauthController.updat
 router.patch('/resetPassword/:token', EauthController.resetPassword);
 
 // Modify the route for getting employee data
-router.route('/me').get(employeeController.getMe, employeeController.getEmployee);
+router.route('/me').get(employeeController.getMe, employeeController.getMe,employeeController.getEmployee);
+router.route('/getEmp').get(employeeController.getAllEmployees);
+
+
+
 
 router.get('/sessions/:sessionId', sessionController.getSessionById);
 router.get('/sessions/byTeam/:teamId', sessionController.getSessionsByTeamId);
