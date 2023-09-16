@@ -42,14 +42,18 @@ exports.signup = catchAsync(async (req, res, next) => {
   const newEmployee = await Employee.create({
     Id: req.body.Id,
     email: req.body.email,
+    name: req.body.name,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     organisation : req.body.organisation,
     role: req.body.role,
+
   });
   const Org = await Organisation.findOneAndUpdate({_id : newEmployee.organisation}, {$push : {employees : newEmployee._id}})
   createSendToken(newEmployee, 201, res);
 });
+
+
 
 exports.login = catchAsync(async (req, res, next) => {
   const { Id, password } = req.body;
