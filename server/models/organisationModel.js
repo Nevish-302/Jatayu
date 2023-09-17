@@ -50,13 +50,6 @@ const organisationSchema = new mongoose.Schema({
             ref: 'Employee',
         },
     ],
-    teams:{
-        type:Array,
-        member:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Team',
-        }
-    },
     resources: [
         {
             type: {
