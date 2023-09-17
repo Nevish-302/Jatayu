@@ -31,6 +31,7 @@ import Dashboard from "./pages/DashPage1/page/dashboard/Dashboard";
 import DashboardO from "./pages/DashPageOuter/page/dashboard/Dashboard";
 import Organisations from "./pages/DashPage1/page/organisations/Organisations"
 import Meta from "./pages/meta";
+import Landing from "./pages/Landing/landing";
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
       <div className="App">
         <BrowserRouter>
           <Routes>
+            <Route path="/landing" element={<Landing />} />
             <Route path="/" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/dashboard/" element={<DashPage />}>

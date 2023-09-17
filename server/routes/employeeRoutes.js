@@ -1,36 +1,25 @@
 const express = require('express');
 const employeeController = require('../controllers/employeeController');
-const authController = require('../controllers/authController');
-
+const EauthController = require('../controllers/EauthController');
+const sessionController = require('../controllers/sessionController')
+const requestController = require('../controllers/requestController');
 const router = express.Router();
 
-router.post('/signup', authController.signup);
-router.post('/login', authController.login);
-router.post('/forgotPassword', authController.forgotPassword);
-router.patch(
-  '/updateMyPassword',
-  authController.protect,
-  authController.updatePassword
-);
-router.patch('/resetPassword/:token', authController.resetPassword);
+router.get('/:requestId', requestController.getRequestById);
+router.get('/getAllRequestsByTeamId/:teamId', employeeController.getAllRequestsByTeamId);
+router.post('/signup', EauthController.signup);
+router.post('/login', EauthController.login);
+router.post('/forgotPassword', EauthController.forgotPassword);
+router.patch('/updateMyPassword', EauthController.protect, EauthController.updatePassword);
+router.patch('/resetPassword/:token', EauthController.resetPassword);
 
-router.use(authController.protect);
+// Modify the route for getting employee data
+router.route('/me').get(employeeController.getMe, employeeController.getMe,employeeController.getEmployee);
+router.route('/getEmp').get(employeeController.getAllEmployees);
 
-router.route('/me').get(employeeController.getMe, employeeController.getEmployee);
-router.patch('/updateMe', employeeController.updateMe);
-router.delete('/deleteMe', employeeController.deleteMe);
 
-router.use(authController.restrictTo('admin'));
+router.get('/sessions/:sessionId', sessionController.getSessionById);
+router.get('/sessions/byTeam/:teamId', sessionController.getSessionsByTeamId);
 
-router
-  .route('/')
-  .get(employeeController.getAllEmployees)
-  .post(employeeController.createEmployee);
-
-router
-  .route('/:id')
-  .get(employeeController.getEmployee)
-  .patch(employeeController.updateEmployee)
-  .delete(employeeController.deleteEmployee);
 
 module.exports = router;
