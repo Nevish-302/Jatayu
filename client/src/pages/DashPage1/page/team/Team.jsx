@@ -1,8 +1,10 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { rows } from "./data";
+import Button from "@mui/material/Button";
+import AddIcon from '@mui/icons-material/Add';
 import { useTheme } from "@mui/material";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
 import {
   AdminPanelSettingsOutlined,
   LockOpenOutlined,
@@ -94,8 +96,17 @@ const Team = () => {
 
   return (
     <Box>
+      <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} className="w-full">
       <Header title={"TEAM"} subTitle={"Managing the Team Members"} />
-
+      <Button
+            sx={{ padding: "6px 8px", textTransform: "capitalize" }}
+            variant="contained"
+            color="primary"
+          >
+        <AddIcon />
+          Add Team(s)
+          </Button>      
+</Stack>
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
           rows={rows}
