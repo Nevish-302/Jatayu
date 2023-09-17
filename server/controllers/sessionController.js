@@ -248,30 +248,14 @@ console.log(sessions);
     });
   });
   
-
   exports.getSessionsByOrganisationId = catchAsync(async (req, res) => {
     const { organisationId } = req.params;
-    let { sortBy } = req.query; // Get the sorting option from query parameters
-  
-    // Set a default value for sortBy if it's not provided in the query string
-    if (!sortBy || !['createdAt', 'active'].includes(sortBy)) {
-      sortBy = 'active'; // You can change this to another default value if needed
-    }
-  
-    const sortOptions = {};
-    sortOptions[sortBy] = 1; // Default ascending order
-  
-    // Check if sortBy is 'active' to sort by 'active' field
-    if (sortBy === 'active') {
-      sortOptions['createdAt'] = 1; // Add createdAt for secondary sorting
-    }
-  
+  const orgId=new mongoose.Types.ObjectId(organisationId);
+
     try {
       const sessions = await Session.find({
-        organisations: mongoose.Types.ObjectId(organisationId),
-      })
-        .sort(sortOptions)
-        .exec();
+        organisations: orgId
+      });
   
       if (!sessions.length) {
         return res.status(404).json({

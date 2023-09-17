@@ -1,6 +1,8 @@
-export const baseUrl = 'https://jatayu.onrender.com/api/v1';
+// export const baseUrl = 'https://jatayu.onrender.com/api/v1';
+export const baseUrl = 'http://localhost:4000/api/v1/organisation';
 
-export const postrequest = async (url, body) => {
+
+export const postRequest = async (url, body) => {
   const response = await fetch(url, {
     method: 'POST',
     headers: {

@@ -12,44 +12,48 @@ exports.getMe = (req, res, next) => {
 };
 
 exports.addEmployee = catchAsync(async (req, res, next) => {
-    const {empId, teamId} = req.body
-    let employee = await Employee.findOne({_id : empId})
-    if(!empId || !teamId)
-    {
-        //explain to me how AppError works once
-        return new AppError(
-              "Employee Not found",
-              400
-            )
-        
+    const { empId, teamId } = req.body;
+   
+    // Find the employee by ID
+    let employee = await Employee.findOne({ _id: empId });
+  
+    if (!employee) {
+      return res.status(404).json({
+        status: "error",
+        message: "Employee not found.",
+      });
     }
-    if(employee.Team)
-    {
-        return new AppError(
-            "Employee Already in a team ",
-            403
-          )
-      
+  
+    // Check if the employee is already in a team
+    if (employee.Team) {
+      return res.status(403).json({
+        status: "error",
+        message: "Employee is already in a team.",
+      });
     }
-    let team = await Team.findOne({_id : teamId})
-    if(!team)
-    {
-        return new AppError(
-            "No Such Team Exists ",
-            405
-          )
-      
+  
+    // Find the team by ID
+    let team = await Team.findOne({ _id: teamId });
+  
+    if (!team) {
+      return res.status(404).json({
+        status: "error",
+        message: "Team not found.",
+      });
     }
-    team = await Team.findOneAndUpdate({_id : teamId}, {$push : {teamMembers : empId}})
-    employee = await Employee.findOneAndUpdate({_id : empId}, {team : team._id})
-    
+  
+    // Update the teamMembers and employee's team
+    team = await Team.findOneAndUpdate({ _id: teamId }, { $push: { teamMembers: empId } });
+    employee = await Employee.findOneAndUpdate({ _id: empId }, { Team: team._id });
+  
     res.status(200).json({
-        status: "success",
-        data: {
-            team : team.teamMembers,
-        }
-    })
-})
+      status: "success",
+      data: {
+        team: team.teamMembers,
+      },
+    });
+  });
+  
 
 exports.remEmployee = catchAsync(async (req, res, next) => {
     const {empId, teamId} = req.body
@@ -140,6 +144,33 @@ exports.addTeamToSession = catchAsync(async (req, res) => {
         status: "success",
     })
 })
+
+exports.addTeamToOrganisation = async (req, res) => {
+    try {
+      const { organisationId, teamId } = req.body;
+  
+      // Find the organization by ID and update the teams array
+      await Organisation.findByIdAndUpdate(
+        organisationId,
+        { $push: { teams: teamId } }
+      );
+  
+      // Find the team by ID and update the organization reference
+      await Team.findByIdAndUpdate(
+        teamId,
+        { organization: organisationId }
+      );
+  
+      res.status(200).json({
+        status: 'success',
+        message: 'Team added to the organization successfully',
+        teamId: teamId,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ status: 'error', error: error.message });
+    }
+  };
 
 exports.sendReqToOrg = catchAsync((req, res) => {
     const {OrgId, request} = req.body

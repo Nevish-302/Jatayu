@@ -3,10 +3,12 @@ import { styles } from "../styles";
 import Navbar from "../components/navbar";
 import image from "../assets/image/bg1.png";
 import Login from "../components/login";
+import {login} from "../utils/APICalls/consoleData"
 
 const loginPage = () => {
+  // {login()}
   return (
-    <>
+    <>  
       <div className={`${styles.paddingX} signup-page-bg bg-cover`}>
         <Navbar />
         <div class="flex flex-col sm:flex-row justify-between items-center p-4">
