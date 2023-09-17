@@ -8,6 +8,7 @@ module.exports = {
         "prime-blue": "#120A8F",
         "font-black": "#000000",
         "font-grey": "#5E5E5E",
+        "banner-grey": "#F2F2FF",
         "card-fill": "#F8F9FF",
         // primary: "#020106",
         // "regal-blue": "#243c5a",
