@@ -25,6 +25,7 @@ import Geography from "./pages/DashPage1/page/geography/Geography";
 import NotFound from "./pages/DashPage1/page/notFound/NotFound";
 import Dashboard from "./pages/DashPage1/page/dashboard/Dashboard";
 import Meta from "./pages/meta";
+import Landing from "./pages/Landing/landing";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
       <div className="App">
         <BrowserRouter>
           <Routes>
+            <Route path="/landing" element={<Landing />} />
             <Route path="/" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/dashboard/" element={<DashPage />}>
