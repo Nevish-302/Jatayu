@@ -5,12 +5,11 @@ const requestSchema = new mongoose.Schema({
   senderId: {
     // type: mongoose.Schema.Types.ObjectId,
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Employee',
+    ref: 'Team',
     required: true,
   },
   receiverId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Employee',
+    type: String,
     // required: true,
   },
   teamId:{

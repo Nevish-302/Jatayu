@@ -44,7 +44,7 @@ exports.addEmployee = catchAsync(async (req, res, next) => {
   
     // Update the teamMembers and employee's team
     team = await Team.findOneAndUpdate({ _id: teamId }, { $push: { teamMembers: empId } });
-    employee = await Employee.findOneAndUpdate({ _id: empId }, { Team: team._id });
+    employee = await Employee.findOneAndUpdate({ _id: empId },  {$push: { team: team._id }});
   
     res.status(200).json({
       status: "success",

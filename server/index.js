@@ -1,6 +1,7 @@
 // const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const dbConnect=require("./config/dbConnect");
+const TypeObj = require('mongoose').Types.ObjectId
 
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
@@ -32,7 +33,7 @@ process.on('unhandledRejection', (err) => {
 //var io = require("socket.io")(http);
 const Request = require('./models/requestModel')
 const Team = require('./models/team.model')
-const TypeObj = require('mongoose').Types.ObjectId
+
 const Organisation = require('./models/organisationModel'
 )
 const io = require("socket.io")(server, {

@@ -5,6 +5,7 @@ const sessionController = require('../controllers/sessionController')
 const requestController = require('../controllers/requestController');
 const router = express.Router();
 
+router.get('/createRequest', employeeController.createRequest);
 router.get('/:requestId', requestController.getRequestById);
 router.get('/getAllRequestsByTeamId/:teamId', employeeController.getAllRequestsByTeamId);
 router.post('/signup', EauthController.signup);
