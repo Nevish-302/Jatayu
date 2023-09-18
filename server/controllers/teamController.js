@@ -129,6 +129,19 @@ exports.getTeamByOrgSess = catchAsync(async(req, res) =>  {
     }
 })
 
+exports.getAllTeamsByOrganisationId=catchAsync(async(req, res) =>{
+  const { organisationId } = req.params; // Extract the organisationId from req.params
+
+  try {
+    const teams = await Team.find({ Organisation: organisationId });
+
+    return res.json(teams); // Assuming you want to send the result as JSON response
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' }); // Handle errors appropriately
+  }
+})
+
+
 exports.addTeamToSession = catchAsync(async (req, res) => {
     const {teamId, Sessionid} = req.body
     const session = await Session.findOneAndUpdate({_id : Sessionid}, {$push : {teams : teamId}})
