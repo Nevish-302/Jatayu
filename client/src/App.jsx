@@ -9,7 +9,8 @@ import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
 
 //imports for dashboard
-
+import Resources from './pages/DashPage1/page/resources/Resources'
+import RequestsSession from './pages/DashPage1/page/requests/Requests'
 import DashPage from "./pages/DashPage1/DashPage";
 import DashPageOuter from "./pages/DashPageOuter/DashPage";
 import Team from "../src/pages/DashPage1/page/team/Team";
@@ -54,7 +55,11 @@ const App = () => {
 
               {/* Contacts Section */}
               <Route path="organisations" element={<Organisations />} />
-
+              
+              <Route path="requests" element={<RequestsSession />} />
+              
+              <Route path="resources" element={<Resources />} />
+              
               {/* Invoices Section */}
               <Route path="invoices" element={<Invoices />} />
 

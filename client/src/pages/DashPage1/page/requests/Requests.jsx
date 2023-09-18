@@ -14,59 +14,66 @@ import Header from "../../components/Header";
 import Cookies from 'universal-cookie';
 import baseurl from '../../../../components/baseurl.jsx'
 
-const Team = () => {
+const RequestsSession = () => {
   const [cookieName, setCookieName] = useState();
   const [cookieValue, setCookieValue] = useState();
   const cookies = new Cookies();
   const theme = useTheme();
-  const [teams, setTeams] = useState([])
+  const [requests, setRequests] = useState([])
 
-  const getTeams = async (values) =>{
+  const getRequests = async (values) =>{
     //e.preventDefault()
-    let Id=cookies.get('SessionId')
-    let OS = 1
+    let sessionId=cookies.get('SessionId')
+
     console.log("Lemme Make Some sessions")
-    const res = await fetch(`${baseurl}/organisation/getTeams`,{
+    const res = await fetch(`${baseurl}/organisation/getAllRequestsBySession/`,{
       method:"POST",
       headers:{
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
       },
       body:JSON.stringify({
-        Id,OS
+        sessionId
       })
       //credentials: 'include', //for jwt 
     });
     const jack = await res.json()
     //setCook(jack);
-    console.log(jack, "jack")
+    console.log(jack, "jack", jack.data.data)
     let hmm = 0
-    setTeams(jack.data.team.map((session)=>{hmm += 1;return {...session, id : hmm}}))
-    console.log(teams)
+    setRequests(jack.data.data.map((session)=>{hmm += 1;return {...session, id : hmm}}))
+    console.log(requests)
     //res.status == 200 ? console.log("Success") : console.log("Failure")
   }
-  useEffect(()=>{getTeams();console.log(teams, "oh Baby")}, [0])
+  useEffect(()=>{getRequests();console.log(requests, "oh Baby")}, [0])
   const columns = [
     {
       field: "_id",
       headerName: "ID",
       align: "center",
+      width:300,
+      headerAlign: "center",
+    },
+    {
+      field: "message",
+      headerName: "Message",
       width:200,
-      headerAlign: "center",
-    },
-    {
-      field: "Organisation",
-      headerName: "organisation",
-      width:200,
       align: "center",
       headerAlign: "center",
     },
     {
-      field: "teamMembers",
-      headerName: "Member(s)",
-      flex: 1,
+      field: "senderId",
+      headerName: "Sender ID",
+      width:300,
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { teamMembers } }) => {
+    },
+    {
+      field: "createdAt",
+      headerName: "Date",
+      width:300,
+      align: "center",
+      headerAlign: "center",
+      renderCell: ({row: {createdAt}}) => {
         return (
           <Box
             sx={{
@@ -76,51 +83,30 @@ const Team = () => {
               textAlign: "center",
               display: "flex",
               justifyContent: "space-evenly",
-
-              backgroundColor: "none",
-            }}
+              backgroundColor :"none"}}
           >
+            
             <Typography sx={{ fontSize: "13px", color: "#000" }}>
-            {teamMembers.length}{console.log(teamMembers.length)}
+              {console.log(createdAt)} {createdAt.split('T')[0]}
             </Typography>
           </Box>
         );
       },
     },
     {
-      field: "requests",
-      headerName: "Requests(s)",
+      field: "estimatedAffectees",
+      headerName: "Estimated Casualities",
       flex: 1,
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { requests } }) => {
-        return (
-          <Box
-            sx={{
-              p: "5px",
-              width: "99px",
-              borderRadius: "3px",
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "space-evenly",
-
-              backgroundColor: "none",
-            }}
-          >
-            <Typography sx={{ fontSize: "13px", color: "#000" }}>
-            {requests.length}{console.log(requests.length)}
-            </Typography>
-          </Box>
-        );
-      },
     },
     {
-      field: "resources",
-      headerName: "Resource(s)",
+      field: "status",
+      headerName: "Status",
       flex: 1,
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { requests } }) => {
+      renderCell: ({row: {status}}) => {
         return (
           <Box
             sx={{
@@ -130,40 +116,13 @@ const Team = () => {
               textAlign: "center",
               display: "flex",
               justifyContent: "space-evenly",
-
-              backgroundColor: "none",
-            }}
-          >
-            <Typography sx={{ fontSize: "13px", color: "#000" }}>
-            {requests.length}{console.log(requests.length)}
-            </Typography>
-          </Box>
-        );
-      },
-    },
-    {
-      field: "_idj",
-      headerName: "Active",
-      flex: 1,
-      align: "center",
-      headerAlign: "center",
-      renderCell: () => {
-        return (
-          <Box
-            sx={{
-              p: "5px",
-              width: "99px",
-              borderRadius: "3px",
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "space-evenly",
-
-              backgroundColor      : "#3da58a",
+              backgroundColor      : 
+              status === "pending"? "red":"#3da58a",
             }}
           >
             
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              Active
+              {status}
             </Typography>
           </Box>
         );
@@ -174,19 +133,19 @@ const Team = () => {
   return (
     <Box>
       <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} className="w-full">
-      <Header title={"TEAM"} subTitle={"Managing the Team Members"} />
+      <Header title={"Notifications"} subTitle={"Real Time Updates"} />
       <Button
             sx={{ padding: "6px 8px", textTransform: "capitalize" }}
             variant="contained"
             color="primary"
           >
         <AddIcon />
-          Add Team(s)
+          Send Notification
           </Button>      
 </Stack>
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
-          rows={teams}
+          rows={requests}
           // @ts-ignore
           columns={columns}
         />
@@ -195,4 +154,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default RequestsSession;
