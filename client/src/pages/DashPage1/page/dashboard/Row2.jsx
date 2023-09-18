@@ -24,17 +24,17 @@ const Row2 = () => {
         >
           <Box>
             <Typography
-              color={theme.palette.secondary.main}
+              color="#4763E4"
               mb={1}
               mt={2}
               ml={4}
               variant="h6"
               fontWeight={"bold"}
             >
-              Revenue Generated
+              Funds and Resources
             </Typography>
             <Typography variant="body2" ml={4}>
-              $59,342.32
+              $ 59,342.32
             </Typography>
           </Box>
 
@@ -58,12 +58,7 @@ const Row2 = () => {
         }}
       >
         <Paper>
-          <Typography
-            color={theme.palette.secondary.main}
-            fontWeight={"bold"}
-            p={1.2}
-            variant="h6"
-          >
+          <Typography color="#4763E4" fontWeight={"bold"} p={1.2} variant="h6">
             Recent Transactions
           </Typography>
         </Paper>
@@ -87,7 +82,7 @@ const Row2 = () => {
               <Typography
                 borderRadius={1.4}
                 p={1}
-                bgcolor={theme.palette.error.main}
+                bgcolor="#4763E4"
                 color={theme.palette.getContrastText(theme.palette.error.main)}
                 variant="body2"
               >
