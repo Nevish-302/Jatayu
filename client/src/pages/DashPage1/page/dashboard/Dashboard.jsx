@@ -83,7 +83,14 @@ const Dashboard = () => {
 
         <Box sx={{ textAlign: "right", mb: 1.3 }}>
           <Button
-            sx={{ padding: "6px 8px", textTransform: "capitalize" }}
+            sx={{
+              padding: "6px 8px",
+              textTransform: "capitalize",
+              backgroundColor: "#4763E4", // Replace with your desired color code
+              "&:hover": {
+                backgroundColor: "#00BFFF", // Replace with the hover color code
+              },
+            }}
             variant="contained"
             color="primary"
           >
