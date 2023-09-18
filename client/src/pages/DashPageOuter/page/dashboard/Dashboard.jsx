@@ -5,7 +5,7 @@ import { DownloadOutlined } from "@mui/icons-material";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import { DataGrid } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import AddIcon from '@mui/icons-material/Add';
 import {
   AdminPanelSettingsOutlined,
@@ -140,7 +140,15 @@ console.log(session, "Hll")
     console.log(session)
     //res.status == 200 ? console.log("Success") : console.log("Failure")
   }
-  useState(()=>{getsessions();console.log(session, "oh Baby")}, [0])
+  const chooseSession = async(hell)=>{
+    setCookieName('SessionId')
+    setCookieValue(hell)
+    cookies.set(cookieName, cookieValue, { path: '/' });
+      console.log(hell)
+
+  }
+  
+  useEffect(()=>{getsessions();console.log(session, "oh Baby")}, [0])
   //getsessions();
   console.log(cookies.get('token'))
   //console.log(Sessions)
@@ -178,8 +186,10 @@ console.log(session, "Hll")
                 fontSize="small"
               />
 
-            <Typography sx={{ fontSize: "13px", color: "#000  " }}>
+            <Typography sx={{ fontSize: "13px", color: "#000  " }} >
+              <div onClick={() => {chooseSession(_id)}}>
               {_id}
+              </div>
             </Typography>
           </Box>
         );
@@ -321,7 +331,7 @@ console.log(session, "Hll")
               justifyContent: "space-evenly",
 
               backgroundColor:
-                status === 0
+                status === true
                   ? "green"
                   : "red",
             }}
@@ -329,6 +339,7 @@ console.log(session, "Hll")
 
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
               Active
+              {console.log(status)}
             </Typography>
           </Box>
         );

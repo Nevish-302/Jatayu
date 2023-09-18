@@ -1,14 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import Row1 from "./Row1";
 import Row2 from "./Row2";
 import Row3 from "./Row3";
 import Button from "@mui/material/Button";
 import { DownloadOutlined } from "@mui/icons-material";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
+import baseurl from '../../../../components/baseurl'
 import Header from "../../components/Header";
+import Cookies from 'universal-cookie';
 
 const Dashboard = () => {
+  const [cookieName, setCookieName] = useState();
+  const [cookieValue, setCookieValue] = useState();
+  const cookies = new Cookies();
   const theme = useTheme();
+  const [Session, setSession] = useState({})
+  const getsessions = async (values) =>{
+    //e.preventDefault()
+    console.log("Lemme Make Some sessions")
+    const res = await fetch(`${baseurl}/organisation//sessions/${cookies.get('SessionId')}`,{
+      method:"GET",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      //credentials: 'include', //for jwt 
+    });
+    
+    const jack = await res.json()
+    //setCook(jack);
+    //console.log(jack)
+    //let hmm = 0
+    //setSession(jack.data.sessions.map((session)=>{hmm += 1;return {...session, id : hmm}}))
+    console.log(jack, "jack")
+  }
+  useState(()=>{getsessions();console.log(Session, "oh Baby")}, [0])
+  
   return (
     <div>
 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { rows } from "./data";
 import Button from "@mui/material/Button";
@@ -11,31 +11,108 @@ import {
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
+import Cookies from 'universal-cookie';
+import baseurl from '../../../../components/baseurl.jsx'
 
 const Team = () => {
+  const [cookieName, setCookieName] = useState();
+  const [cookieValue, setCookieValue] = useState();
+  const cookies = new Cookies();
   const theme = useTheme();
+  const [teams, setTeams] = useState([])
 
-  // field ==> Reqird
+  const getTeams = async (values) =>{
+    //e.preventDefault()
+    let Id=cookies.get('SessionId')
+    let OS = 1
+    console.log("Lemme Make Some sessions")
+    const res = await fetch(`${baseurl}/organisation/getTeams`,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        Id,OS
+      })
+      //credentials: 'include', //for jwt 
+    });
+    const jack = await res.json()
+    //setCook(jack);
+    console.log(jack, "jack")
+    let hmm = 0
+    setTeams(jack.data.team.map((session)=>{hmm += 1;return {...session, id : hmm}}))
+    console.log(teams)
+    //res.status == 200 ? console.log("Success") : console.log("Failure")
+  }
+  useEffect(()=>{getTeams();console.log(teams, "oh Baby")}, [0])
   const columns = [
     {
-      field: "id",
+      field: "_id",
       headerName: "ID",
-      width: 33,
+      align: "center",
+      width:200,
+      headerAlign: "center",
+    },
+    {
+      field: "Organisation",
+      headerName: "organisation",
+      width:200,
       align: "center",
       headerAlign: "center",
     },
     {
-      field: "name",
-      headerName: "name",
-      align: "center",
-      headerAlign: "center",
-    },
-    {
-      field: "email",
-      headerName: "email",
+      field: "teamMembers",
+      headerName: "Member(s)",
       flex: 1,
       align: "center",
       headerAlign: "center",
+      renderCell: ({ row: { teamMembers } }) => {
+        return (
+          <Box
+            sx={{
+              p: "5px",
+              width: "99px",
+              borderRadius: "3px",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "space-evenly",
+
+              backgroundColor: "none",
+            }}
+          >
+            <Typography sx={{ fontSize: "13px", color: "#000" }}>
+            {teamMembers.length}{console.log(teamMembers.length)}
+            </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "requests",
+      headerName: "Member(s)",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      renderCell: ({ row: { requests } }) => {
+        return (
+          <Box
+            sx={{
+              p: "5px",
+              width: "99px",
+              borderRadius: "3px",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "space-evenly",
+
+              backgroundColor: "none",
+            }}
+          >
+            <Typography sx={{ fontSize: "13px", color: "#000" }}>
+            {requests.length}{console.log(requests.length)}
+            </Typography>
+          </Box>
+        );
+      },
     },
     { field: "age", headerName: "age", align: "center", headerAlign: "center" },
     {
@@ -109,7 +186,7 @@ const Team = () => {
 </Stack>
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={teams}
           // @ts-ignore
           columns={columns}
         />
