@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, useTheme } from "@mui/material";
-import Card from "./Card"; // Make sure to use the correct filename
+import Card from "../dashboard/card"; // Make sure to use the correct filename
 
 const Row1 = () => {
   const theme = useTheme();
