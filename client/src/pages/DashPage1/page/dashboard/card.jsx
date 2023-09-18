@@ -14,7 +14,7 @@ function Card({ title, subtitle }) {
         <Typography variant="h5" component="div">
           {title}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="h4" color="#1d40c7">
           {subtitle}
         </Typography>
       </CardContent>
