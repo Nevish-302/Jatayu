@@ -268,7 +268,7 @@ console.log(sessions);
   
     try {
       const sessions = await Session.find({
-        organisations: mongoose.Types.ObjectId(organisationId),
+        organisations:new mongoose.Types.ObjectId(organisationId),
       })
         .sort(sortOptions)
         .exec();
