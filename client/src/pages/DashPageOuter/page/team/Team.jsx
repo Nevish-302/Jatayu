@@ -5,15 +5,21 @@ import { useTheme } from "@mui/material";
 import { Box, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Item from '@mui/material/Grid';
+import { useState,useEffect } from "react";
 import {
   AdminPanelSettingsOutlined,
   LockOpenOutlined,
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
+import baseurl from '../../../../components/baseurl.jsx'
+import Cookies from 'universal-cookie';
 
 const TeamO = () => {
-  
+  const [team,setTeam]=useState([])
+  const [cookieName, setCookieName] = useState();
+  const [cookieValue, setCookieValue] = useState();
+  const cookies = new Cookies();
   const theme = useTheme();
   console.log("I don't like my team")
   // field ==> Reqird
@@ -26,11 +32,18 @@ const TeamO = () => {
       headerAlign: "center",
     },
     {
+      field: "_id",
+      headerName: "ID",
+      width: 410,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
       field: "access",
       headerName: "Member(s)",
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { teamMembers } }) => {
         return (
           <Box
             sx={{
@@ -41,17 +54,14 @@ const TeamO = () => {
               display: "flex",
               justifyContent: "space-evenly",
 
-              backgroundColor: "blue",
+              backgroundColor: "none",
             }}
           >
             
-              <AdminPanelSettingsOutlined
-                sx={{ color: "#fff" }}
-                fontSize="small"
-              />
+            
 
-            <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {access}
+            <Typography sx={{ fontSize: "13px", color: "black" }}>
+              {teamMembers.length}
             </Typography>
           </Box>
         );
@@ -63,7 +73,7 @@ const TeamO = () => {
       flex: 1,
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { resources } }) => {
         return (
            <Box
             sx={{
@@ -84,7 +94,7 @@ const TeamO = () => {
               />
 
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {access}
+              {resources.length}
             </Typography>
           </Box> 
         );
@@ -113,7 +123,7 @@ const TeamO = () => {
             
 
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {requests}
+              {requests.length}
             </Typography>
           </Box>
         );
@@ -154,12 +164,35 @@ const TeamO = () => {
     },
   ];
 
+  const getteams = async (values) =>{
+    //e.preventDefault()
+    console.log("Lemme Make Some teams")
+    const res = await fetch(`${baseurl}/organisation/teams/byOrganisation/${cookies.get('_id')}`,{
+      method:"GET",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      //credentials: 'include', //for jwt 
+    });
+    const jack = await res.json()
+    //setCook(jack);
+    console.log(jack)
+    let hmm = 0
+    setTeam(jack.map((team)=>{hmm += 1;return {...team, id : hmm}}))
+    console.log(team)
+    //res.status == 200 ? console.log("Success") : console.log("Failure")
+  }
+
+  useEffect(()=>{getteams();console.log(team, "oh Baby")}, [0])
+  //getsessions();
+
+
   return (
     <Box>
       <Header title={"TEAM"} subTitle={"Managing the Teams"} />
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={team}
           // @ts-ignore
           columns={columns}
         />
