@@ -15,7 +15,7 @@ const Row1 = () => {
         title={"Total Casualties :"}
         subtitle={"54"}
       />
-      <Card title={"Total Casualties :"} subtitle={"54"} />
+
 
       <Card
         title={"Total injured : "}
@@ -30,10 +30,7 @@ const Row1 = () => {
         title={"Estimated Affectees :"}
         subtitle={"1500+"}
       />
-      <Card title={"Total injured : "} subtitle={"128"} />
-
-      <Card title={"Total Survivors :"} subtitle={"540"} />
-      <Card title={"Estimated Affectees :"} subtitle={"1500+"} />
+      
     </Stack>
   );
 };

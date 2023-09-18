@@ -9,9 +9,7 @@ const PieChart = () => {
   // const theme = useTheme();
   return (
     <Box>
-      <Header title="Pie Chart" subTitle="Simple Pie Chart" />
-      <Typography>Total Casualties</Typography>
-      <Typography>50</Typography>
+      
       {/* <Pie /> */}
     </Box>
   );
