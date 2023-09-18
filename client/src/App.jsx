@@ -29,18 +29,18 @@ import Geography from "./pages/DashPage1/page/geography/Geography";
 import NotFound from "./pages/DashPage1/page/notFound/NotFound";
 import Dashboard from "./pages/DashPage1/page/dashboard/Dashboard";
 import DashboardO from "./pages/DashPageOuter/page/dashboard/Dashboard";
-import Organisations from "./pages/DashPage1/page/organisations/Organisations"
+import Organisations from "./pages/DashPage1/page/organisations/Organisations";
 import Meta from "./pages/meta";
 import Landing from "./pages/Landing/landing";
-
+// import Payment from "../src/pages/Metapay/components/App";
 const App = () => {
   return (
     <>
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/landing" element={<Landing />} />
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/dashboard/" element={<DashPage />}>
               {/* Dashboard Home */}
@@ -51,7 +51,7 @@ const App = () => {
 
               {/* Contacts Section */}
               <Route path="contacts" element={<Contacts />} />
-              
+
               {/* Contacts Section */}
               <Route path="organisations" element={<Organisations />} />
 
@@ -105,6 +105,7 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="/meta" element={<Meta />} />
+            {/* <Route path="/payment" element={<Payment />} /> */}
           </Routes>
         </BrowserRouter>
       </div>
