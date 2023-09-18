@@ -67,7 +67,7 @@ const LoginForm = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center pt-10 pb-10 z-10  backdrop-blur-sm bg-[#505050] bg-opacity-30 backdrop-filter  rounded-lg shadow-lg">
-      <h2 className="text-4xl font-bold mb-4 text-Black">Nice to see You!</h2>
+      <h2 className="text-4xl font-bold mb-4 text-white">Nice to see You!</h2>
       <p className="text-sm mb-4 font-medium text-[#1b1010]">
         Enter your organization ID and password to log in
       </p>
