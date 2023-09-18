@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Row1 from "./Row1";
 import Row2 from "./Row2";
 import Row3 from "./Row3";
@@ -33,8 +33,32 @@ const Dashboard = () => {
     //setSession(jack.data.sessions.map((session)=>{hmm += 1;return {...session, id : hmm}}))
     console.log(jack, "jack")
   }
-  useState(()=>{getsessions();console.log(Session, "oh Baby")}, [0])
   
+
+  const getRequests = async (values) =>{
+    //e.preventDefault()
+    let sessionId=cookies.get('SessionId')
+
+    console.log("Lemme Make Some sessions")
+    const res = await fetch(`${baseurl}/organisation/getAllRequestsBySession/`,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body:JSON.stringify({
+        sessionId
+      })
+      //credentials: 'include', //for jwt 
+    });
+    const jack = await res.json()
+    //setCook(jack);
+    console.log(jack, "jack", jack.data.data)
+    let hmm = 0
+  //  setRequests(jack.data.data.map((session)=>{hmm += 1;return {...session, id : hmm}}))
+    // console.log(requests)
+    //res.status == 200 ? console.log("Success") : console.log("Failure")
+  }
+  useEffect(()=>{getsessions();getRequests();console.log(Session, "oh Baby")}, [0])
   return (
     <div>
 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>

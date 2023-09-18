@@ -1,46 +1,69 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { rows } from "./data";
+import Button from "@mui/material/Button";
+import AddIcon from '@mui/icons-material/Add';
 import { useTheme } from "@mui/material";
-import { Box, Typography } from "@mui/material";
-import Grid from '@mui/material/Grid';
-import Item from '@mui/material/Grid';
-import { useState,useEffect } from "react";
+import { Box, Typography, Stack } from "@mui/material";
 import {
   AdminPanelSettingsOutlined,
   LockOpenOutlined,
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
-import baseurl from '../../../../components/baseurl.jsx'
 import Cookies from 'universal-cookie';
+import baseurl from '../../../../components/baseurl.jsx'
 
-const TeamO = () => {
-  const [team,setTeam]=useState([])
+const Team = () => {
   const [cookieName, setCookieName] = useState();
   const [cookieValue, setCookieValue] = useState();
   const cookies = new Cookies();
   const theme = useTheme();
-  console.log("I don't like my team")
-  // field ==> Reqird
+  const [teams, setTeams] = useState([])
+
+  const getTeams = async (values) =>{
+    //e.preventDefault()
+    let Id=cookies.get('_id')
+    let OS = 0
+    console.log("Lemme Make Some sessions")
+    const res = await fetch(`${baseurl}/organisation/getTeams`,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        Id,OS
+      })
+      //credentials: 'include', //for jwt 
+    });
+    const jack = await res.json()
+    //setCook(jack);
+    console.log(jack, "jack")
+    let hmm = 0
+    setTeams(jack.data.team.map((session)=>{hmm += 1;return {...session, id : hmm}}))
+    console.log(teams)
+    //res.status == 200 ? console.log("Success") : console.log("Failure")
+  }
+  useEffect(()=>{getTeams();console.log(teams, "oh Baby")}, [0])
   const columns = [
-    {
-      field: "id",
-      headerName: "ID",
-      width: 33,
-      align: "center",
-      headerAlign: "center",
-    },
     {
       field: "_id",
       headerName: "ID",
-      width: 410,
+      align: "center",
+      width:200,
+      headerAlign: "center",
+    },
+    {
+      field: "Organisation",
+      headerName: "organisation",
+      width:200,
       align: "center",
       headerAlign: "center",
     },
     {
-      field: "access",
+      field: "teamMembers",
       headerName: "Member(s)",
+      flex: 1,
       align: "center",
       headerAlign: "center",
       renderCell: ({ row: { teamMembers } }) => {
@@ -57,25 +80,22 @@ const TeamO = () => {
               backgroundColor: "none",
             }}
           >
-            
-            
-
-            <Typography sx={{ fontSize: "13px", color: "black" }}>
-              {teamMembers.length}
+            <Typography sx={{ fontSize: "13px", color: "#000" }}>
+            {teamMembers.length}{console.log(teamMembers.length)}
             </Typography>
           </Box>
         );
-      }
+      },
     },
     {
       field: "resources",
-      headerName: "resources",
+      headerName: "Resource(s)",
       flex: 1,
       align: "center",
       headerAlign: "center",
       renderCell: ({ row: { resources } }) => {
         return (
-           <Box
+          <Box
             sx={{
               p: "5px",
               width: "99px",
@@ -84,25 +104,20 @@ const TeamO = () => {
               display: "flex",
               justifyContent: "space-evenly",
 
-              backgroundColor: "blue",
+              backgroundColor: "none",
             }}
-          > 
-            
-              <AdminPanelSettingsOutlined
-                sx={{ color: "#fff" }}
-                fontSize="small"
-              />
-
-            <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {resources.length}
+          >
+            <Typography sx={{ fontSize: "13px", color: "#000" }}>
+            {resources.length}{console.log(resources.length)}
             </Typography>
-          </Box> 
+          </Box>
         );
-      }
+      },
     },
+   
     {
       field: "requests",
-      headerName: "requests",
+      headerName: "Request(s)",
       flex: 1,
       align: "center",
       headerAlign: "center",
@@ -117,26 +132,23 @@ const TeamO = () => {
               display: "flex",
               justifyContent: "space-evenly",
 
-              backgroundColor: "blue",
+              backgroundColor: "none",
             }}
           >
-            
-
-            <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {requests.length}
+            <Typography sx={{ fontSize: "13px", color: "#000" }}>
+            {requests.length}{console.log(requests.length)}
             </Typography>
           </Box>
         );
       },
-
     },
     {
       field: "status",
-      headerName: "status",
+      headerName: "Status",
       flex: 1,
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { status } }) => {
+      renderCell: ({ row: { access } }) => {
         return (
           <Box
             sx={{
@@ -148,51 +160,35 @@ const TeamO = () => {
               justifyContent: "space-evenly",
 
               backgroundColor:
-                status === 0
-                  ? "green"
-                  : "red",
+                   "#3da58a",
             }}
           >
+          
 
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              Active
-            </Typography>
+active            </Typography>
           </Box>
         );
       },
-    
     },
   ];
 
-  const getteams = async (values) =>{
-    //e.preventDefault()
-    console.log("Lemme Make Some teams")
-    const res = await fetch(`${baseurl}/organisation/teams/byOrganisation/${cookies.get('_id')}`,{
-      method:"GET",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      //credentials: 'include', //for jwt 
-    });
-    const jack = await res.json()
-    //setCook(jack);
-    console.log(jack)
-    let hmm = 0
-    setTeam(jack.map((team)=>{hmm += 1;return {...team, id : hmm}}))
-    console.log(team)
-    //res.status == 200 ? console.log("Success") : console.log("Failure")
-  }
-
-  useEffect(()=>{getteams();console.log(team, "oh Baby")}, [0])
-  //getsessions();
-
-
   return (
     <Box>
-      <Header title={"TEAM"} subTitle={"Managing the Teams"} />
+      <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} className="w-full">
+      <Header title={"TEAM"} subTitle={"Managing the Team Members"} />
+      <Button
+            sx={{ padding: "6px 8px", textTransform: "capitalize" }}
+            variant="contained"
+            color="primary"
+          >
+        <AddIcon />
+          Add Team(s)
+          </Button>      
+</Stack>
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
-          rows={team}
+          rows={teams}
           // @ts-ignore
           columns={columns}
         />
@@ -201,4 +197,4 @@ const TeamO = () => {
   );
 };
 
-export default TeamO;
+export default Team;
