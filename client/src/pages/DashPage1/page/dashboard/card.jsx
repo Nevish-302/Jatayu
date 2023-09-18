@@ -12,21 +12,14 @@ function Card({ title, subtitle }) {
     <StyledCard>
       <CardContent>
         <Typography variant="h5" component="div">
-    <StyledCard>
-      <CardContent>
-        <Typography variant="h5" component="div">
           {title}
         </Typography>
-        <br/>
         <Typography variant="body2" color="textSecondary">
           {subtitle}
         </Typography>
-        <br/>
       </CardContent>
     </StyledCard>
   );
 }
-}
 
 export default Card;
-
