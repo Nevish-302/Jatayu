@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { rows } from "./data";
 import Button from "@mui/material/Button";
@@ -14,19 +14,50 @@ import {
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
-
+import Cookies from 'universal-cookie';
+import baseurl from '../../../../components/baseurl.jsx'
 const Organisations = () => {
+  const [cookieName, setCookieName] = useState();
+  const [cookieValue, setCookieValue] = useState();
+  const cookies = new Cookies();
+  const [organisations, setOrganisations] = useState([])
   
+  const getOrganisations = async (values) =>{
+    //e.preventDefault()
+    let _id=cookies.get('SessionId')
+    
+    console.log("Lemme Make Some sessions")
+    const res = await fetch(`${baseurl}/organisation/getAllOrganisationsBySession`,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        _id
+      })
+      //credentials: 'include', //for jwt 
+    });
+    const jack = await res.json()
+    //setCook(jack);
+    console.log(jack, "jack")
+    let hmm = 0
+    setOrganisations(jack.data.organisations.map((session)=>{hmm += 1;return {_id : session,  id : hmm}}))
+    //console.log()
+    //res.status == 200 ? console.log("Success") : console.log("Failure")
+  }
+  useEffect(()=>{getOrganisations();console.log( "oh Baby", organisations)}, [0])
+  console.log( "oh Baby", organisations)
+
   const theme = useTheme();
   console.log("I don't like my Organisatio")
   // field ==> Reqird
   const columns = [
     {
-      field: "access",
+      field: "_id",
       headerName: "ID",
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { _id } }) => {
         return (
           <Box
             sx={{
@@ -42,7 +73,7 @@ const Organisations = () => {
           >
             
             <Typography sx={{ fontSize: "13px", color: "#000" }}>
-              IDHYaar
+            {_id}{console.log(_id)}
             </Typography>
           </Box>
         );
@@ -129,7 +160,7 @@ const Organisations = () => {
             
 
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {requests}
+              View Log
             </Typography>
           </Box>
         );
@@ -185,7 +216,7 @@ const Organisations = () => {
 </Stack>
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={organisations}
           // @ts-ignore
           columns={columns}
         />
