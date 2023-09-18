@@ -4,6 +4,10 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+//import { useCookies } from 'react-cookie';
+import { useEffect, useState } from "react";
+import Cookies from 'universal-cookie';
+import baseurl from './baseurl'
 
 const initialValues = {
   organizationId: "",
@@ -17,11 +21,49 @@ const validationSchema = Yup.object().shape({
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-
+  const [cookieName, setCookieName] = useState(['Hello']);
+  const [cookieValue, setCookieValue] = useState('Bro');
+  const cookies = new Cookies();
+console.log(baseurl)
+  const handleSetCookie = () => {
+    // Set a new cookie
+    console.log("Hello")
+    cookies.set(cookieName, cookieValue, { path: '/' });
+  };
+  //useEffect(()=> {
+  //  cookies.set(cookieName, cookieValue, { path: '/' });
+  //  }, [cookieName])
+  const handleRemoveCookie = (name) => {
+    // Remove a cookie
+    cookies.remove(name, { path: '/' });
+  };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  handleSetCookie()
+  const loginnow = async (values) =>{
+    //e.preventDefault()
+    console.log("Hello Babty")
+    const Id = values.organizationId
+    const password = values.password
+  const res = await fetch(`${baseurl}/organisation/login`,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      //credentials: 'include', //for jwt 
+      body:JSON.stringify({
+        Id,password
+      })
+    });
+    const jack = await res.json()
+    //setCook(jack);
+    console.log(jack)
+    cookies.set("token",jack.data.token, { path: '/' } )
+    cookies.set("_id",jack.data.user._id, { path: '/' } )
+    //res.status == 200 ? console.log("Success") : console.log("Failure")
+    console.log(initialValues, organizationId, password)
+  }
   return (
     <div className="flex flex-col items-center justify-center pt-10 pb-10  z-10 bg-card-fill">
       <h2 className="text-2xl font-bold mb-4">Log In</h2>
@@ -31,10 +73,7 @@ const LoginForm = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          // Handle form submission here
-          console.log(values);
-        }}
+        onSubmit={(values) =>{loginnow(values)}}
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col items-center w-full">
@@ -84,6 +123,7 @@ const LoginForm = () => {
               </Link>
             </div>
             <div className="w-9/12">
+            
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -91,6 +131,7 @@ const LoginForm = () => {
               >
                 Log In
               </button>
+              
             </div>
           </Form>
         )}
