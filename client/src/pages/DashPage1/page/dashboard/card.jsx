@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card as MUICard, CardContent, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import React from "react";
+import { Card as MUICard, CardContent, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 
 const StyledCard = styled(MUICard)(({ theme }) => ({
   width: 345,
