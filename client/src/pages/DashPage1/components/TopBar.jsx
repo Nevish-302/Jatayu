@@ -22,6 +22,8 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 const drawerWidth = 240;
 
+const customColor = " #4763E4"; // Replace with your desired custom color
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
   // @ts-ignore
@@ -31,6 +33,8 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  backgroundColor: customColor, // Apply the custom color to the background
+  color: "white", // Change the text color to white or your preferred color
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,

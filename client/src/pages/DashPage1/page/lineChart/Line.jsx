@@ -1,5 +1,3 @@
- 
- 
 import React from "react";
 import { Box, useTheme } from "@mui/material";
 
@@ -7,227 +5,229 @@ import { ResponsiveLine } from "@nivo/line";
 
 const data = [
   {
-    id: "france",
-    color: "hsl(4, 70%, 50%)",
+    id: "Death count",
+
     data: [
       {
-        x: "plane",
+        x: "12 Sep",
         y: 79,
       },
       {
-        x: "helicopter",
+        x: "13 Sep",
         y: 28,
       },
       {
-        x: "boat",
+        x: "14 Sep",
         y: 150,
       },
       {
-        x: "train",
+        x: "15 Sep",
         y: 173,
       },
       {
-        x: "subway",
+        x: "16 Sep",
         y: 234,
       },
       {
-        x: "bus",
+        x: "17 Sep",
         y: 98,
       },
       {
-        x: "car",
+        x: "18 Sep",
         y: 244,
       },
       {
-        x: "moto",
+        x: "19 Sep",
         y: 295,
       },
       {
-        x: "bicycle",
+        x: "20 Sep",
         y: 287,
       },
       {
-        x: "horse",
+        x: "21 Sep",
         y: 157,
       },
       {
-        x: "skateboard",
+        x: "22 Sep",
         y: 239,
       },
       {
-        x: "others",
+        x: "23 Sep",
         y: 69,
       },
     ],
   },
   {
-    id: "us",
-    color: "hsl(205, 70%, 50%)",
+    id: "Survivors",
+
     data: [
       {
-        x: "plane",
+        x: "12 Sep",
         y: 278,
       },
       {
-        x: "helicopter",
+        x: "13 Sep",
         y: 222,
       },
       {
-        x: "boat",
+        x: "14 Sep",
         y: 65,
       },
       {
-        x: "train",
+        x: "15 Sep",
         y: 213,
       },
       {
-        x: "subway",
+        x: "16 Sep",
         y: 89,
       },
       {
-        x: "bus",
+        x: "17 Sep",
         y: 278,
       },
       {
-        x: "car",
+        x: "18 Sep",
         y: 231,
       },
       {
-        x: "moto",
+        x: "19 Sep",
         y: 47,
       },
       {
-        x: "bicycle",
+        x: "20 Sep",
         y: 126,
       },
       {
-        x: "horse",
+        x: "21 Sep",
         y: 191,
       },
       {
-        x: "skateboard",
+        x: "22 Sep",
         y: 95,
       },
       {
-        x: "others",
+        x: "23 Sep",
         y: 26,
       },
     ],
   },
   {
-    id: "germany",
-    color: "hsl(39, 70%, 50%)",
+    id: "Missing",
+
     data: [
       {
-        x: "plane",
+        x: "12 Sep",
         y: 3,
       },
       {
-        x: "helicopter",
+        x: "13 Sep",
         y: 187,
       },
       {
-        x: "boat",
+        x: "14 Sep",
         y: 259,
       },
       {
-        x: "train",
+        x: "15 Sep",
         y: 294,
       },
       {
-        x: "subway",
+        x: "16 Sep",
         y: 158,
       },
       {
-        x: "bus",
+        x: "17 Sep",
         y: 146,
       },
       {
-        x: "car",
+        x: "18 Sep",
         y: 125,
       },
       {
-        x: "moto",
+        x: "19 Sep",
         y: 253,
       },
       {
-        x: "bicycle",
+        x: "20 Sep",
         y: 230,
       },
       {
-        x: "horse",
+        x: "21 Sep",
         y: 287,
       },
       {
-        x: "skateboard",
+        x: "22 Sep",
         y: 193,
       },
       {
-        x: "others",
+        x: "23 Sep",
         y: 12,
       },
     ],
   },
   {
-    id: "norway",
-    color: "hsl(179, 70%, 50%)",
+    id: "Injured",
+
     data: [
       {
-        x: "plane",
+        x: "12 Sep",
         y: 213,
       },
       {
-        x: "helicopter",
+        x: "13 Sep",
         y: 271,
       },
       {
-        x: "boat",
+        x: "14 Sep",
         y: 22,
       },
       {
-        x: "train",
+        x: "15 Sep",
         y: 270,
       },
       {
-        x: "subway",
+        x: "16 Sep",
         y: 97,
       },
       {
-        x: "bus",
+        x: "17 Sep",
         y: 146,
       },
       {
-        x: "car",
+        x: "18 Sep",
         y: 116,
       },
       {
-        x: "moto",
+        x: "19 Sep",
         y: 159,
       },
       {
-        x: "bicycle",
+        x: "20 Sep",
         y: 165,
       },
       {
-        x: "horse",
+        x: "21 Sep",
         y: 210,
       },
       {
-        x: "skateboard",
+        x: "22 Sep",
         y: 76,
       },
       {
-        x: "others",
+        x: "23 Sep",
         y: 126,
       },
     ],
   },
 ];
 
-const Line = ({isDahboard = false}) => {
+const Line = ({ isDahboard = false }) => {
+  const colors = ["#8A2BE2", "#4763E4", "#7C83FD", "#1d40c7", "#00BFFF"];
+
   const theme = useTheme();
   return (
-    <Box sx={{ height: isDahboard?  "280px"  :  "75vh" }}>
+    <Box sx={{ height: isDahboard ? "280px" : "75vh" }}>
       <ResponsiveLine
         theme={{
           textColor: theme.palette.text.primary,
@@ -338,20 +338,18 @@ const Line = ({isDahboard = false}) => {
         axisTop={null}
         axisRight={null}
         axisBottom={{
- 
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: isDahboard? null : "transportation",
+          legend: isDahboard ? null : "transportation",
           legendOffset: 36,
           legendPosition: "middle",
         }}
         axisLeft={{
-       
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: isDahboard? null : "Count",
+          legend: isDahboard ? null : "Count",
           legendOffset: -45,
           legendPosition: "middle",
         }}
@@ -359,6 +357,7 @@ const Line = ({isDahboard = false}) => {
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}
         pointBorderColor={{ from: "serieColor" }}
+        colors={colors}
         pointLabelYOffset={-12}
         useMesh={true}
         legends={[
