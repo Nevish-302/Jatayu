@@ -5,7 +5,7 @@ const sessionController = require('../controllers/sessionController')
 const requestController = require('../controllers/requestController');
 const router = express.Router();
 
-router.get('/createRequest', employeeController.createRequest);
+router.post('/createRequest', employeeController.createRequest);
 router.get('/:requestId', requestController.getRequestById);
 router.get('/getAllRequestsByTeamId/:teamId', employeeController.getAllRequestsByTeamId);
 router.post('/signup', EauthController.signup);
@@ -21,6 +21,7 @@ router.route('/getEmp').get(employeeController.getAllEmployees);
 
 router.get('/sessions/:sessionId', sessionController.getSessionById);
 router.get('/sessions/byTeam/:teamId', sessionController.getSessionsByTeamId);
+router.get('/sessions/getCurrent/:teamId', sessionController.getCurrentSessionByTeamId)
 
 
 module.exports = router;

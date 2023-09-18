@@ -6,6 +6,7 @@ const Request = require("../models/requestModel")
 const Organisation = require("../models/organisationModel");
 const mongoose = require('mongoose')
 const objectId = new mongoose.Types.ObjectId();
+const Team = require('../models/team.model')
 
 // exports.createSession = catchAsync(async (req, res) => {
 //     const {orgId, request} = await req.body
@@ -88,8 +89,7 @@ exports.createSession = catchAsync(async (req, res) => {
       },
     });
   }
-
-  // Check the severity of the request and add red zones if it's 0, 1, or 2
+//make function for redZones severity
   const redZones = [];
   if (request.severity >= 0 && request.severity <= 2) {
     redZones.push({
@@ -229,7 +229,7 @@ exports.getSessionById = catchAsync(async (req, res) => {
       teams: Id,
     });
 
-console.log(sessions);
+console.log(sessions, Id);
 
     if (!sessions.length) {
       return res.status(404).json({
@@ -248,6 +248,36 @@ console.log(sessions);
     });
   });
   
+  exports.getCurrentSessionByTeamId = catchAsync(async (req, res) => {
+    const { teamId } = req.params;
+  console.log(teamId);
+
+  const Id = new mongoose.Types.ObjectId(teamId);
+
+    const sessions = await Team.find({
+      _id: Id,
+    });
+
+console.log(sessions, Id);
+
+    if (!sessions.length) {
+      return res.status(404).json({
+        status: 'failure',
+        data: {
+          message: 'No sessions found for the specified teamId',
+        },
+      });
+    }
+  
+    res.status(200).json({
+      status: 'success',
+      data: {
+        sessions: sessions,
+      },
+    });
+  });
+  
+
   exports.getSessionsByOrganisationId = catchAsync(async (req, res) => {
     const { organisationId } = req.params;
   const orgId=new mongoose.Types.ObjectId(organisationId);

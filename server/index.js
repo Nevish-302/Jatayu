@@ -33,7 +33,7 @@ process.on('unhandledRejection', (err) => {
 //var io = require("socket.io")(http);
 const Request = require('./models/requestModel')
 const Team = require('./models/team.model')
-
+const Session = require('./models/session.model')
 const Organisation = require('./models/organisationModel'
 )
 const io = require("socket.io")(server, {
@@ -164,6 +164,36 @@ socket.on('req-to-emp', async (request, cb) =>{
   })
   }
 })
+
+socket.on('add-team', async (request, cb) =>{
+  //socket.join(room)
+  console.log(request, request);
+  const teamId = request.teamId
+  const sessionId = request.sessionId
+  if(teamId && sessionId){
+    const team = await Team.findOne({_id : new TypeObj(teamId)})
+    const sessionUpdate = await Session.findOneAndUpdate({_id : new TypeObj(sessionId)}, {$push : {teams : teamId}})
+  //if the current _id and broadcast _id is same, then re requet the requests 
+  socket.broadcast.emit('team-added', teamId)
+  cb(
+    {
+      status: "success",
+      data: {
+          request : sessionId,
+      }
+  })
+}
+  else
+  {
+    cb({
+      status: "failure",
+      data: {
+          message : "provide the teamid and session id",
+      }
+  })
+  }
+})
+
 
 //Organisation Sending Resource
 socket.on('assign-team-resource', async (request, cb) =>{

@@ -77,8 +77,8 @@ function appendMessage(message) {
 
 request.addEventListener('click', e => {
   const req = {
-    senderId: `6503559a493fe195aaa42e18`,
-    receiverId: "6501e06e42b79214089445dd",
+    sessionId: `6503559a493fe195aaa42e18`,
+    sessionId: "650776b466a4ecb8c4f39608",
     teamId:"6503559a493fe195aaa42e18",
     message: "Some Message",
     status: "pending",
@@ -89,21 +89,21 @@ request.addEventListener('click', e => {
       radius:50,
   },
   };
-  socket.emit('req-from-emp', req, message =>{
+  socket.emit('add-team', req, message =>{
     //this is how the data from the backend is handled
     console.log("JacksonBaby", message)
   })
 })
-
+ 
 assignTeamResource.addEventListener('click', e => {
   const req = {
-    organisationId: `6501e06e42b79214089445dd`,
-    teamId: "6503559a493fe195aaa42e18",
+    organisationId: `650709660473f19d86d2acae`,
+    teamId: "6507115e0473f19d86d2ada4",
     resource : {
-      type : "bus",
-      number : 2,
-      organisationId :"6501d4e138aa24e624404d63" ,
-      at : new Date,
+      type : "Volunteers",
+      number : 5,
+      organisationId :"650709660473f19d86d2acae" ,
+      at : new Date(),
   }  
   };
   socket.emit('assign-team-resource', req, message =>{
@@ -114,7 +114,7 @@ assignTeamResource.addEventListener('click', e => {
 
 teamGetResource.addEventListener('click', e => {
   const req = {
-    teamId:"6503559a493fe195aaa42e18", 
+    teamId:"6507115e0473f19d86d2ada4", 
   };
   socket.emit('team-get-resource', req, message =>{
     //this is how the data from the backend is handled

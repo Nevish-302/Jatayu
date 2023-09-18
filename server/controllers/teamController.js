@@ -44,7 +44,7 @@ exports.addEmployee = catchAsync(async (req, res, next) => {
   
     // Update the teamMembers and employee's team
     team = await Team.findOneAndUpdate({ _id: teamId }, { $push: { teamMembers: empId } });
-    employee = await Employee.findOneAndUpdate({ _id: empId },  {$push: { team: team._id }});
+    employee = await Employee.findOneAndUpdate({ _id: empId },  { team: team._id });
   
     res.status(200).json({
       status: "success",
@@ -105,6 +105,7 @@ exports.createTeam = factory.createOne(Team)
 
 exports.getTeamByOrgSess = catchAsync(async(req, res) =>  {
     const {Id, OS} = req.body
+    console.log("Hello", Id, OS)
     if(!Id)
     {
         res.status(405).json({
@@ -115,7 +116,7 @@ exports.getTeamByOrgSess = catchAsync(async(req, res) =>  {
         })
     }
     if(!OS){
-    const teamList = Team.find({Organisation : Id})
+    const teamList = await Team.find({Organisation : Id})
     res.status(200).json({
         status: "success",
         data: {
@@ -123,7 +124,8 @@ exports.getTeamByOrgSess = catchAsync(async(req, res) =>  {
         }
     })}
     else{
-    const teamList = Team.find({sessionId : Id})    
+    const teamList = await Team.find({sessionId : Id})    
+    console.log(teamList)
     res.status(200).json({
             status: "success",
             data: {

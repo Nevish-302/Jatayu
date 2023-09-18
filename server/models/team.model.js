@@ -12,6 +12,10 @@ const teamSchema = new Schema(
                 ref:'Employee'
             }
         },
+        status : {
+            type: Boolean,
+            default: true
+        },
         sessionId : {
             type : mongoose.Schema.Types.ObjectId,
         },
