@@ -17,49 +17,38 @@ const Row1 = () => {
       justifyContent={{ xs: "center", sm: "space-between" }}
     >
       <Card
-        icon={<EmailIcon
-          sx={{ fontSize: "23px", color: theme.palette.secondary.main }} />}
+        icon={<EmailIcon sx={{ fontSize: "23px", color: "#4763E4" }} />}
         title={"12,361"}
-        subTitle={"Emails Sent"}
+        subTitle={"Alerts"}
         increase={"+14%"}
-        data={data1} scheme={"nivo"}      />
+        data={data1}
+        scheme={"nivo"}
+      />
 
       <Card
-        icon={
-          <PointOfSaleIcon
-            sx={{ fontSize: "23px", color: theme.palette.secondary.main }}
-          />
-        }
-        title={"431,225"}
-        subTitle={"Sales obtained"}
+        icon={<PointOfSaleIcon sx={{ fontSize: "23px", color: "#4763E4" }} />}
+        title={"1,225"}
+        subTitle={"Survivors"}
         increase={"+21%"}
         data={data2}
-        scheme={"category10"} 
+        scheme={"category10"}
       />
 
       <Card
-        icon={
-          <PersonAddIcon
-            sx={{ fontSize: "23px", color: theme.palette.secondary.main }}
-          />
-        }
-        title={"32,441"}
-        subTitle={"New Clients"}
+        icon={<PersonAddIcon sx={{ fontSize: "23px", color: "#4763E4" }} />}
+        title={"32"}
+        subTitle={"Casualities"}
         increase={"+5%"}
         data={data3}
-        scheme={"accent"} 
+        scheme={"accent"}
       />
       <Card
-        icon={
-          <TrafficIcon
-            sx={{ fontSize: "23px", color: theme.palette.secondary.main }}
-          />
-        }
-        title={"1,325,134"}
-        subTitle={"Traffic Received"}
+        icon={<TrafficIcon sx={{ fontSize: "23px", color: "#4763E4" }} />}
+        title={"1,325"}
+        subTitle={"Injured"}
         increase={"+43%"}
         data={data4}
-        scheme={"dark2"} 
+        scheme={"dark2"}
       />
     </Stack>
   );

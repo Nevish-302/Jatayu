@@ -8,45 +8,36 @@ const Row3 = () => {
   const theme = useTheme();
   return (
     <Stack gap={1.5} direction={"row"} flexWrap={"wrap"} mt={1.4}>
-      <Paper sx={{flexGrow: 1,minWidth: "400px", width: "28%",  }}>
+      <Paper sx={{ flexGrow: 1, minWidth: "400px", width: "28%" }}>
         <Typography
-          color={theme.palette.secondary.main}
+          color="#4763E4"
           sx={{ padding: "30px 30px 0 30px" }}
           variant="h6"
           fontWeight="600"
         >
-          Campaign
+          Survivor Stats
         </Typography>
 
         <Pie isDashbord={true} />
         <Typography variant="h6" align="center" sx={{ mt: "15px" }}>
-          $48,352 revenue generated
+          48,352 survived
         </Typography>
         <Typography variant="body2" px={0.7} pb={3} align="center">
-          Includes extra misc expenditures and costs
+          243 casualties
         </Typography>
       </Paper>
 
-      <Paper sx={{flexGrow: 1,minWidth: "400px", width: "33%",  }}>
-      <Typography
-          color={theme.palette.secondary.main}
+      <Paper sx={{ flexGrow: 1, minWidth: "400px", width: "33%" }}>
+        <Typography
+          color="#4763E4"
           variant="h6"
           fontWeight="600"
           sx={{ padding: "30px 30px 0 30px" }}
         >
-          Sales Quantity
+          Missing Reports onSite
         </Typography>
 
-
-<Bar isDashbord={true} />
-
-
-      </Paper>
-
-      <Paper sx={{flexGrow: 1,minWidth: "400px", width: "33%",  }}>
-        
-
-      <Geo isDashbord={true} />
+        <Bar isDashbord={true} />
       </Paper>
     </Stack>
   );

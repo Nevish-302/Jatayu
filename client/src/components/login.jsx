@@ -131,7 +131,7 @@ const LoginForm = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-500 text-white py-2 px-4 hover:bg-blue-600 focus:outline-none rounded-xl "
+                className="w-full bg-[#4763E4] text-white py-2 px-4 hover:bg-blue-600 focus:outline-none rounded-xl "
               >
                 Log In
               </button>

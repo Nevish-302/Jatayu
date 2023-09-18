@@ -2,9 +2,14 @@ import React from "react";
 import { Box, Paper, Stack, Typography, useTheme } from "@mui/material";
 import { ResponsivePie } from "@nivo/pie";
 
-const Card = ({ icon, title, subTitle, increase, data, scheme }) => {
-
+const Card = ({ icon, title, subTitle, increase, data }) => {
   const theme = useTheme();
+
+  // Define a custom color scheme
+  const customColorScheme = {
+    colors: ["#0074D9", "#5BC0DE", "#89C4F4"],
+  };
+
   return (
     <Paper
       sx={{
@@ -125,7 +130,6 @@ const Card = ({ icon, title, subTitle, increase, data, scheme }) => {
                 tableCellValue: {},
               },
             }}
-            colors={{ scheme: scheme }}
             enableArcLabels={false}
             enableArcLinkLabels={false}
             padAngle={0.7}
@@ -156,6 +160,8 @@ const Card = ({ icon, title, subTitle, increase, data, scheme }) => {
                 spacing: 10,
               },
             ]}
+            // Pass the custom color scheme
+            colors={customColorScheme.colors}
           />
         </Box>
         <Typography variant="body2">{increase}</Typography>
