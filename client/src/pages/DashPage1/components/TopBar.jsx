@@ -19,6 +19,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -151,11 +152,11 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
               <DarkModeOutlinedIcon />
             </IconButton>
           )}
-
+          <Link to='/dashboard/requests'>
           <IconButton color="inherit">
             <NotificationsOutlinedIcon />
           </IconButton>
-
+          </Link>
           <IconButton color="inherit">
             <SettingsOutlinedIcon />
           </IconButton>

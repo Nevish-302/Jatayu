@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card as MUICard, CardContent, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import React from "react";
+import { Card as MUICard, CardContent, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 
 const StyledCard = styled(MUICard)(({ theme }) => ({
   width: 345,
@@ -14,7 +14,7 @@ function Card({ title, subtitle }) {
         <Typography variant="h5" component="div">
           {title}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="h4" color="#1d40c7">
           {subtitle}
         </Typography>
       </CardContent>

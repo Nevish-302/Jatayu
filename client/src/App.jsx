@@ -9,6 +9,8 @@ import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
 
 //imports for dashboard
+import RequestsOrg from './pages/DashPageOuter/page/requests/Requests'
+import ResourcesO from './pages/DashPageOuter/page/resources/Resources'
 import Resources from './pages/DashPage1/page/resources/Resources'
 import RequestsSession from './pages/DashPage1/page/requests/Requests'
 import DashPage from "./pages/DashPage1/DashPage";
@@ -97,7 +99,11 @@ const App = () => {
 
               {/* Teams Section */}
               <Route path="teams" element={<TeamO />} />
-
+              
+              <Route path="requests" element={<RequestsOrg />} />
+              
+              <Route path="resources" element={<ResourcesO />} />
+              
               {/* Contacts Section */}
               <Route path="contacts" element={<ContactsO />} />
 
