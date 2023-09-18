@@ -9,7 +9,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import CategoryIcon from '@mui/icons-material/Category';
+import CategoryIcon from "@mui/icons-material/Category";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
@@ -39,7 +39,7 @@ const openedMixin = (theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-  backgroundColor: customColor,
+
   overflowX: "hidden",
 });
 
@@ -55,7 +55,7 @@ const closedMixin = (theme) => ({
   },
 });
 
-const customColor = "#E7E7E7"; // Replace with your desired custom color
+// Replace with your desired custom color
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -99,10 +99,9 @@ const Array1 = [
     path: "/dashboard/organisations",
   },
   {
-    text:"Manage Resources",
+    text: "Manage Resources",
     icon: <CategoryIcon />,
-    path: "/dashboard/resources"
-
+    path: "/dashboard/resources",
   },
   {
     text: "Contacts Information",
