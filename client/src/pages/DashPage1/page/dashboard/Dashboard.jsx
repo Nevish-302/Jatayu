@@ -8,6 +8,7 @@ import { Box, Stack, Typography, useTheme } from "@mui/material";
 import baseurl from '../../../../components/baseurl'
 import Header from "../../components/Header";
 import Cookies from 'universal-cookie';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [cookieName, setCookieName] = useState();
@@ -73,9 +74,10 @@ const Dashboard = () => {
             sx={{ padding: "6px 8px", textTransform: "capitalize" }}
             variant="contained"
             color="primary"
-          >
+          >      <Link to='/meta'>
             <DownloadOutlined />
             Download Reports
+            </Link>
           </Button>
         </Box>
 </Stack>
