@@ -8,6 +8,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import CategoryIcon from '@mui/icons-material/Category';
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
@@ -86,6 +87,12 @@ const Array1 = [
     text: "Manage Team",
     icon: <PeopleOutlinedIcon />,
     path: "/dashboardOuter/teams",
+  },
+  {
+    text:"Manage Resources",
+    icon: <CategoryIcon />,
+    path: "/dashboardOuter/resources"
+
   },
   {
     text: "Contacts Information",
