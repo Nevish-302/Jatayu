@@ -67,12 +67,15 @@ affectees: {
     members: {
         survivors:{
             type : Number,
+            default:0,
         },
         casualities: {
             type : Number,
+            default:0,
         },
         injured: {
             type : Number,
+            default:0,
         },
         teamId : {
             type : mongoose.Schema.Types.ObjectId,
