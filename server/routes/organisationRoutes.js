@@ -37,7 +37,7 @@ router.get('/getAllRequests/:orgId', organisationController.getAllRequests);
 router.post('/createOrganisation', organisationController.createOrganisation);
 router.patch('/updateOrganisation', organisationController.updateOrganisation);
 router.get('/getOrganisation/:id', organisationController.getOrganisation);
-router.get('/getAllOrganisationsBySession', organisationController.getAllOrganisationBySession);
+router.post('/getAllOrganisationsBySession', organisationController.getAllOrganisationBySession);
 router.get('/getAllOrganisations', organisationController.getAllOrganisation);
 
 // is this function not working?
