@@ -31,10 +31,10 @@ const Row2 = () => {
               variant="h6"
               fontWeight={"bold"}
             >
-              Funds and Resources
+              Victims Count
             </Typography>
             <Typography variant="body2" ml={4}>
-              $ 59,342.32
+              Variation Statistics
             </Typography>
           </Box>
 

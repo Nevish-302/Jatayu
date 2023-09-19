@@ -35,6 +35,9 @@ import DashboardO from "./pages/DashPageOuter/page/dashboard/Dashboard";
 import Organisations from "./pages/DashPage1/page/organisations/Organisations";
 import Meta from "./pages/meta";
 import Landing from "./pages/Landing/landing";
+import RequestForm from "./pages/DashPage1/components/RequestForm"
+import ResourceForm from "./pages/DashPage1/components/ResourceForm"
+
 // import Payment from "../src/pages/Metapay/components/App";
 const App = () => {
   return (
@@ -61,6 +64,7 @@ const App = () => {
               <Route path="requests" element={<RequestsSession />} />
               
               <Route path="resources" element={<Resources />} />
+              <Route path="RequestForm" element={<RequestForm />} />
               
               {/* Invoices Section */}
               <Route path="invoices" element={<Invoices />} />
@@ -116,6 +120,8 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="/meta" element={<Meta />} />
+            <Route path="/request-form" element={<RequestForm />} />
+            <Route path="/resource-form" element={<ResourceForm />} />
             {/* <Route path="/payment" element={<Payment />} /> */}
           </Routes>
         </BrowserRouter>
