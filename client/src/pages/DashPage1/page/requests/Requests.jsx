@@ -13,6 +13,7 @@ import {
 import Header from "../../components/Header";
 import Cookies from 'universal-cookie';
 import baseurl from '../../../../components/baseurl.jsx'
+import socket from "../../../../socket"
 
 const RequestsSession = () => {
   const [cookieName, setCookieName] = useState();
@@ -38,13 +39,17 @@ const RequestsSession = () => {
     });
     const jack = await res.json()
     //setCook(jack);
-    console.log(jack, "jack", jack.data.data)
+    //console.log(jack, "jack", jack.data.data)
     let hmm = 0
     setRequests(jack.data.data.map((session)=>{hmm += 1;return {...session, id : hmm}}))
-    console.log(requests)
+    //console.log(requests)
     //res.status == 200 ? console.log("Success") : console.log("Failure")
   }
   useEffect(()=>{getRequests();console.log(requests, "oh Baby")}, [0])
+  socket.on('receive-request', (req)=>{
+      getRequests();
+      console.log(req, "Hello")
+  })
   const columns = [
     {
       field: "_id",
@@ -87,7 +92,7 @@ const RequestsSession = () => {
           >
             
             <Typography sx={{ fontSize: "13px", color: "#000" }}>
-              {console.log(createdAt)} {createdAt.split('T')[0]}
+              {createdAt.split('T')[0]}
             </Typography>
           </Box>
         );
@@ -106,7 +111,7 @@ const RequestsSession = () => {
       flex: 1,
       align: "center",
       headerAlign: "center",
-      renderCell: ({row: {status}}) => {
+      renderCell: ({row: {status}}) => {  
         return (
           <Box
             sx={{

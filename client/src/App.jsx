@@ -7,7 +7,7 @@ import {
 import React from "react";
 import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
-
+import socket from './socket'
 //imports for dashboard
 import RequestsOrg from './pages/DashPageOuter/page/requests/Requests'
 import ResourcesO from './pages/DashPageOuter/page/resources/Resources'

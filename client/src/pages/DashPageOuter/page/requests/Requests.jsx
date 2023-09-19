@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { rows } from "./data";
 import Button from "@mui/material/Button";
+import socket from '../../../../socket'
 import AddIcon from '@mui/icons-material/Add';
 import { useTheme } from "@mui/material";
 import { Box, Typography, Stack } from "@mui/material";
@@ -20,7 +21,6 @@ const RequestsOrg = () => {
   const cookies = new Cookies();
   const theme = useTheme();
   const [requests, setRequests] = useState([])
-
   const getRequests = async (values) =>{
     //e.preventDefault()
     let sessionId=cookies.get('SessionId')
@@ -42,6 +42,11 @@ const RequestsOrg = () => {
     //res.status == 200 ? console.log("Success") : console.log("Failure")
   }
   useEffect(()=>{getRequests();console.log(requests, "oh Baby")}, [0])
+  socket.on('receive-request', (req ,orgId)=>{
+    getRequests()
+    console.log(orgId, req, "Hello")
+  })
+  
   const columns = [
     {
       field: "_id",

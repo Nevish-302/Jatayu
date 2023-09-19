@@ -7,8 +7,13 @@ import { DownloadOutlined } from "@mui/icons-material";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import baseurl from "../../../../components/baseurl";
 import Header from "../../components/Header";
+<<<<<<< HEAD
 import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
+=======
+import Cookies from 'universal-cookie';
+import { Link } from 'react-router-dom';
+>>>>>>> a9becd3d4ab9365f956d0e88e0cebbfeba99c540
 
 const Dashboard = () => {
   const [cookieName, setCookieName] = useState();
@@ -94,10 +99,15 @@ const Dashboard = () => {
             }}
             variant="contained"
             color="primary"
+<<<<<<< HEAD
             component={Link} // Use the Link component
             to="/meta" // Specify the target route
           >
+=======
+          >      <Link to='/meta'>
+>>>>>>> a9becd3d4ab9365f956d0e88e0cebbfeba99c540
             MetaMask Payment
+            </Link>
           </Button>
         </Box>
       </Stack>
