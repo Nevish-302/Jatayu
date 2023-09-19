@@ -13,6 +13,7 @@ import {
 import Header from "../../components/Header";
 import Cookies from 'universal-cookie';
 import baseurl from '../../../../components/baseurl.jsx'
+import socket from "../../../../socket"
 
 const Resources = () => {
   const [inputValue, setInputValue] = useState('');
@@ -55,6 +56,12 @@ const Resources = () => {
   }
   console.log(resources)
   useEffect(()=>{getRequests();}, [0])
+  useEffect(()=>{getRequests();console.log(requests, "oh Baby")}, [0])
+  socket.on('receive-resource', (req)=>{
+      getRequests();
+      console.log(req, "Hello")
+  })
+  
   const columns = [
     {
       field: "type",
