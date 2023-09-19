@@ -43,7 +43,7 @@ router.get('/getAllOrganisations', organisationController.getAllOrganisation);
 // is this function not working?
 // router.post('/acceptRequestFromOff', organisationController.AcceptReqFromOff);
 router.delete('/deleteOrganisation/:id', organisationController.deleteOrganisation);
-router.get('/getAllRequestsBySession', sessionController.getAllRequests)
+router.post('/getAllRequestsBySession', sessionController.getAllRequests)
 router.post('/createSession', sessionController.createSession)
 router.post('/addOrganisation', sessionController.addOrganisation)
 router.route('/teamCreate').post(teamController.createTeam)

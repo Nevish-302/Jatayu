@@ -26,39 +26,39 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 //to limit the no. of request from the same id
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: 'too many requests from this IP ,try again in an hour',
-});
+// const limiter = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   message: 'too many requests from this IP ,try again in an hour',
+// });
 
-app.use('/api', limiter);
+// app.use('/api', limiter);
 //Change
 app.use(cors({
   origin: '*'
 }));
 //middleware for body parser, reading data from body into req.body
-app.use(express.json({ limit: '10kb' }));
+// app.use(express.json({ limit: '10kb' }));
 
 //data sanitization against NOSQL query
-app.use(mongoSanitize());
+// app.use(mongoSanitize());
 
 //data sanitization against XSS
-app.use(xss());
+// app.use(xss());
 
 //prevent parameter pollution
-app.use(
-  hpp({
-    whitelist: [
-      'duration',
-      'maxGroupSize',
-      'difficulty',
-      'ratingsAverage',
-      'ratingsQuantity',
-      'price',
-    ],
-  })
-);
+// app.use(
+//   hpp({
+//     whitelist: [
+//       'duration',
+//       'maxGroupSize',
+//       'difficulty',
+//       'ratingsAverage',
+//       'ratingsQuantity',
+//       'price',
+//     ],
+//   })
+// );
 
 //testing middleware
 app.use((req, res, next) => {

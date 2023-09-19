@@ -179,13 +179,15 @@ exports.getAllRequests = catchAsync(async (req, res) => {
         })
 
     }
-    const requests = await Request.find({sessionId : sessionId})
+    else{
+      const requests = await Request.find({sessionId : sessionId})
     res.status(200).json({
         status: "session",
         data: {
             data : requests,
         }
     })
+    }
 })
 
 exports.getSessionById = catchAsync(async (req, res) => {
