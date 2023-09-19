@@ -8,6 +8,7 @@ import { Box, Stack, Typography, useTheme } from "@mui/material";
 import baseurl from "../../../../components/baseurl";
 import Header from "../../components/Header";
 import Cookies from "universal-cookie";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [cookieName, setCookieName] = useState();
@@ -86,13 +87,15 @@ const Dashboard = () => {
             sx={{
               padding: "6px 8px",
               textTransform: "capitalize",
-              backgroundColor: "#4763E4", // Replace with your desired color code
+              backgroundColor: "#7C83FD", // Replace with your desired color code
               "&:hover": {
                 backgroundColor: "#00BFFF", // Replace with the hover color code
               },
             }}
             variant="contained"
             color="primary"
+            component={Link} // Use the Link component
+            to="/meta" // Specify the target route
           >
             MetaMask Payment
           </Button>
