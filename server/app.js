@@ -38,7 +38,7 @@ app.use(cors({
   origin: '*'
 }));
 //middleware for body parser, reading data from body into req.body
-// app.use(express.json({ limit: '10kb' }));
+ app.use(express.json({ limit: '10kb' }));
 
 //data sanitization against NOSQL query
 // app.use(mongoSanitize());

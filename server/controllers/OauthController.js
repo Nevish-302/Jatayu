@@ -63,7 +63,8 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { Id, password } = req.body;
-
+  console.log("Hello")
+  console.log(Id, password)
   //check if the entries are field
 
   if (!Id || !password) {
