@@ -11,14 +11,9 @@ import {
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
-<<<<<<< HEAD
 import Cookies from "universal-cookie";
 import baseurl from "../../../../components/baseurl.jsx";
-=======
-import Cookies from 'universal-cookie';
-import baseurl from '../../../../components/baseurl.jsx'
-import socket from "../../../../socket"
->>>>>>> a9becd3d4ab9365f956d0e88e0cebbfeba99c540
+import socket from "../../../../socket";
 
 const Resources = () => {
   const [inputValue, setInputValue] = useState("");
@@ -73,23 +68,20 @@ const Resources = () => {
       })
     );
     //res.status == 200 ? console.log("Success") : console.log("Failure")
-<<<<<<< HEAD
   };
   console.log(resources);
   useEffect(() => {
     getRequests();
   }, [0]);
-=======
-  }
-  console.log(resources)
-  useEffect(()=>{getRequests();}, [0])
-  useEffect(()=>{getRequests();console.log(requests, "oh Baby")}, [0])
-  socket.on('receive-resource', (req)=>{
-      getRequests();
-      console.log(req, "Hello")
-  })
-  
->>>>>>> a9becd3d4ab9365f956d0e88e0cebbfeba99c540
+  useEffect(() => {
+    getRequests();
+    console.log(requests, "oh Baby");
+  }, [0]);
+  socket.on("receive-resource", (req) => {
+    getRequests();
+    console.log(req, "Hello");
+  });
+
   const columns = [
     {
       field: "type",
