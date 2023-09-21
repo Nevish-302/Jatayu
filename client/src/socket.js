@@ -7,4 +7,3 @@ socket.on("connect", () => {
   socket.emit("custom-event", 10, "a", { Hello: "jack" });
 });
 export default socket;
-//new
