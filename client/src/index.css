@@ -33,7 +33,6 @@ body {
 
 /* SignupForm.css */
 
-/* For WebKit-based browsers (Chrome, Safari) */
 .custom-scrollbar::-webkit-scrollbar {
   width: 10px; /* Width of the scrollbar */
 }
