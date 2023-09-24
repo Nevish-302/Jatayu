@@ -42,7 +42,6 @@ body {
   border-radius: 10px; /* Rounded corners for the scrollbar thumb */
 }
 
-/* For Firefox */
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: rgba(169, 169, 169, 0.5) transparent;
