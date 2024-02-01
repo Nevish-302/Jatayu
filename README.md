@@ -97,13 +97,13 @@ Happy coding!
 
 ## ScreenShots:
 
-# Web ScreenShots
+### Web ScreenShots
 
 - ![Screenshot 2024-02-01 172009](https://github.com/Nevish-302/Jatayu/assets/62387252/06507de4-55e3-4539-97a2-d3e9f7208c4d)
 - ![Screenshot 2024-02-01 171626](https://github.com/Nevish-302/Jatayu/assets/62387252/05a0a9cb-667c-4e9a-bc14-eac018d06ac6)
 - ![Screenshot 2024-02-01 171815](https://github.com/Nevish-302/Jatayu/assets/62387252/e1dc7448-9297-422c-9e7f-170d9b7591c0)
 
-# Mobile Screenshots
+### Mobile Screenshots
 - ![Screenshot 2024-02-01 172101](https://github.com/Nevish-302/Jatayu/assets/62387252/543d400e-4837-4739-befc-460a763dfd80)
 - ![Screenshot 2024-02-01 172158](https://github.com/Nevish-302/Jatayu/assets/62387252/06c865a4-0250-4b3f-8e47-d6be47d6d672)
 
