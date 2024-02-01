@@ -138,4 +138,9 @@ Happy coding!
    - *Use Case:* The application enforces role-based access control to ensure that only authorized users can access sensitive information. This helps protect sensitive data and ensures privacy and security.
   
 ## Contributors:
-
+- Me (Backend + Frontend DEV)
+- Yuvraj Singh (Android DEV)
+- Vibhuti (Android DEV)
+- Uravashi (Backend DEV)
+- Aayush Aryan (Frontend DEV)
+- Yogita (Designer)
