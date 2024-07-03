@@ -138,6 +138,36 @@ Happy coding!
    - *Use Case:* The application enforces role-based access control to ensure that only authorized users can access sensitive information. This helps protect sensitive data and ensures privacy and security.
   
 ## Contributors:
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/Nevish-302">
+          <img alt="" src="https://avatars.githubusercontent.com/Nevish-302" width="100px;"><br>
+          <sub><b>Shiven Upadhyay</b></sub><br>
+          (Backend + Frontend DEV)
+        </a>
+      </td>
+       <td align="center">
+        <a href="https://github.com/yyuvraj54">
+          <img alt="" src="https://avatars.githubusercontent.com/yyuvraj54" width="100px;"><br>
+          <sub><b>Yuvraj Singh</b></sub><br>
+          (Android DEV)
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/aayusharyan"><!-- Add the correct URL for Aayush Aryan -->
+          <img alt="" src="https://avatars.githubusercontent.com/AayushAryan007" width="100px;"><br><!-- Add the correct avatar URL for Aayush Aryan -->
+          <sub><b>Aayush Aryan</b></sub><br>
+          (Frontend DEV)
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
 - Me (Backend + Frontend DEV)
 - Yuvraj Singh (Android DEV)
 - Vibhuti (Android DEV)
