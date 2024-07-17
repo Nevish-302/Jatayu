@@ -59,21 +59,31 @@ const closedMixin = (theme) => ({
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
-  // @ts-ignore
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
-  // Apply the custom color to the background
-  color: "white", // Change the text color to white or your preferred color
-  ...(open && {
+  color: "white",
+  ...openedMixin(theme),
+  "& .MuiDrawer-paper": {
     ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
+    backgroundColor: theme.palette.mode === "dark" ? undefined : "white",
+    backgroundImage:
+      theme.palette.mode === "dark"
+        ? "linear-gradient(111.84deg, rgba(0, 4, 23, 0.94) 59.3%, rgba(0, 3, 15, 0) 100%)"
+        : undefined,
+  },
   ...(!open && {
     ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
+    "& .MuiDrawer-paper": {
+      ...closedMixin(theme),
+      backgroundColor: theme.palette.mode === "dark" ? undefined : "white",
+      backgroundImage:
+        theme.palette.mode === "dark"
+          ? "linear-gradient(111.84deg, rgba(0, 4, 23, 0.94) 59.3%, rgba(0, 3, 15, 0) 100%)"
+          : undefined,
+    },
   }),
 }));
 

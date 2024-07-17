@@ -10,14 +10,16 @@ module.exports = {
         "font-grey": "#5E5E5E",
         "banner-grey": "#F2F2FF",
         "card-fill": "#F8F9FF",
-        // primary: "#020106",
-        // "regal-blue": "#243c5a",
-        // secondary: "#aaa6c3",
-        // tertiary: "#151030",
-        // "black-100": "#100d25",
-        // "black-200": "#090325",
-        // "white-100": "#f3f3f3",
+
+        // dark screen
       },
+      backgroundImage: {
+        "gradient-prime": "linear-gradient(to top, #ff0844 0%, #ffb199 100%)",
+        "gradient-hover": "linear-gradient(-60deg, #ff5858 0%, #f09819 100%)",
+        "dark-side-nav":
+          " linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%);",
+      },
+
       // boxShadow: {
       //   card: "0px 35px 120px -15px #7885cc",
       // },
@@ -28,13 +30,6 @@ module.exports = {
         lg: "1024px",
         xl: "1280px",
         xxl: "1536px",
-      },
-
-      backgroundImage: {
-        // https://csstailwind.com/3-ways-to-add-background-image-in-tailwindcss/#:~:text=You%20can%20add%20a%20custom,that%20adds%20a%20background%20image.
-        //to add custom background image
-        //all customs bg
-        // "whole-pattern": "url('/src/assets/wholeBg.png')",
       },
     },
   },

@@ -13,9 +13,23 @@ import { Transactions } from "./data";
 
 const Row2 = () => {
   const theme = useTheme();
+  const backgroundGradient =
+    theme.palette.mode === "dark"
+      ? "linear-gradient(126.97deg, rgba(1, 6, 26, 0.77) 28.26%, rgba(10, 14, 35, 0.71) 91.2%)"
+      : "none";
+
   return (
     <Stack direction={"row"} flexWrap={"wrap"} gap={1.2} mt={1.3}>
-      <Paper sx={{ maxWidth: 900, flexGrow: 1, minWidth: "400px" }}>
+      <Paper
+        sx={{
+          maxWidth: 900,
+          flexGrow: 1,
+          minWidth: "400px",
+          backgroundImage:
+            theme.palette.mode === "dark" ? backgroundGradient : "none",
+          padding: theme.spacing(2),
+        }}
+      >
         <Stack
           alignItems={"center"}
           direction={"row"}
@@ -24,7 +38,7 @@ const Row2 = () => {
         >
           <Box>
             <Typography
-              color="#4763E4"
+              color="white"
               mb={1}
               mt={2}
               ml={4}
@@ -33,9 +47,9 @@ const Row2 = () => {
             >
               Victims Count
             </Typography>
-            <Typography variant="body2" ml={4}>
+            {/* <Typography variant="body2" ml={4}>
               Variation Statistics
-            </Typography>
+            </Typography> */}
           </Box>
 
           <Box>
@@ -55,42 +69,61 @@ const Row2 = () => {
           minWidth: "280px",
           maxHeight: 355,
           flexGrow: 1,
+          backgroundImage:
+            theme.palette.mode === "dark" ? backgroundGradient : "none",
         }}
       >
         <Paper>
-          <Typography color="#4763E4" fontWeight={"bold"} p={1.2} variant="h6">
+          <Typography
+            color="#4763E4"
+            fontWeight={"bold"}
+            p={1.2}
+            text-size="small"
+            sx={{
+              backgroundImage:
+                theme.palette.mode === "dark" ? backgroundGradient : "none",
+            }}
+          >
             Recent Transactions
           </Typography>
         </Paper>
 
-        {Transactions.map((item) => {
-          return (
-            <Paper
-              sx={{
-                mt: 0.4,
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Box p={1.2}>
-                <Typography variant="body1">{item.txId}</Typography>
-                <Typography variant="body2">{item.user} </Typography>
-              </Box>
-              <Typography variant="body1">{item.date} </Typography>
-
-              <Typography
-                borderRadius={1.4}
-                p={1}
-                bgcolor="#4763E4"
-                color={theme.palette.getContrastText(theme.palette.error.main)}
-                variant="body2"
-              >
-                ${item.cost}
+        {Transactions.map((item, index) => (
+          <Paper
+            key={index}
+            sx={{
+              mt: 0.4,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              backgroundImage:
+                theme.palette.mode === "dark" ? backgroundGradient : "none",
+              padding: theme.spacing(1.2),
+            }}
+          >
+            <Box>
+              <Typography variant="body1" sx={{ fontSize: "0.9rem" }}>
+                {item.txId}
               </Typography>
-            </Paper>
-          );
-        })}
+              <Typography variant="body2" sx={{ fontSize: "0.8rem" }}>
+                {item.user}
+              </Typography>
+            </Box>
+            <Typography variant="body1" sx={{ fontSize: "0.9rem" }}>
+              {item.date}
+            </Typography>
+            <Typography
+              borderRadius={1.4}
+              p={1}
+              bgcolor="#4763E4"
+              color={theme.palette.getContrastText(theme.palette.error.main)}
+              variant="body2"
+              sx={{ fontSize: "0.8rem" }}
+            >
+              ${item.cost}
+            </Typography>
+          </Paper>
+        ))}
       </Box>
     </Stack>
   );

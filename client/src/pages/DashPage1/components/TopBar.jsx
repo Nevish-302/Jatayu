@@ -19,7 +19,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -27,15 +27,15 @@ const customColor = " #4763E4"; // Replace with your desired custom color
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
-  // @ts-ignore
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  backgroundColor: customColor, // Apply the custom color to the background
-  color: "white", // Change the text color to white or your preferred color
+  backgroundColor: "transparent", // Make the background completely transparent
+  color: theme.palette.mode === "light" ? "black" : "white", // Change the text color based on theme mode
+  boxShadow: "none", // Remove the box-shadow for a completely transparent look
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -49,10 +49,7 @@ const AppBar = styled(MuiAppBar, {
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
+
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
@@ -152,10 +149,10 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
               <DarkModeOutlinedIcon />
             </IconButton>
           )}
-          <Link to='/dashboard/requests'>
-          <IconButton color="inherit">
-            <NotificationsOutlinedIcon />
-          </IconButton>
+          <Link to="/dashboard/requests">
+            <IconButton color="inherit">
+              <NotificationsOutlinedIcon />
+            </IconButton>
           </Link>
           <IconButton color="inherit">
             <SettingsOutlinedIcon />

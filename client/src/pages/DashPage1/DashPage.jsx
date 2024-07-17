@@ -53,7 +53,18 @@ export default function MiniDrawer() {
 
         <SideBar open={open} handleDrawerClose={handleDrawerClose} />
 
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {/* Styling applied only to main Box component and for dark mode */}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            background:
+              mode === "dark"
+                ? "linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+                : "inherit", // default background for light mode
+          }}
+        >
           <DrawerHeader />
           <Outlet />
         </Box>
