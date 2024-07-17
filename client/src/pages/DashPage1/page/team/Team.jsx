@@ -1,55 +1,72 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { rows } from "./data";
+import Button from "@mui/material/Button";
+import AddIcon from '@mui/icons-material/Add';
 import { useTheme } from "@mui/material";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
 import {
   AdminPanelSettingsOutlined,
   LockOpenOutlined,
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
+import Cookies from 'universal-cookie';
+import baseurl from '../../../../components/baseurl.jsx'
 
 const Team = () => {
+  const [cookieName, setCookieName] = useState();
+  const [cookieValue, setCookieValue] = useState();
+  const cookies = new Cookies();
   const theme = useTheme();
+  const [teams, setTeams] = useState([])
 
-  // field ==> Reqird
+  const getTeams = async (values) =>{
+    //e.preventDefault()
+    let Id=cookies.get('SessionId')
+    let OS = 1
+    console.log("Lemme Make Some sessions")
+    const res = await fetch(`${baseurl}/organisation/getTeams`,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        Id,OS
+      })
+      //credentials: 'include', //for jwt 
+    });
+    const jack = await res.json()
+    //setCook(jack);
+    console.log(jack, "jack")
+    let hmm = 0
+    setTeams(jack.data.team.map((session)=>{hmm += 1;return {...session, id : hmm}}))
+    console.log(teams)
+    //res.status == 200 ? console.log("Success") : console.log("Failure")
+  }
+  useEffect(()=>{getTeams();console.log(teams, "oh Baby")}, [0])
   const columns = [
     {
-      field: "id",
+      field: "_id",
       headerName: "ID",
-      width: 33,
+      align: "center",
+      width:200,
+      headerAlign: "center",
+    },
+    {
+      field: "Organisation",
+      headerName: "organisation",
+      width:200,
       align: "center",
       headerAlign: "center",
     },
     {
-      field: "name",
-      headerName: "name",
-      align: "center",
-      headerAlign: "center",
-    },
-    {
-      field: "email",
-      headerName: "email",
+      field: "teamMembers",
+      headerName: "Member(s)",
       flex: 1,
       align: "center",
       headerAlign: "center",
-    },
-    { field: "age", headerName: "age", align: "center", headerAlign: "center" },
-    {
-      field: "phone",
-      headerName: "phone",
-      flex: 1,
-      align: "center",
-      headerAlign: "center",
-    },
-    {
-      field: "access",
-      headerName: "access",
-      flex: 1,
-      align: "center",
-      headerAlign: "center",
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { teamMembers } }) => {
         return (
           <Box
             sx={{
@@ -60,31 +77,93 @@ const Team = () => {
               display: "flex",
               justifyContent: "space-evenly",
 
-              backgroundColor:
-                access === "Admin"
-                  ? theme.palette.primary.dark
-                  : access === "Manager"
-                  ? theme.palette.secondary.dark
-                  : "#3da58a",
+              backgroundColor: "none",
             }}
           >
-            {access === "Admin" && (
-              <AdminPanelSettingsOutlined
-                sx={{ color: "#fff" }}
-                fontSize="small"
-              />
-            )}
+            <Typography sx={{ fontSize: "13px", color: "#000" }}>
+            {teamMembers.length}{console.log(teamMembers.length)}
+            </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "requests",
+      headerName: "Requests(s)",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      renderCell: ({ row: { requests } }) => {
+        return (
+          <Box
+            sx={{
+              p: "5px",
+              width: "99px",
+              borderRadius: "3px",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "space-evenly",
 
-            {access === "Manager" && (
-              <SecurityOutlined sx={{ color: "#fff" }} fontSize="small" />
-            )}
+              backgroundColor: "none",
+            }}
+          >
+            <Typography sx={{ fontSize: "13px", color: "#000" }}>
+            {requests.length}{console.log(requests.length)}
+            </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "resources",
+      headerName: "Resource(s)",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      renderCell: ({ row: { requests } }) => {
+        return (
+          <Box
+            sx={{
+              p: "5px",
+              width: "99px",
+              borderRadius: "3px",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "space-evenly",
 
-            {access === "User" && (
-              <LockOpenOutlined sx={{ color: "#fff" }} fontSize="small" />
-            )}
+              backgroundColor: "none",
+            }}
+          >
+            <Typography sx={{ fontSize: "13px", color: "#000" }}>
+            {requests.length}{console.log(requests.length)}
+            </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "_idj",
+      headerName: "Active",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      renderCell: () => {
+        return (
+          <Box
+            sx={{
+              p: "5px",
+              width: "99px",
+              borderRadius: "3px",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "space-evenly",
 
+              backgroundColor      : "#3da58a",
+            }}
+          >
+            
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {access}
+              Active
             </Typography>
           </Box>
         );
@@ -94,11 +173,20 @@ const Team = () => {
 
   return (
     <Box>
+      <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} className="w-full">
       <Header title={"TEAM"} subTitle={"Managing the Team Members"} />
-
+      <Button
+            sx={{ padding: "6px 8px", textTransform: "capitalize" }}
+            variant="contained"
+            color="primary"
+          >
+        <AddIcon />
+          Add Team(s)
+          </Button>      
+</Stack>
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={teams}
           // @ts-ignore
           columns={columns}
         />

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import logo from "../../assets/image/Jatayu2.png";
 import person from "../../assets/image/person1.png";
+// import { Link, useHistory, useNavigate } from "react-router-dom"; // Import necessary hooks
+
 function App() {
   const [activeSection, setActiveSection] = useState("home");
 

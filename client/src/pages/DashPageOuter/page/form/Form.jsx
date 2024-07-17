@@ -26,7 +26,8 @@ const data = [
   },
 ];
 
-const Form = () => {
+const FormO = () => {
+  console.log("It'll take time")
   const {
     register,
     handleSubmit,
@@ -171,4 +172,4 @@ const Form = () => {
 );
 };
 
-export default Form;
+export default FormO;

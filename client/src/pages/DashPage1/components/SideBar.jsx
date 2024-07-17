@@ -9,6 +9,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import CategoryIcon from "@mui/icons-material/Category";
+import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import logo from "../../../assets/image/Jatayu.png";
@@ -37,6 +39,7 @@ const openedMixin = (theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
+
   overflowX: "hidden",
 });
 
@@ -52,6 +55,8 @@ const closedMixin = (theme) => ({
   },
 });
 
+// Replace with your desired custom color
+
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
   // @ts-ignore
@@ -60,7 +65,8 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
-
+  // Apply the custom color to the background
+  color: "white", // Change the text color to white or your preferred color
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
@@ -86,6 +92,16 @@ const Array1 = [
     text: "Manage Team",
     icon: <PeopleOutlinedIcon />,
     path: "/dashboard/teams",
+  },
+  {
+    text: "Manage Organisations",
+    icon: <CorporateFareIcon />,
+    path: "/dashboard/organisations",
+  },
+  {
+    text: "Manage Resources",
+    icon: <CategoryIcon />,
+    path: "/dashboard/resources",
   },
   {
     text: "Contacts Information",

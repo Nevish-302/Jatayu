@@ -4,49 +4,39 @@ import { Box, useTheme } from "@mui/material";
 
 const data = [
   {
-    year: 2019,
-    Spain: 900,
-    France: 1400,
-    Germany: 1700,
+    Week: "week 1",
+    Missing: 1200,
   },
 
   {
-    year: 2020,
-    Spain: 1000,
-    France: 1500,
-    Germany: 1800,
+    Week: "week 2",
+    Missing: 1500,
   },
 
   {
-    year: 2021,
-    Spain: 1100,
-    France: 1600,
-    Germany: 1900,
+    Week: "week 3",
+    Missing: 600,
   },
 
   {
-    year: 2022,
-    Spain: 1200,
-    France: 1700,
-    Germany: 2000,
+    Week: "week 4",
+    Missing: 400,
   },
 
   {
-    year: 2023,
-    Spain: 1260,
-    France: 1709,
-    Germany: 2080,
+    Week: "week 5",
+    Missing: 160,
   },
 ];
 
-const Bar = ({isDashbord = false }) => {
+const Bar = ({ isDashbord = false }) => {
   const theme = useTheme();
   return (
-    <Box sx={{ height:isDashbord? "300px": "75vh" }}>
+    <Box sx={{ height: isDashbord ? "300px" : "75vh" }}>
       <ResponsiveBar
         data={data}
-        keys={["Spain", "France", "Germany"]}
-        indexBy="year"
+        keys={["Missing"]}
+        indexBy="Week"
         theme={{
           textColor: theme.palette.text.primary,
           fontSize: 11,
@@ -190,7 +180,7 @@ const Bar = ({isDashbord = false }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: isDashbord? null : "Year",
+          legend: isDashbord ? null : "Year",
           legendPosition: "middle",
           legendOffset: 35,
         }}
@@ -198,7 +188,7 @@ const Bar = ({isDashbord = false }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend:  isDashbord? null : "salary/month",
+          legend: isDashbord ? null : "salary/month",
           legendPosition: "middle",
           legendOffset: -55,
         }}

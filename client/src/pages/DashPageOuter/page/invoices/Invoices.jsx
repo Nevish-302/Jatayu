@@ -5,7 +5,8 @@ import { Box, Typography } from "@mui/material";
 import { columns, rows } from "./data";
 import Header from "../../components/Header";
 
-const Invoices = () => {
+const InvoicesO = () => {
+  console.log("Oh Please not the invoice")
   return (
 <Box>
   
@@ -31,4 +32,4 @@ const Invoices = () => {
   );
 };
 
-export default Invoices;
+export default InvoicesO;

@@ -9,11 +9,9 @@ const loginPage = () => {
     <>
       <div className={`${styles.paddingX} signup-page-bg bg-cover`}>
         <Navbar />
-        <div class="flex flex-col sm:flex-row justify-between items-center p-4">
-          <div class="flex-1 pr-0 md:pr-9 md:justify-start">
-            <img src={image} alt="Image" class="  w-5/6  mx-auto" />
-          </div>
-          <div class="flex-1 border-2  border-prime-blue justify-end h-full">
+        <div className="flex flex-col sm:flex-row justify-between items-center p-4">
+          {/* Right Side */}
+          <div className="ml-auto mt-10 w-1/2 flex-end   h-full">
             <Login />
           </div>
         </div>

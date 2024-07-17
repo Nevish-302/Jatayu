@@ -19,8 +19,11 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
+
+const customColor = " #4763E4"; // Replace with your desired custom color
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -31,6 +34,8 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  backgroundColor: customColor, // Apply the custom color to the background
+  color: "white", // Change the text color to white or your preferred color
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -147,11 +152,11 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
               <DarkModeOutlinedIcon />
             </IconButton>
           )}
-
+          <Link to='/dashboard/requests'>
           <IconButton color="inherit">
             <NotificationsOutlinedIcon />
           </IconButton>
-
+          </Link>
           <IconButton color="inherit">
             <SettingsOutlinedIcon />
           </IconButton>

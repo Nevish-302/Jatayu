@@ -4,11 +4,12 @@ import { Box, Typography } from "@mui/material";
 import { columns, rows } from "./data";
 import Header from "../../components/Header";
 
-const Contacts = () => {
+const ContactsO = () => {
+  console.log("Don't wanna contact you")
   return (
     <Box>
       <Header
-        title="CONTACTS"
+        title="EMPLOYEES"
         subTitle="List of Contacts for Future Reference"
       />
 
@@ -26,4 +27,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default ContactsO;

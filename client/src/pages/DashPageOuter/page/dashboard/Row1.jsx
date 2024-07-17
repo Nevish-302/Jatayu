@@ -17,12 +17,8 @@ const Row1 = () => {
       justifyContent={{ xs: "center", sm: "space-between" }}
     >
       <Card
-        icon={<EmailIcon
-          sx={{ fontSize: "23px", color: theme.palette.secondary.main }} />}
-        title={"12,361"}
-        subTitle={"Emails Sent"}
-        increase={"+14%"}
-        data={data1} scheme={"nivo"}      />
+        title={"Total Casualties : "}
+        subTitle={"50"} />
 
       <Card
         icon={
@@ -30,11 +26,8 @@ const Row1 = () => {
             sx={{ fontSize: "23px", color: theme.palette.secondary.main }}
           />
         }
-        title={"431,225"}
-        subTitle={"Sales obtained"}
-        increase={"+21%"}
-        data={data2}
-        scheme={"category10"} 
+        title={"Survivors"}
+        subTitle={"120"}
       />
 
       <Card

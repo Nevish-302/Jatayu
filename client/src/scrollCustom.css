@@ -4,7 +4,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(169, 169, 169, 0.5); /* Grey color with transparency */
+  background-color: rgba(6, 56, 192, 0.219); /* Grey color with transparency */
   border-radius: 10px; /* Rounded corners for the scrollbar thumb */
 }
 

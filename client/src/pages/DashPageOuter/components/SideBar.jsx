@@ -8,6 +8,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import CategoryIcon from '@mui/icons-material/Category';
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
@@ -81,21 +82,27 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const Array1 = [
-  { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/dashboard" },
+  { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/dashboardOuter" },
   {
     text: "Manage Team",
     icon: <PeopleOutlinedIcon />,
-    path: "/dashboard/teams",
+    path: "/dashboardOuter/teams",
+  },
+  {
+    text:"Manage Resources",
+    icon: <CategoryIcon />,
+    path: "/dashboardOuter/resources"
+
   },
   {
     text: "Contacts Information",
     icon: <ContactsOutlinedIcon />,
-    path: "/dashboard/contacts",
+    path: "/dashboardOuter/contacts",
   },
   {
     text: "Invoices Balances",
     icon: <ReceiptOutlinedIcon />,
-    path: "/dashboard/invoices",
+    path: "/dashboardOuter/invoices",
   },
 ];
 
@@ -103,36 +110,7 @@ const Array2 = [
   {
     text: "Profile Form",
     icon: <PersonOutlinedIcon />,
-    path: "/dashboard/form",
-  },
-  {
-    text: "Calendar",
-    icon: <CalendarTodayOutlinedIcon />,
-    path: "/dashboard/calendar",
-  },
-  {
-    text: "FAQ Page",
-    icon: <HelpOutlineOutlinedIcon />,
-    path: "/dashboard/faq",
-  },
-];
-
-const Array3 = [
-  { text: "Bar Chart", icon: <BarChartOutlinedIcon />, path: "/dashboard/bar" },
-  {
-    text: "Pie Chart",
-    icon: <PieChartOutlineOutlinedIcon />,
-    path: "/dashboard/pie",
-  },
-  {
-    text: "Line Chart",
-    icon: <TimelineOutlinedIcon />,
-    path: "/dashboard/line",
-  },
-  {
-    text: "Geography Chart",
-    icon: <MapOutlinedIcon />,
-    path: "/dashboard/geography",
+    path: "/dashboardOuter/form",
   },
 ];
 
@@ -264,46 +242,7 @@ const SideBar = ({ open, handleDrawerClose }) => {
       </List>
 
       <Divider />
-
-      <List>
-        {Array3.map((item) => (
-          <ListItem key={item.path} disablePadding sx={{ display: "block" }}>
-            <Tooltip title={open ? null : item.text} placement="left">
-              <ListItemButton
-                onClick={() => {
-                  navigate(item.path);
-                }}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                  bgcolor:
-                    location.pathname === item.path
-                      ? theme.palette.mode === "dark"
-                        ? grey[800]
-                        : grey[300]
-                      : null,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.text}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </Tooltip>
-          </ListItem>
-        ))}
-      </List>
-    </Drawer>
+      </Drawer>
   );
 };
 

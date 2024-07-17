@@ -2,41 +2,36 @@ import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 
 import { Box, useTheme } from "@mui/material";
-
 const data = [
   {
-    id: "React",
-    label: "React",
+    id: "Deaths",
+    label: "Deaths",
     value: 272,
-    color: "hsl(107, 70%, 50%)",
   },
   {
-    id: "stylus",
-    label: "stylus",
-    value: 543,
-    color: "hsl(64, 70%, 50%)",
+    id: "Survivors",
+    label: "Survivors",
+    value: 211,
   },
   {
-    id: "sass",
-    label: "sass",
+    id: "Injured",
+    label: "Injured",
     value: 401,
-    color: "hsl(41, 70%, 50%)",
   },
   {
-    id: "haskell",
-    label: "haskell",
+    id: "Missing",
+    label: "Missing",
     value: 434,
-    color: "hsl(172, 70%, 50%)",
   },
   {
-    id: "nue",
-    label: "nue",
+    id: "Unidentified",
+    label: "Unidentified",
     value: 333,
-    color: "hsl(219, 70%, 50%)",
   },
 ];
 
 const Pie = ({ isDashbord = false }) => {
+  const colors = ["#4763E4", "#7583f5", "#1d40c7", "#0033ff", "#6b87cc"];
   const theme = useTheme();
   return (
     <Box sx={{ height: isDashbord ? "200px" : "75vh" }}>
@@ -145,7 +140,7 @@ const Pie = ({ isDashbord = false }) => {
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        colors={{ scheme: "nivo" }}
+        colors={colors}
         borderWidth={1}
         borderColor={{
           from: "color",

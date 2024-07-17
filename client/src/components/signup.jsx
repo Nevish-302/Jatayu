@@ -40,11 +40,12 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-10 pb-10 w-full z-10 bg-card-fill">
-      <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-      <p className="text-sm mb-4 text-gray-500">
-        Register your Organization here
+    <div className="flex flex-col items-center justify-center pt-10 pb-10 z-10 backdrop-blur-sm bg-[#505050] bg-opacity-30 backdrop-filter rounded-lg shadow-lg">
+      <h2 className="text-4xl font-bold mb-4 text-white">Nice to see You!</h2>
+      <p className="text-sm mb-4 font-medium text-[#1b1010]">
+        Enter your organization ID and password to log in
       </p>
+
       <div className="overflow-y-auto w-full max-h-[320px] custom-scrollbar">
         <Formik
           initialValues={initialValues}
@@ -57,14 +58,14 @@ const SignupForm = () => {
           {({ isSubmitting }) => (
             <Form className="flex flex-col items-center w-full">
               <div className="mb-4 w-9/12">
-                <label htmlFor="departmentType" className="block text-gray-700">
+                <label htmlFor="departmentType" className="block text-white">
                   Department Type
                 </label>
                 <Field
                   as="select"
                   id="departmentType"
                   name="departmentType"
-                  className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+                  className="w-full px-4 py-2 border-2 border-blue-500 bg-transparent rounded-xl bg-white text-black focus:outline-none"
                 >
                   <option value="">Select Department Type</option>
                   <option value="Option 1">Option 1</option>
@@ -78,17 +79,14 @@ const SignupForm = () => {
                 />
               </div>
               <div className="mb-4 w-9/12">
-                <label
-                  htmlFor="organizationName"
-                  className="block text-gray-700"
-                >
+                <label htmlFor="organizationName" className="block text-white">
                   Organization Name
                 </label>
                 <Field
                   type="text"
                   id="organizationName"
                   name="organizationName"
-                  className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+                  className="w-full px-4 py-2 border-2 border-blue-500 bg-transparent rounded-xl bg-white text-black focus:outline-none"
                 />
                 <ErrorMessage
                   name="organizationName"
@@ -97,14 +95,14 @@ const SignupForm = () => {
                 />
               </div>
               <div className="mb-4 w-9/12">
-                <label htmlFor="location" className="block text-gray-700">
+                <label htmlFor="location" className="block text-white">
                   Location
                 </label>
                 <Field
                   type="text"
                   id="location"
                   name="location"
-                  className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+                  className="w-full px-4 py-2 border-2 border-blue-500 bg-transparent rounded-xl bg-white text-black focus:outline-none"
                 />
                 <ErrorMessage
                   name="location"
@@ -113,14 +111,14 @@ const SignupForm = () => {
                 />
               </div>
               <div className="mb-4 w-9/12">
-                <label htmlFor="agencyNumber" className="block text-gray-700">
+                <label htmlFor="agencyNumber" className="block text-white">
                   Agency Number
                 </label>
                 <Field
                   type="text"
                   id="agencyNumber"
                   name="agencyNumber"
-                  className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+                  className="w-full px-4 py-2 border-2 border-blue-500 bg-transparent rounded-xl bg-white text-black focus:outline-none"
                 />
                 <ErrorMessage
                   name="agencyNumber"
@@ -129,10 +127,7 @@ const SignupForm = () => {
                 />
               </div>
               <div className="mb-4 w-9/12">
-                <label
-                  htmlFor="contactResources"
-                  className="block text-gray-700"
-                >
+                <label htmlFor="contactResources" className="block text-white">
                   Contact Resources
                 </label>
                 <FieldArray
@@ -144,7 +139,7 @@ const SignupForm = () => {
                           <div className="flex-grow">
                             <label
                               htmlFor={`contactResources.${index}.name`}
-                              className="block text-gray-700"
+                              className="block text-white"
                             >
                               Resource Name
                             </label>
@@ -153,7 +148,7 @@ const SignupForm = () => {
                               id={`contactResources.${index}.name`}
                               name={`contactResources.${index}.name`}
                               placeholder="Resource Name"
-                              className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+                              className="w-full px-4 py-2 border-2 border-blue-500 bg-transparent rounded-xl bg-white text-black focus:outline-none"
                             />
                             <ErrorMessage
                               name={`contactResources.${index}.name`}
@@ -164,7 +159,7 @@ const SignupForm = () => {
                           <div className="w-1/2 ml-4">
                             <label
                               htmlFor={`contactResources.${index}.number`}
-                              className="block text-gray-700"
+                              className="block text-white"
                             >
                               Resource Number
                             </label>
@@ -173,7 +168,7 @@ const SignupForm = () => {
                               id={`contactResources.${index}.number`}
                               name={`contactResources.${index}.number`}
                               placeholder="Resource Number"
-                              className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+                              className="w-full px-4 py-2 border-2 border-blue-500 bg-transparent rounded-xl bg-white text-black focus:outline-none"
                             />
                             <ErrorMessage
                               name={`contactResources.${index}.number`}
@@ -208,7 +203,7 @@ const SignupForm = () => {
                 />
               </div>
               <div className="mb-4 w-9/12">
-                <label htmlFor="password" className="block text-gray-700">
+                <label htmlFor="password" className="block text-white">
                   Password
                 </label>
                 <div className="relative">
@@ -216,7 +211,7 @@ const SignupForm = () => {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
-                    className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+                    className="w-full px-4 py-2 border-2 border-blue-500 bg-transparent rounded-xl bg-white text-black focus:outline-none"
                   />
                   <span
                     onClick={togglePasswordVisibility}
@@ -232,17 +227,14 @@ const SignupForm = () => {
                 />
               </div>
               <div className="mb-4 w-9/12">
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-gray-700"
-                >
+                <label htmlFor="confirmPassword" className="block text-white">
                   Confirm Password
                 </label>
                 <Field
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
-                  className="w-full px-4 py-2 border border-blue-500 bg-transparent text-black focus:outline-none"
+                  className="w-full px-4 py-2 border-2 border-blue-500 bg-transparent rounded-xl bg-white text-black focus:outline-none"
                 />
                 <ErrorMessage
                   name="confirmPassword"
@@ -254,7 +246,8 @@ const SignupForm = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-blue-500 text-white py-2 px-4 hover:bg-blue-600 focus:outline-none"
+                  cl
+                  className="w-full bg-[#4763E4] text-white py-2 px-4 hover:bg-blue-600 focus:outline-none rounded-xl "
                 >
                   Sign Up
                 </button>
@@ -263,10 +256,10 @@ const SignupForm = () => {
           )}
         </Formik>
       </div>
-      <p className="text-sm mt-4">
+      <p className="text-sm mt-4 font-medium text-[#1b1010]">
         Already have an account?{" "}
-        <Link to="/" className="text-blue-500">
-          Log In
+        <Link to="/login" className="text-black text-md">
+          Login
         </Link>
       </p>
     </div>
