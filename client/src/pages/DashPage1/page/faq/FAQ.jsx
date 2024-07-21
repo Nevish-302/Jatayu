@@ -14,22 +14,30 @@ const FAQ = () => {
     setExpanded(isExpanded ? panel : false);
   };
   return (
-<Box>
-  
+    <Box>
       <Header title="FAQ" subTitle="Frequently Asked Questions Page" />
-  
-      <Stack direction={"column"} gap={2}>
-  
-      
-      
-      
-      
-      
-        <Accordion defaultExpanded onChange={handleChange("panel1")}>
+
+      <Stack
+        direction={"column"}
+        gap={2}
+        sx={{
+          backgroundColor: "transparent",
+        }}
+      >
+        <Accordion
+          defaultExpanded
+          onChange={handleChange("panel1")}
+          sx={{
+            backgroundColor: "transparent",
+          }}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
+            sx={{
+              backgroundColor: "transparent",
+            }}
           >
             <Typography sx={{ width: "33%", flexShrink: 0 }}>
               General settings
@@ -40,16 +48,19 @@ const FAQ = () => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-              Aliquam eget maximus est, id dignissim quam.
+              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
+              feugiat. Aliquam eget maximus est, id dignissim quam.
             </Typography>
           </AccordionDetails>
         </Accordion>
-  
+
         <Accordion
           // @ts-ignore
           expanded={expanded === "panel2"}
           onChange={handleChange("panel2")}
+          sx={{
+            backgroundColor: "transparent",
+          }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -73,6 +84,9 @@ const FAQ = () => {
           // @ts-ignore
           expanded={expanded === "panel3"}
           onChange={handleChange("panel3")}
+          sx={{
+            backgroundColor: "transparent",
+          }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -94,6 +108,9 @@ const FAQ = () => {
           </AccordionDetails>
         </Accordion>
         <Accordion
+          sx={{
+            backgroundColor: "transparent",
+          }}
           // @ts-ignore
           expanded={expanded === "panel4"}
           onChange={handleChange("panel4")}
@@ -114,8 +131,11 @@ const FAQ = () => {
             </Typography>
           </AccordionDetails>
         </Accordion>
-  
+
         <Accordion
+          sx={{
+            backgroundColor: "transparent",
+          }}
           // @ts-ignore
           expanded={expanded === "panel1"}
           onChange={handleChange("panel1")}
@@ -134,13 +154,16 @@ const FAQ = () => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-              Aliquam eget maximus est, id dignissim quam.
+              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
+              feugiat. Aliquam eget maximus est, id dignissim quam.
             </Typography>
           </AccordionDetails>
         </Accordion>
-  
+
         <Accordion
+          sx={{
+            backgroundColor: "transparent",
+          }}
           // @ts-ignore
           expanded={expanded === "panel2"}
           onChange={handleChange("panel2")}
@@ -164,6 +187,9 @@ const FAQ = () => {
           </AccordionDetails>
         </Accordion>
         <Accordion
+          sx={{
+            backgroundColor: "transparent",
+          }}
           // @ts-ignore
           expanded={expanded === "panel3"}
           onChange={handleChange("panel3")}
@@ -188,7 +214,7 @@ const FAQ = () => {
           </AccordionDetails>
         </Accordion>
       </Stack>
-</Box>
+    </Box>
   );
 };
 

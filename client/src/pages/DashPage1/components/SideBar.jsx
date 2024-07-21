@@ -1,7 +1,15 @@
 import React from "react";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
+import {
+  Box,
+  List,
+  Divider,
+  IconButton,
+  Typography,
+  Tooltip,
+  Avatar,
+  styled,
+  useTheme,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -14,7 +22,7 @@ import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import logo from "../../../assets/image/Jatayu.png";
-import { Avatar, styled, useTheme, Typography, Tooltip } from "@mui/material";
+import logo2 from "../../../assets/image/Jatayu2.png";
 import MuiDrawer from "@mui/material/Drawer";
 import { HomeOutlined } from "@mui/icons-material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -169,45 +177,83 @@ const SideBar = ({ open, handleDrawerClose }) => {
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === "rtl" ? (
-            <ChevronRightIcon />
-          ) : (
-            <ChevronLeftIcon />
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          width="100%"
+          padding={theme.spacing(1)}
+        >
+          {open && (
+            <Box display="flex" alignItems="center">
+              <img
+                src={logo2}
+                alt="Logo"
+                style={{
+                  height: 20,
+                  marginRight: 10,
+                  marginLeft: 30,
+                  filter: "invert(1) grayscale(1) brightness(2)",
+                }}
+              />
+              <Typography variant="h6">Jatayu</Typography>
+            </Box>
           )}
-        </IconButton>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        </Box>
       </DrawerHeader>
-      <Divider />
-      <Avatar
-        sx={{
-          mx: "auto",
-          width: open ? 88 : 44,
-          height: open ? 88 : 44,
-          my: 1,
-          border: "2px solid grey",
-          transition: "0.25s",
-        }}
-        alt="Remy Sharp"
-        src={logo}
-      />
-      <Typography
-        align="center"
-        sx={{ fontSize: open ? 17 : 0, transition: "0.25s" }}
-      >
-        Fire Department
-      </Typography>
-      <Typography
-        align="center"
-        sx={{
-          fontSize: open ? 15 : 0,
-          transition: "0.25s",
-          color: theme.palette.info.main,
-        }}
-      >
-        Admin
-      </Typography>
 
-      <Divider />
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="center"
+        sx={{
+          my: 1,
+          marginTop: "30px", // Ensure you're using valid units like px, em, rem, etc.
+          marginBottom: "30px",
+        }}
+      >
+        <Avatar
+          sx={{
+            width: 44,
+            height: 44,
+            border: "2px solid grey",
+            transition: "0.25s",
+          }}
+          alt="Remy Sharp"
+          src={logo}
+        />
+        {open && (
+          <Box display="flex" flexDirection="column" alignItems="center" ml={2}>
+            <Typography
+              align="center"
+              sx={{
+                fontSize: 13,
+                transition: "0.25s",
+                color: "#4763E4",
+              }}
+            >
+              Shiv Shakti
+            </Typography>
+            <Typography
+              align="center"
+              sx={{
+                fontSize: 13,
+                transition: "0.25s",
+              }}
+            >
+              Admin
+            </Typography>
+          </Box>
+        )}
+      </Box>
 
       <List>
         {Array1.map((item) => (
@@ -224,20 +270,51 @@ const SideBar = ({ open, handleDrawerClose }) => {
                   bgcolor:
                     location.pathname === item.path
                       ? theme.palette.mode === "dark"
-                        ? grey[800]
+                        ? "#1A1F37"
                         : grey[300]
-                      : null,
+                      : "transparent",
+                  backdropFilter: "blur(10px)", // Apply blur effect
+                  borderRadius: "10px", // Optional: for rounded corners
+                  transition:
+                    "background-color 0.3s, backdrop-filter 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    bgcolor:
+                      location.pathname === item.path
+                        ? theme.palette.mode === "dark"
+                          ? grey[800]
+                          : grey[300]
+                        : "rgba(255, 255, 255, 0.1)", // Light background on hover
+                    backdropFilter: "blur(10px)", // Keep blur effect on hover
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Add shadow on hover
+                  },
+                  boxShadow:
+                    location.pathname === item.path
+                      ? "0 4px 6px rgba(0, 0, 0, 0.1)" // Shadow for selected item
+                      : "none",
                 }}
               >
-                <ListItemIcon
+                <Box
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
+                    backgroundColor: "#4763E4",
+                    borderRadius: "15%", // Ensures the background is circular
+                    padding: "2px", // Adjust padding as needed
+                    fontSize: "1.5rem", // Adjust size as needed
+                    marginRight: open ? "20px" : "0", // Apply margin-right based on the drawer state
+                    display: "flex",
+                    alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  {item.icon}
-                </ListItemIcon>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      color: "white", // Change icon color if needed to contrast with background
+                      justifyContent: "center",
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                </Box>
                 <ListItemText
                   primary={item.text}
                   sx={{ opacity: open ? 1 : 0 }}
@@ -265,20 +342,51 @@ const SideBar = ({ open, handleDrawerClose }) => {
                   bgcolor:
                     location.pathname === item.path
                       ? theme.palette.mode === "dark"
-                        ? grey[800]
+                        ? "#1A1F37"
                         : grey[300]
-                      : null,
+                      : "transparent",
+                  backdropFilter: "blur(10px)", // Apply blur effect
+                  borderRadius: "10px", // Optional: for rounded corners
+                  transition:
+                    "background-color 0.3s, backdrop-filter 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    bgcolor:
+                      location.pathname === item.path
+                        ? theme.palette.mode === "dark"
+                          ? grey[800]
+                          : grey[300]
+                        : "rgba(255, 255, 255, 0.1)", // Light background on hover
+                    backdropFilter: "blur(10px)", // Keep blur effect on hover
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Add shadow on hover
+                  },
+                  boxShadow:
+                    location.pathname === item.path
+                      ? "0 4px 6px rgba(0, 0, 0, 0.1)" // Shadow for selected item
+                      : "none",
                 }}
               >
-                <ListItemIcon
+                <Box
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
+                    backgroundColor: "#4763E4",
+                    borderRadius: "15%", // Ensures the background is circular
+                    padding: "2px", // Adjust padding as needed
+                    fontSize: "1.5rem", // Adjust size as needed
+                    marginRight: open ? "20px" : "0", // Apply margin-right based on the drawer state
+                    display: "flex",
+                    alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  {item.icon}
-                </ListItemIcon>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      color: "white", // Change icon color if needed to contrast with background
+                      justifyContent: "center",
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                </Box>
                 <ListItemText
                   primary={item.text}
                   sx={{ opacity: open ? 1 : 0 }}
@@ -306,20 +414,51 @@ const SideBar = ({ open, handleDrawerClose }) => {
                   bgcolor:
                     location.pathname === item.path
                       ? theme.palette.mode === "dark"
-                        ? grey[800]
+                        ? "#1A1F37"
                         : grey[300]
-                      : null,
+                      : "transparent",
+                  backdropFilter: "blur(10px)", // Apply blur effect
+                  borderRadius: "10px", // Optional: for rounded corners
+                  transition:
+                    "background-color 0.3s, backdrop-filter 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    bgcolor:
+                      location.pathname === item.path
+                        ? theme.palette.mode === "dark"
+                          ? grey[800]
+                          : grey[300]
+                        : "rgba(255, 255, 255, 0.1)", // Light background on hover
+                    backdropFilter: "blur(10px)", // Keep blur effect on hover
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Add shadow on hover
+                  },
+                  boxShadow:
+                    location.pathname === item.path
+                      ? "0 4px 6px rgba(0, 0, 0, 0.1)" // Shadow for selected item
+                      : "none",
                 }}
               >
-                <ListItemIcon
+                <Box
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
+                    backgroundColor: "#4763E4",
+                    borderRadius: "15%", // Ensures the background is circular
+                    padding: "2px", // Adjust padding as needed
+                    fontSize: "1.5rem", // Adjust size as needed
+                    marginRight: open ? "20px" : "0", // Apply margin-right based on the drawer state
+                    display: "flex",
+                    alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  {item.icon}
-                </ListItemIcon>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      color: "white", // Change icon color if needed to contrast with background
+                      justifyContent: "center",
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                </Box>
                 <ListItemText
                   primary={item.text}
                   sx={{ opacity: open ? 1 : 0 }}

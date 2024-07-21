@@ -77,13 +77,17 @@ const Calendar = () => {
 
   return (
     <Stack direction={"row"}>
-      <Paper className="demo-app-sidebar">
-         
-       
-       
-          <h2 style={{ textAlign: "center" }}>All Events ({currentEvents.length})</h2>
-          <ul>{currentEvents.map(renderSidebarEvent)}</ul>
-         
+      <Paper
+        className="demo-app-sidebar"
+        sx={{
+          backgroundColor: "transparent", // Make background transparent
+          boxShadow: "none", // Remove shadow if needed
+        }}
+      >
+        <h2 style={{ textAlign: "center" }}>
+          All Events ({currentEvents.length})
+        </h2>
+        <ul>{currentEvents.map(renderSidebarEvent)}</ul>
       </Paper>
 
       <div className="demo-app-main">
