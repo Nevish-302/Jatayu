@@ -193,7 +193,10 @@ const SideBar = ({ open, handleDrawerClose }) => {
                   height: 20,
                   marginRight: 10,
                   marginLeft: 30,
-                  filter: "invert(1) grayscale(1) brightness(2)",
+                  filter:
+                    theme.palette.mode === "dark"
+                      ? "invert(1) grayscale(1) brightness(2)"
+                      : "none", // No filter in light mode
                 }}
               />
               <Typography variant="h6">Jatayu</Typography>
